@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="89899" started-at="2018-06-29T14:19:12Z" finished-at="2018-06-29T14:20:42Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="89899" started-at="2018-06-29T14:19:12Z" finished-at="2018-06-29T14:20:42Z">
+      <class name="com.main.FlowEInvoice">
+        <test-method status="PASS" signature="startReport()[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="startReport" is-config="true" duration-ms="3791" started-at="2018-06-29T14:19:12Z" finished-at="2018-06-29T14:19:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- startReport -->
+        <test-method status="PASS" signature="Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@50d0686]" name="Login" duration-ms="36856" started-at="2018-06-29T14:19:16Z" data-provider="Login" finished-at="2018-06-29T14:19:53Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[eInvoice]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[anisha.jain]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[ani17sha@]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[GDQA-P2P@zycus.com]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="2" started-at="2018-06-29T14:19:53Z" finished-at="2018-06-29T14:19:53Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Login status=SUCCESS method=FlowEInvoice.Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getResult -->
+        <test-method status="PASS" signature="searchPurchaseOrders(java.lang.String, java.lang.String, java.lang.String)[pri:4, instance:com.main.FlowEInvoice@50d0686]" name="searchPurchaseOrders" duration-ms="48411" started-at="2018-06-29T14:19:53Z" data-provider="PurchaseOrders" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-06-29T14:20:42Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Line Level Deployment -/610]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[GDQA_SUPPLIER]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Steffy TL]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- searchPurchaseOrders -->
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="1" started-at="2018-06-29T14:20:42Z" finished-at="2018-06-29T14:20:42Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=searchPurchaseOrders status=SUCCESS method=FlowEInvoice.searchPurchaseOrders(java.lang.String, java.lang.String, java.lang.String)[pri:4, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getResult -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="tearDown" is-config="true" duration-ms="246" started-at="2018-06-29T14:20:42Z" finished-at="2018-06-29T14:20:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.main.FlowEInvoice -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

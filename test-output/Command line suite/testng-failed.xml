@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Command line suite]">
+  <test thread-count="5" name="Command line test(failed)">
+    <classes>
+      <class name="com.main.FlowEProc">
+        <methods>
+          <include name="Login"/>
+          <include name="startReport"/>
+          <include name="tearDown"/>
+          <include name="OnlineStore"/>
+          <include name="getResult"/>
+          <include name="Punchouts"/>
+        </methods>
+      </class> <!-- com.main.FlowEProc -->
+    </classes>
+  </test> <!-- Command line test(failed) -->
+</suite> <!-- Failed suite [Command line suite] -->

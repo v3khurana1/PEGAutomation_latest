@@ -1,0 +1,782 @@
+package com.zycus.eInvoice.Invoice;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+import com.zycus.eInvoice.PO.PurchaseOrder;
+
+import Common.eInvoice_CommonFunctions;
+
+public class Invoices extends eInvoice_CommonFunctions {
+
+	private WebDriver driver;
+
+	private By processingLoader = By.id("invoicelisting_processing");
+	private By tableXpath = By.xpath("//table[@id='invoicelisting']");
+	private By docTypeXpath = By.xpath("//table[@id='invoicelisting']//tr[*]/td[3]");
+	private By statusXpath = By.xpath("//table[@id='invoicelisting']//td[2]/div");
+	private By dateXpath = By.xpath("//table[@id='invoicelisting']//td[contains(@class,'invoiceDate')]");
+	private By amountXpath = By.xpath("//table[@id='invoicelisting']//td[contains(@class,'totalAmountReq')]");
+	private By filterBtnXpath = By.xpath(
+			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
+
+	private By statusTxtXpath = By.xpath("(//table[@id='invoicelisting']//td[2]/div)[1]");
+	private By actionsLinkXpath = By.xpath("(//*[@id='invoicelisting']//a[@class='icon actLnk'])[1]");
+	private By requisitionNumTxtXpath = By.xpath("(//table[@id='invoicelisting']//td[3]/a)[1]");
+	private By requisitionNameTxtXpath = By.xpath("(//table[@id='invoicelisting']//td[4])[1]");
+
+	private ExtentTest logger;
+	private By paginateXpath = By.xpath("invoicelisting_paginate");
+	private Date invoiceDate;
+	private String invoiceNo;
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * 
+	 */
+	
+	public Invoices(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+	
+	
+	// modified by anisha
+	/**
+	 * <b>Function:</b> viewList
+	 * 
+	 * @author Anisha
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean viewList() {
+		boolean status = false;
+		try {
+			String docType;
+			if (findElement(tableXpath).isDisplayed()) {
+				docType = findElement(docTypeXpath).getText();
+				if (docType.contains("Invoice") || docType.contains("CreditMemo"))
+					logger.log(LogStatus.INFO, "list is displayed");
+				status = true;
+			}
+		} catch (Exception e) {
+
+		}
+		return status;
+
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> changeNoOfRecordsPerPage
+	 * 
+	 * @author Anisha
+	 * @param noOfRecord
+	 * @since May 2018
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean changeNoOfRecordsPerPage(int noOfRecord) throws Exception {
+		boolean status = false;
+		try {
+			click(By.xpath("//select[@name='invoicelisting_length']/option[text()='" + noOfRecord + "']"));
+
+			status = true;
+		} catch (Exception e) {
+
+		}
+		return status;
+
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> navigateToPageNo
+	 * 
+	 * @author Anisha
+	 * @param pageNo
+	 * @since May 2018
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean navigateToPageNo(int pageNo) throws Exception {
+		boolean status = false;
+		try {
+			findElement(paginateXpath).clear();
+			sendKeys(paginateXpath, String.valueOf(pageNo) + Keys.ENTER);
+			waitUntilInvisibilityOfElement(processingLoader);
+			status = true;
+		} catch (Exception e) {
+
+		}
+		return status;
+
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> saveViewAsFavorite
+	 * 
+	 * @author Anisha
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean saveViewAsFavorite() {
+		boolean status = false;
+		try {
+			click(By.id("saveFavorite"));
+			if (findElement(By.id("favouriteFilterPopup")).isDisplayed())
+				click(By.id("favourite-continue"));
+			// TODO add wait until invisible - processing element
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> revertToDefaultView
+	 * 
+	 * @author Anisha
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean revertToDefaultView() {
+		boolean status = false;
+		try {
+			click(By.id("revertFavorite"));
+			click(By.xpath("//div/button[contains(@class,'pri')]"));
+			// TODO page loading
+			if (!findElement(By.id("revertFavorite")).isDisplayed())
+				status = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> editInvoice
+	 * 
+	 * @author Anisha
+	 * @param none
+	 * @since May 2018
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean editInvoice() throws Exception {
+		boolean status = false;
+		try {
+			filterByDocType("Invoice");
+			filterByStatus("Draft");
+			selectActionPO("Edit");
+			PurchaseOrder objPO = new PurchaseOrder(driver, logger);
+			objPO.editInvoice();
+			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
+				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
+				status = true;
+			} else
+				logger.log(LogStatus.INFO, "Not Redirected to Purchase Orders page");
+			status = true;
+		} catch (Exception e) {
+
+		}
+		return status;
+
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> createInvoiceagainstPO
+	 * 
+	 * @author Anisha
+	 * @param invoiceNo
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean createInvoiceagainstPO() throws Exception {
+		boolean status = false;
+		try {
+			addInvoiceOrCreditMemo("Invoice", "Against PO");
+			click(By.xpath("//div/button[contains(@class,'pri')]/span[text()='Continue']"));
+			PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
+			objPO.addInvoice();
+			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
+				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
+				status = true;
+			} else
+				logger.log(LogStatus.INFO, "Not Redirected to Purchase Orders page");
+			// System.out.println("Not Redirected to Purchase Orders page");
+		} catch (Exception e) {
+
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> createInvoiceNonPO
+	 * 
+	 * @author Anisha
+	 * @param invoiceNo
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean createInvoiceNonPO() throws Exception {
+		boolean status = false;
+		try {
+			addInvoiceOrCreditMemo("Invoice", "Non-PO");
+			InvoiceNonPO objInv = new InvoiceNonPO(driver, logger);
+			objInv.createNewInvoice();
+			if (findElement(By.xpath("//*[@id='cntInvoice']//span[text()='Invoice']")).isDisplayed()) {
+				logger.log(LogStatus.INFO, "Navigated to create Invoice page");
+				status = true;
+			} else
+				logger.log(LogStatus.INFO, "unable to navigate to create Invoice page");
+		} catch (Exception e) {
+
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> createCreditMemoagainstPO
+	 * 
+	 * @author Anisha
+	 * @param invoiceNo
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean createCreditMemoagainstPO() throws Exception {
+		boolean status = false;
+		try {
+			addInvoiceOrCreditMemo("Credit Memo", "Against PO");
+			click(By.xpath("//div/button[contains(@class,'pri')]/span[text()='Continue']"));
+			PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
+			objPO.addCreditMemo();
+			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
+				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
+				status = true;
+			} else
+				logger.log(LogStatus.INFO, "Not Redirected to Purchase Orders page");
+
+		} catch (Exception e) {
+
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> createCreditMemowithoutReference
+	 * 
+	 * @author Anisha
+	 * @param
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean createCreditMemowithoutReference() throws Exception {
+		boolean status = false;
+		try {
+			addInvoiceOrCreditMemo("Credit Memo", "Without Reference");
+			CreditMemowithoutReference objCreditMemo = new CreditMemowithoutReference(driver, logger);
+			objCreditMemo.createCreditMemo();
+			if (findElement(By.xpath("//*[@id='cntInvoice']//span[text()='Credit Memo']")).isDisplayed()) {
+				logger.log(LogStatus.INFO, "Navigated to Invoice => Credit Memo page");
+				status = true;
+			} else
+				logger.log(LogStatus.INFO, "unable to navigate to Invoice => Credit Memo page");
+
+		} catch (Exception e) {
+
+		}
+		return status;
+	}
+
+	// modified by anisha
+	/**
+	 * <b>Function:</b> user is able to Void/ Close/ Return/ Adjust Credits/
+	 * Restrict Payment of an invoice.
+	 * 
+	 * @author Anisha
+	 * @param
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean takeActionOnInvoice(String action) {
+		boolean status = false;
+		try {
+			filterByStatus("Approved");
+			selectActionInvoice(action);
+			switch (action) {
+			case "Void Invoice":
+				sendKeys(By.id("txtInvoiceCancelComment"), "void invoice comment");
+				click(By.xpath("//input[contains(@class,'invoiceCancel')]"));
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));
+				status = true;
+				break;
+			case "Close":
+				sendKeys(By.id("txtInvoiceCloseComment"), "close invoice comment");
+				click(By.xpath("//input[contains(@class,'invoiceClose')]"));
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_closingInvoice']/div"));
+				status = true;
+				break;
+			case "Return":
+				sendKeys(By.id("txtInvoiceReturnComment"), "return invoice comment");
+				click(By.xpath("//input[contains(@class,'invoiceReturn')]"));
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_returnInvoice']/div"));
+				status = true;
+				break;
+			case "Adjust Credit":
+				break;
+			case "Restrict Payment":
+				sendKeys(By.id("txtAdjustAmountComment"), "restrict payment comment");
+				click(By.xpath("//input[contains(@class,'adjustAmount')]"));
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));
+				status = true;
+				break;
+			case "Edit":
+				break;
+			case "Resend for integration":
+				break;
+
+			}
+
+		} catch (Exception e) {
+
+		}
+		return status;
+	}
+
+	// modified by Anisha
+	/**
+	 * <b>Function:</b> addInvoiceOrCreditMemo
+	 * 
+	 * @author Anisha
+	 * @param addItem,subItem
+	 * @since May 2018
+	 * @param none
+	 * @throws Exception
+	 * @return result
+	 */
+	public boolean addInvoiceOrCreditMemo(String addItem, String subItem) throws Exception {
+		boolean result = false;
+		try {
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]"));
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]/following-sibling::div/div/div/span[text()='"
+					+ addItem + "']"));
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]/following-sibling::div/div/div[span[text()='"
+					+ addItem + "']]//a[span[text()='" + subItem + "']]"));
+			result = true;
+		} catch (Exception e) {
+
+		}
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> addInvoiceOrCreditMemo
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param addItem
+	 * @param subItem
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	/*public boolean addInvoiceOrCreditMemo(String addItem, String subItem) throws Exception {
+		boolean result = false;
+		try {
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]"));
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]/following-sibling::div/div/div/span[text()='"
+					+ addItem + "']"));
+			click(By.xpath("//*[@id='wrapper']//a[span[2][text()='Add']]/following-sibling::div/div/div[span[text()='"
+					+ addItem + "']]//a[span[text()='" + subItem + "']]"));
+			try {
+				if (subItem.equals("Against PO"))
+					findElement(By
+							.xpath("//div[contains(@class,'iConfirmBox')][//td[contains(text(),'You will be redirected to PO Listing')]]//span[text()='Continue']"))
+									.click();
+				PurchaseOrder objPO = new PurchaseOrder(driver, logger);
+				if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders")
+					System.out.println("Redirected to Purchase Orders page");
+				else
+					System.out.println("Not Redirected to Purchase Orders page");
+			} catch (Exception e) {
+				System.out.println("You will be directed to PO listing pop up not displayed");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}*/
+
+	/**
+	 * <b>Function:</b> filterByStatus
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param checkBoxLbl
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	public boolean filterByStatus(String checkBoxLbl) throws Exception {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invstatusFltrHdr')]//b"));
+			filterByChkbox(checkBoxLbl);
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredList = driver.findElements(statusXpath);
+				for (WebElement obj : objfilteredList) {
+					if (obj.getText().equals(checkBoxLbl))
+						result = true;
+					else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByDate
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromDt
+	 * @param ToDt
+	 * @return result - True/False
+	 * @throws ParseException
+	 */
+
+	private boolean filterByDate(Date fromDt, Date ToDt) throws ParseException {
+		boolean result = false;
+		try {
+			filterByDateRange(fromDt, ToDt);
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredDateList = driver.findElements(dateXpath);
+				for (WebElement obj : objfilteredDateList) {
+					DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+					Date dt = format.parse(obj.getText());
+					if (dt.compareTo(fromDt) >= 0 && dt.compareTo(ToDt) <= 0)
+						result = true;
+					else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByDocumentDt
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromDt
+	 * @param ToDt
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByDocumentDt(Date fromDt, Date ToDt) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invdateFltrHdr')]//b"));
+			result = filterByDate(fromDt, ToDt) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByDueDt
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromDt
+	 * @param ToDt
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByDueDt(Date fromDt, Date ToDt) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invduedateFltrHdr')]//b"));
+			result = filterByDate(fromDt, ToDt) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByAmountRange
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromAmt
+	 * @param ToAmt
+	 * @param currType
+	 * @return result - True/False
+	 * @throws ParseException
+	 */
+
+	private boolean filterByAmountRange(float fromAmt, float ToAmt, String currType) throws ParseException {
+		boolean result = false;
+		try {
+			filterByAmtRange(fromAmt, ToAmt, currType);
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredAmtList = driver.findElements(amountXpath);
+				for (WebElement obj : objfilteredAmtList) {
+					Float amount = Float.parseFloat((obj.getText().split(" "))[1]);
+					String currencyType = null;
+					if (amount >= fromAmt && amount <= ToAmt) {
+						if (currType != "")
+							currencyType = (obj.getText().split(" "))[0];
+						if (currencyType == currType)
+							result = true;
+						else
+							result = true;
+					} else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByAmount
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromAmt
+	 * @param ToAmt
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByAmount(float fromAmt, float ToAmt) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invamountFltrHdr')]//b"));
+			result = filterByAmountRange(fromAmt, ToAmt, "") ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByAmount
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromAmt
+	 * @param ToAmt
+	 * @param currType
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByAmount(float fromAmt, float ToAmt, String currType) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invamountFltrHdr')]//b"));
+			result = filterByAmountRange(fromAmt, ToAmt, currType) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByPaidAmount
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromAmt
+	 * @param ToAmt
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByPaidAmount(float fromAmt, float ToAmt) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invpaidamountFltrHdr')]//b"));
+			result = filterByAmountRange(fromAmt, ToAmt, "") ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByPaidAmount
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param fromAmt
+	 * @param ToAmt
+	 * @param currType
+	 * @return result - True/False
+	 * @throws None
+	 */
+
+	public boolean filterByPaidAmount(float fromAmt, float ToAmt, String currType) {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invpaidamountFltrHdr')]//b"));
+			result = filterByAmountRange(fromAmt, ToAmt, currType) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterBySupplier
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param supplier
+	 * @return result - True/False
+	 * @throws ParseException
+	 */
+
+	public boolean filterBySupplier(String supplier) throws ParseException {
+		boolean result = false;
+		try {
+			result = filterByText("Supplier", supplier) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByDocType
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param checkBoxLbl
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	public boolean filterByDocType(String checkBoxLbl) throws Exception {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'docTypeFltrHdr')]//b"));
+			filterByChkbox(checkBoxLbl);
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredList = driver.findElements(statusXpath);
+				for (WebElement obj : objfilteredList) {
+					if (obj.getText().equals(checkBoxLbl))
+						result = true;
+					else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> filterByReference
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param checkBoxLbl
+	 * @param optionTxt
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	public boolean filterByReference(String checkBoxLbl, String optionTxt) throws Exception {
+		boolean result = false;
+		try {
+			click(By.xpath("//th[contains(@class,'invPoNumFltrHdr')]//b"));
+			findElement(By.xpath("(//div[contains(@id,'qtip')]//input[following-sibling::text()[contains(.,'"
+					+ checkBoxLbl + "')]])[1]")).click();
+			if (checkBoxLbl == "PO")
+				sendKeys(By.id("txtFltrPoNum"), optionTxt);
+			findElement(filterBtnXpath).click();
+
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredList = driver.findElements(statusXpath);
+				for (WebElement obj : objfilteredList) {
+					if (obj.getText().equals(checkBoxLbl))
+						result = true;
+					else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+}

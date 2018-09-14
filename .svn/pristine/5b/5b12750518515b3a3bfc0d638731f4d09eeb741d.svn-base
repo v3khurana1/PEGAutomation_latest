@@ -1,0 +1,66 @@
+package com.zycus.eInvoice.Approval;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.relevantcodes.extentreports.ExtentTest;
+
+import Common.eInvoice_CommonFunctions;
+/**
+ * <p>
+ * <b> Title: </b> Approval.java</br>
+ * <br>
+ * <b> Description: </b> Preform operations on a purchase order</br>
+ * <br>
+ * <b> Functions: </br>
+ * </b> <br>
+ * 1.configureOOO: user is able to configure OOO</br>
+ * <br>
+
+ * @author Anisha
+ * @since April 2018
+ */
+public class MySettings extends eInvoice_CommonFunctions {
+
+	private WebDriver driver;
+	private ExtentTest logger;
+
+	public MySettings(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+
+	/**
+	 * <b>Function:</b> configureOOO
+	 * 
+	 * @author Anisha
+	 * @since May 2018
+	 * @param
+	 * @throws None
+	 * @return result
+	 * @throws Exception
+	 */
+	public boolean configureOOO() {
+		boolean status = false;
+		String delegateTo = "Chaitali";
+		try {
+			if (findElement(By.id("btnRevoke")).isDisplayed()) {
+				findElement(By.id("btnRevoke")).click();
+				Thread.sleep(4000);
+			}
+			enterText_AutoComplete(By.id("delegateTo"), delegateTo);
+			/*sendKeys(By.id("delegateTo"), delegateTo);
+			Thread.sleep(2000);
+			findElement(By.xpath("//ul[contains(@style,'block')]/li")).click();*/
+			findElement(By.id("btnSave")).click();
+
+			waitUntilInvisibilityOfElement(
+					By.xpath("//*[@id='status_overlay_loading']/div[text()='Approval Delegated successfully']"));
+			status = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+}

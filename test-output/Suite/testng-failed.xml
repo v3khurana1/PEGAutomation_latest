@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <test thread-count="5" name="Test(failed)">
+    <classes>
+      <class name="com.main.flowZSN">
+        <methods>
+          <include name="getResult"/>
+          <include name="Uploads_NonPOInvoice"/>
+          <include name="Uploads_CreditMemowithoutreference"/>
+          <include name="CreditMemowithoutreference"/>
+          <include name="CreditMemoagainstPO"/>
+          <include name="Invoice_againstBPO"/>
+          <include name="Reference"/>
+          <include name="NonPOInvoice"/>
+          <include name="Order"/>
+          <include name="POInvoice"/>
+          <include name="Catalog"/>
+          <include name="Uploads_CreditMemoagainstPO"/>
+          <include name="Dashboard"/>
+          <include name="startReport"/>
+          <include name="Login"/>
+          <include name="ViewInvoice"/>
+          <include name="tearDown"/>
+          <include name="Uploads_POInvoice"/>
+        </methods>
+      </class> <!-- com.main.flowZSN -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

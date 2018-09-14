@@ -1,0 +1,347 @@
+package com.zycus.eInvoice.eForms;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import Common.eInvoice_CommonFunctions;
+
+/**
+ * <p>
+ * <b> Title: </b> FormWizard.java</br>
+ * <br>
+ * <b> Description: </b> To perform operations on pages Approval & All Requests
+ * </br>
+ * <br>
+ * <b> Functions: </br>
+ * </b> <br>
+ * 1.createNewForm: user shall be able to filter by Status </br>
+ * <br>
+ * 2.addSection: user shall be able to filter by Received On </br>
+ * <br>
+ * 3.addfield </br>
+ * 
+ * @author Varun Khurana
+ * @since April 2018
+ */
+
+public class FormWizard extends eInvoice_CommonFunctions {
+
+	private WebDriver driver;
+	private ExtentTest logger;
+	private String formName;
+	private String formType;
+	private String relatedProcess;
+	private String company;
+	private String sectionName;
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * 
+	 */
+	
+	public FormWizard(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * @param formName
+	 * @param formType
+	 * @param relatedProcess
+	 * @param company
+	 * @param sectionName
+	 * 
+	 */
+
+	public FormWizard(WebDriver driver, ExtentTest logger, String formName, String formType, String relatedProcess,
+			String company, String sectionName) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+		this.formName = formName;
+		this.formType = formType;
+		this.relatedProcess = relatedProcess;
+		this.company = company;
+		this.sectionName = sectionName;
+	}
+	
+	/**
+	 * <b>Function:</b> createNewForm
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param formDescription
+	 * @param sectionDescription
+	 * @param sectionLayout
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	public boolean createNewForm(String formDescription, String sectionDescription, String sectionLayout)
+			throws Exception {
+		boolean result = false;
+		try {
+			findElement(By.id("txtName")).sendKeys(formName);
+			findElement(By.id("txtDesc")).sendKeys(formDescription);
+			if (formType.equals("Header level form"))
+				findElement(By.xpath("//input[@id='headerLevelEform']")).click();
+			else if (formType.equals("Line level form"))
+				findElement(By.xpath("//input[@id='lineLevelEform']")).click();
+			findElement(By.xpath("//select[@id='slctProcess']/option[text()='" + relatedProcess + "']")).click();
+
+			// eForm Scope
+			selectEFormScope();
+			findElement(By.xpath("//input[@value='Save and Continue']")).click();
+			waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));
+			result = addSection(sectionDescription, sectionLayout) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> addSection
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param description
+	 * @param layout
+	 * @return result - True/False
+	 */
+
+	private boolean addSection(String description, String layout) {
+		boolean result = false;
+		try {
+			// Click on Add Section
+			findElement(By.xpath("//div[@id='dynamicForm']//a")).click();
+
+			if (findElement(By.xpath("//div[div/span[text()='Create section']]")).isDisplayed())
+				findElement(By.id("dfSectionName")).sendKeys(sectionName);
+			findElement(By.id("dfSectionDescription")).sendKeys(description);
+			findElement(By.xpath("//select[@id='dfSectionLayout']/option[contains(text(),'" + layout + "')]")).click();
+			findElement(By.id("dfSectionSave")).click();
+
+			// ADD CODE TO VERIFY IF SECTION ADDED
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> addfield
+	 * 
+	 * @author Varun Khurana
+	 * @since April 2018
+	 * @param sectionName
+	 * @param fieldType
+	 * @param fieldName
+	 * @return result - True/False
+	 */
+
+	private boolean addfield(String sectionName, String fieldType, String fieldName) {
+		boolean result = false;
+		try {
+			// Click on Add Field
+			findElement(By.xpath("//*[@id='dynamicForm']/ul/li[*]/div[contains(text(),'" + sectionName
+					+ "')]/following-sibling::ul//a")).click();
+			if (findElement(By.xpath("//div[div/span[text()='Create Field']]")).isDisplayed())
+				findElement(By.xpath("//*[@id='dfFieldSelect']//li[*]/a[text()='" + fieldType + "']")).click();
+
+			// ADD CODE TO VERIFY IF FIELD ADDED TO SECTION
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> enterFieldProperties
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param formDescription
+	 * @param sectionDescription
+	 * @param sectionLayout
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	/*private void enterFieldProperties(String fieldType) throws Exception {
+		try {
+			switch (fieldType) {
+			case "Text Field":
+				// Label
+				findElement(By.name("dfTFName")).sendKeys(fieldName);
+				findElement(By.name("dfTFDefaults")).sendKeys(defaultValue);
+				findElement(By.name("dfTFMaxChar")).sendKeys(maxChar);
+				if (!enterSpace)
+					findElement(By.name("space")).click();
+				if (!enterSplChar)
+					findElement(By.name("splChar")).click();
+				if (mandatory)
+					findElement(By.xpath("//input[@name='mandatory' and @value='true']")).click();
+				findElement(By.name("dfTFInfo")).sendKeys(toolTip);
+				if (key != null) {
+					WebElement objKey = findElement(By.name("dfTFKey"));
+					objKey.sendKeys(key);
+				}
+				if (hideField)
+					findElement(By.xpath("//input[@name='hide' and @value='true']")).click();
+				findElement(By.xpath("//*[@id='frmFieldProperty']//input[@value='Save']")).click();
+				break;
+			case "Text Area":
+				findElement(By.name("dfTFAame")).sendKeys(fieldName);
+				findElement(By.name("dfTAMaxChar")).sendKeys(maxChar);
+				if (mandatory)
+					findElement(By.xpath("//input[@name='mandatory' and @value='true']")).click();
+				findElement(By.name("dfTAInfo")).sendKeys(toolTip);
+				if (key != null) {
+					WebElement objKey = findElement(By.name("dfTAKey"));
+					objKey.sendKeys(key);
+				}
+				if (hideField)
+					findElement(By.xpath("//input[@name='hide' and @value='true']")).click();
+				break;
+			case "Descriptive Field":
+				findElement(By.name("dfLBLHeader")).sendKeys(header);
+				findElement(By.name("dfLBLText")).sendKeys(text);
+				if (hideField)
+					findElement(By.xpath("//input[@name='hide' and @value='true']")).click();
+				break;
+			case "Numeric":
+				findElement(By.name("dfNMName")).sendKeys(fieldName);
+				findElement(By.name("dfNMDefaults")).sendKeys(defaultValue);
+				findElement(By.name("dfNMDecimal")).sendKeys(decimalPrecision);
+				if (allowNegNos)
+					findElement(By.name("allowNegative")).click();
+				findElement(By.name("dfNMRestrictMin")).sendKeys("minValue");
+				findElement(By.name("dfNMRestrictMax")).sendKeys("maxValue");
+				if (mandatory)
+					findElement(By.xpath("//input[@name='mandatory' and @value='true']")).click();
+				findElement(By.name("dfNMInfo")).sendKeys(toolTip);
+				if (key != null) {
+					WebElement objKey = findElement(By.name("dfNMKey"));
+					objKey.sendKeys(key);
+				}
+				if (hideField)
+					findElement(By.xpath("//input[@name='hide' and @value='true']")).click();
+				break;
+			case "Date & Time":
+				break;
+			case "Radio Button":
+				break;
+			case "Check box":
+				break;
+			case "Drop Down":
+				break;
+			case "Multi-Select":
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+	}*/
+	
+	/**
+	 * <b>Function:</b> selectEFormScope
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @return None
+	 * @throws Exception
+	 */
+	
+	private void selectEFormScope() throws Exception {
+		int iterationNo = 1;
+		try{
+			findElement(By.id("lnkBUs")).click();
+			selectOrgUnit_and_Bank(iterationNo);
+			findElement(By.xpath("//input[@value='Save and Continue']")).click();
+			waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));
+			if (findElement(By.xpath("//*[@id='scopesExistsMessageContainer']/div/div[2]")) != null)
+				iterationNo++;
+			changeScope(iterationNo);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * <b>Function:</b> changeScope
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param IteratioNo
+	 * @return None
+	 * @throws Exception
+	 */
+	
+	private void changeScope(int IteratioNo) throws Exception {
+		try {
+			findElement(By.id("lnkBUs")).click();
+			findElement(By.xpath("//div[@class='treeContainer treeview']//input[@checked]")).click();
+			selectOrgUnit_and_Bank(IteratioNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+	}
+	
+	/**
+	 * <b>Function:</b> selectOrgUnit_and_Bank
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param IterationNo
+	 * @return None
+	 * @throws Exception
+	 */
+	
+	private void selectOrgUnit_and_Bank(int IterationNo) throws Exception {
+		try {
+			if (findElement(By.xpath("//div[div/span[text()='Select Companies & Business Units']]")).isDisplayed()) {
+				if (findElement(By.xpath("//div[@class='treeContainer treeview']/ul")) != null) {
+					// Selecting first Company & Business unit from the
+					// displayed list tree
+					findElement(By.xpath(
+							"//div[@class='treeContainer treeview']//li[" + String.valueOf(IterationNo) + "]//input"))
+									.click();
+					try {
+						findElement(By.xpath("//div[contains(@style,'block')]//input[@value='Save']")).click();
+					} catch (Exception e) {
+						if (findElement(By
+								.xpath("//div[contains(@class,'promptbx')][//td[contains(text(),'Please select atleast one scope')]]"))
+										.isDisplayed())
+							findElement(By.xpath("//button/span[text()='OK']")).click();
+						logger.log(LogStatus.INFO, "Please select atleast one scope - message displayed");
+					}
+				} else
+					logger.log(LogStatus.INFO, "No results found - message displayed");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+	}
+
+}

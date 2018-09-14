@@ -1,0 +1,108 @@
+package com.zycus.eInvoice.Reports;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.relevantcodes.extentreports.ExtentTest;
+
+import Common.eInvoice_CommonFunctions;
+
+public class Reports extends eInvoice_CommonFunctions{
+
+	private WebDriver driver;
+	private ExtentTest logger;
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * 
+	 */
+	
+	public Reports(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+	
+	/**
+	 * <b>Function:</b> searchReport
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param reportType
+	 * @param reportName
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+	
+	public boolean searchReport(String reportType, String reportName) throws Exception{
+		boolean result = false;
+		try{
+			findElement(By.xpath("//select[@id='optionSelect_RMS']/option[text()='"+reportType+"']")).click();
+			findElement(By.id("searchBox_RMS")).sendKeys(reportName);
+			findElement(By.id("searchButton")).click();
+			waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));
+			if(findElement(By.xpath("//table[@class='reportsListTable_RMS']//tr[2]//span[text()='"+reportName+"']"))!=null)
+				result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> viewReportDetails
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param reportName
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+	
+	public boolean viewReportDetails(String reportName) throws Exception{
+		boolean result = false;
+		try{
+			findElement(By.xpath("//table[@class='reportsListTable_RMS']//tr[*]//span[text()='"+reportName+"']")).click();
+			waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));
+			if(findElement(By.xpath("//*[@id='reportNameHeader_RMS']/label")).getText().equals(reportName)){
+				findElement(By.xpath("//div[@id='rightButton_RMS']//input[@title='Close']")).click();
+				waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));
+				result = true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+	
+	/**
+	 * <b>Function:</b> selectMyReports
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param reportName
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+	
+	public boolean selectMyReports(String reportName) throws Exception{
+		boolean result = false;
+		try{
+			findElement(By.xpath("//div[div[text()='My Reports']]//a[@title='"+reportName+"']")).click();
+			waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));
+			viewReportDetails(reportName);
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+	
+	
+}

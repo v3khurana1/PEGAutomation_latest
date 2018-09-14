@@ -1,0 +1,327 @@
+package Common;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import Framework.CommonUtility;
+import Framework.ConfigurationProperties;
+
+public class eInvoice_CommonFunctions extends CommonUtility{
+	
+	private WebDriver driver;
+	
+	private By filterAppliedIconXpath	   = By.xpath("//span[@class='icon fltr-clear' and contains(@style,'inline')]");
+	private By processingLoader 		   = By.xpath("//*[contains(@id,'List_processing')]");
+
+	private By filterBtnXpath 	   		   = By.xpath("//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
+	private By fromDtPickBtnXpath 		   = By.xpath("(//img[@class='ui-datepicker-trigger'])[1]");
+	private By ToDtPickBtnXpath 		   = By.xpath("(//img[@class='ui-datepicker-trigger'])[2]");
+	private By minAmtInputXpath 		   = By.xpath("//div[contains(@id,'qtip')]//input[contains(@class, 'minAmount')]");
+	private By maxAmtInputXpath 		   = By.xpath("//div[contains(@id,'qtip')]//input[contains(@class, 'maxAmount')]");
+	private By clrAllFiltersIconXpath	   = By.xpath("//span[contains(@class,'clearAllFilters')]");
+	
+	private By mktPricexpath = By
+			.xpath("//div[@id='createNewItem']//input[contains(@class,'pricefield txtMarketPrice')]");
+	private By quantityFieldxpath = By
+			.xpath("(//div[@id='createNewItem']//*[@id='manTxtFields']/div/ol/li[10]/div[1]/input)[1]");
+	private By itemNoXpath = By.xpath("//div[@id='createNewItem']//*[@id='manTxtFields']/div//li[2]/div[1]/input");
+	private By descriptionXpath = By
+			.xpath("//div[@id='createNewItem']//*[@id='manTxtFields']/div//li[3]/div[1]/textarea");
+	private By productCategoryxpath = By
+			.xpath("//div[@id='createNewItem']//*[@id='manTxtFields']/div//li[5]/div[1]/input");
+	private By saveBtnId = By.id("saveItemSummary");
+
+	private ExtentTest logger;
+
+	public eInvoice_CommonFunctions(WebDriver driver, ExtentTest logger) {
+		super(driver);
+		this.driver = driver;
+		this.logger = logger;
+	}
+	
+	// modified by Anisha
+	// currency
+	public boolean selectCurrency(String currency_value) throws Exception {
+		boolean status = false;
+		try {
+			By currency = By.id("txtSupplierCurrency");
+			if (findElement(currency).getText() == null) {
+				findElement(currency).clear();
+				sendKeys(currency, currency_value);
+				click(By.xpath("//div[@id='cntInvoice']//ul[contains(@style,'block')]/li"));
+			}
+		} catch (Exception e) {
+
+		}
+		return status;
+
+	}
+
+	// modified by Anisha
+	// selectSupplier
+	public boolean selectSupplier(String supplierName) throws Exception {
+		boolean status = false;
+		try {
+			sendKeys((By.id("txtSupplierName")), supplierName);
+			findElement(By.xpath("//div[@id='cntInvoice']//ul[contains(@style,'block')]//span[contains(text(),'"
+					+ supplierName + "')]")).click();
+		} catch (Exception e) {
+		}
+		return status;
+
+	}
+
+	// modified by Anisha
+	// selectAddress
+	public boolean selectAddress() throws Exception {
+		boolean status = false;
+		try {
+			click(By.id("slctSupplierAddress"));
+			click(By.xpath("//div[@id='cntInvoice']//ul[contains(@style,'block')]/li[1]"));
+			// remit to address
+			By remitAddress = By.id("slctSupplierAddressRemit");
+			if (findElement(remitAddress).getText() != null) {
+				click(remitAddress);
+				click(By.xpath("//div[@id='cntInvoice']//ul[contains(@style,'block')]/li[1]"));
+			}
+		} catch (Exception e) {
+		}
+		return status;
+
+	}
+
+	// modified by Anisha
+	public boolean addAttachment() throws Exception {
+		boolean result = false;
+		try {
+			click(By.id("lnkInvoiceAttachments"));
+			ConfigurationProperties config = ConfigurationProperties.getInstance();
+			sendKeys(By.id("attachmentInput_invoiceAttachment"), config.getProperty("upload_file_path"));
+			if (findElement(By.xpath("//table//tr[2]//td[@class='status']")).getText().contains("Uploaded"))
+				click(By.xpath(".//*[@id='attachmentsDOM']//input[@value='Done']"));
+			result = true;
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
+	// modified by Anisha
+	public boolean selectActionPO(String action) throws Exception {
+		boolean status = false;
+		click(By.xpath("//*[@id='polisting']/tbody/tr[1]//a[text()='Actions']"));
+		click(By.xpath("//*[@id='polisting']/tbody/tr[1]//li/a[contains(text(),'" + action + "')]"));
+		status = true;
+		return status;
+	}
+	
+	// modified by Anisha
+		public boolean selectActionInvoice(String action) throws Exception {
+			boolean status = false;
+			click(By.xpath("//*[@id='invoicelisting']/tbody/tr[1]//a[text()='Actions']"));
+			click(By.xpath("//*[@id='invoicelisting']/tbody/tr[1]//li/a[contains(text(),'" + action + "')]"));
+			status = true;
+			return status;
+		}
+
+	// copied from Common functions of ZSN, need to place it in another file
+	/**
+	 * ------------------------------------------------
+	 * 
+	 * @function add items for invoice/creditmemo
+	 * @return boolean
+	 * @param item_no,description,product_cat
+	 * @param market_prc,quantity
+	 * @throws Exception
+	 */
+	public boolean add_item(String item_no, String description, String product_cat, String market_prc, String quantity)
+			throws Exception {
+		Boolean status = false;
+		// System.out.println("Item No entered is "+item_no);
+		try {
+			sendKeys(itemNoXpath, item_no);
+
+			sendKeys(descriptionXpath, description);
+			WebElement prod_cat = findElement(productCategoryxpath);
+			scroll_into_view_element(prod_cat);
+
+			try {
+				sendKeys(productCategoryxpath, product_cat);
+				Thread.sleep(2000);
+				click(By.xpath(
+						"//div[@id='itemDialog']//ul[contains(@style,'block')]/li[text()='" + product_cat + "']"));
+			} catch (Exception e) {
+				logger.log(LogStatus.INFO, "Product category " + product_cat + " is not available in the list");
+				// LogScreenshot("INFO", "Product category " + product_cat + "
+				// is not available in the list");
+				findElement(productCategoryxpath).clear();
+				sendKeys(productCategoryxpath, "a");
+				Thread.sleep(2000);
+				click(By.xpath("//div[@id='itemDialog']//ul[contains(@style,'block')]/li[1]"));
+			}
+
+			Thread.sleep(4000);
+			sendKeys(mktPricexpath, market_prc);
+			sendKeys(quantityFieldxpath, quantity);
+			click(saveBtnId);
+			logger.log(LogStatus.INFO, "added item successfully");
+			// LogScreenshot("INFO", "added item successfully");
+			status = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	/**
+	 * ---------------------------------------------------------------------------------
+	 * Function : clrAllFilters
+	 * @return result
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	public boolean clrAllFilters(){
+		boolean result = false;
+		
+		clearAllFilters();
+		if(findElement(processingLoader).getAttribute("style").contains("block")){
+			List<WebElement> objfilterIconsList = driver.findElements(filterAppliedIconXpath);
+			if(objfilterIconsList.size()==0)
+				result =  true;
+			else
+				result =  false;
+		}
+		return result;
+		
+	}
+	
+	/**
+	 * ---------------------------------------------------------------------------------
+	 * Function : clearAllFilters
+	 * @return funcCompletion
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	private void clearAllFilters(){
+		WebElement objClrFilter = findElement(clrAllFiltersIconXpath);
+		if(objClrFilter.getAttribute("style").contains("block"))
+			objClrFilter.click();
+	}
+	
+	/**
+	 * <b>Function:</b> filterByText
+	 * 
+	 * @author Varun Khurana
+	 * @since April 2018
+	 * @param fieldName
+	 * @param searchValue
+	 * @return result - True/False
+	 */
+
+	public boolean filterByText(String fieldName, String searchValue) {
+		boolean result = false;
+		try {
+			int intColNo = getColNum(fieldName);
+			findElement(By.xpath("//thead/tr[2]/th[" + intColNo + "]//input")).sendKeys(searchValue + Keys.ENTER);
+			if (findElement(processingLoader).getAttribute("style").contains("block")) {
+				List<WebElement> objfilteredTxtList = driver.findElements(By.xpath("//tbody//td[" + intColNo + "]"));
+				for (WebElement obj : objfilteredTxtList) {
+					if (obj.getText().contains(searchValue))
+						result = true;
+					else {
+						result = false;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	private int getColNum(String fieldName){
+		int intColNum = 0;
+		try{
+			List<WebElement> headerList = driver.findElements(By.xpath("//thead/tr[1]/th/div/text()"));
+			for(WebElement header : headerList){
+				intColNum++;
+				if(header.getText().equals(fieldName))
+					break;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return intColNum;
+	}
+
+	/**
+	 *--------------------------------------------------------------------------------- 
+	 * Function : filterByChkbox
+	 * @param checkBoxLbl
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	public void filterByChkbox(String checkBoxLbl){
+		findElement(By.xpath("(//div[contains(@id,'qtip')]//input[following-sibling::text()[contains(.,'"+checkBoxLbl+"')]])[1]")).click();
+		findElement(filterBtnXpath).click();
+	}
+	
+	/**
+	 * --------------------------------------------------------------------------------- 
+	 * Function : filterByDateRange
+	 * @param fromDt
+	 * @param ToDt
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	
+	public void filterByDateRange(Date fromDt, Date ToDt) throws ParseException{
+		
+		findElement(fromDtPickBtnXpath).click();
+		this.selectDate(fromDt);
+		findElement(ToDtPickBtnXpath).click();
+		this.selectDate(ToDt);
+		findElement(filterBtnXpath).click();
+	}
+	
+	/**
+	 *--------------------------------------------------------------------------------- 
+	 * Function : filterByAmtRange
+	 * @param typeValue
+	 * @return funcCompletion
+	 * @throws ParseException 
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	
+	public void filterByAmtRange(float fromAmt, float ToAmt){
+		findElement(minAmtInputXpath).sendKeys(String.valueOf(fromAmt));
+		findElement(maxAmtInputXpath).sendKeys(String.valueOf(ToAmt));
+		findElement(filterBtnXpath).click();
+	}
+	
+	/**
+	 *--------------------------------------------------------------------------------- 
+	 * Function : filterByAmtRange
+	 * @param typeValue
+	 * @return funcCompletion
+	 * @throws ParseException 
+	 * ---------------------------------------------------------------------------------
+	 */
+	
+	public void filterByAmtRange(float fromAmt, float ToAmt, String currType){
+		findElement(minAmtInputXpath).sendKeys(String.valueOf(fromAmt));
+		findElement(maxAmtInputXpath).sendKeys(String.valueOf(ToAmt));
+		findElement(By.xpath("//div[contains(@id,'qtip')]//input[contains(@class, 'inputCurrencies') and @value ='"+currType+"']")).click();
+		findElement(filterBtnXpath).click();
+	}
+}

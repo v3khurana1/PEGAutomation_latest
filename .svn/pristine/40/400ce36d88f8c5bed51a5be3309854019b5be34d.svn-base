@@ -1,0 +1,100 @@
+package com.zycus.eInvoice.PO;
+
+import java.util.Date;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.relevantcodes.extentreports.ExtentTest;
+
+import Common.eInvoice_CommonFunctions;
+
+/**
+ * <p>
+ * <b> Title: </b> InvoiceAgainstPO.java</br>
+ * <br>
+ * <b> Description: </b> create new Invoice against PO</br>
+ * <br>
+ * <b> Functions: </br>
+ * </b> <br>
+ * 1.createNewInvoice: user is able to create an Invoice against a PO </br>
+ * <br>
+ * @author Anisha
+ * @since May 2018
+ */
+
+public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
+	private ExtentTest logger;
+	private WebDriver driver;
+	private String creditMemoNo;
+	private Date creditMemoDate;
+
+	public CreditMemoagainstPO(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+
+	public CreditMemoagainstPO(WebDriver driver, ExtentTest logger, Date creditMemoDate) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+		//this.creditMemoNo = creditMemoNo;
+		this.creditMemoDate = creditMemoDate;
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * <b>Function:</b> createCreditMemo
+	 * 
+	 * @author Anisha
+	 * @param none
+	 * @since May 2018
+	 * @throws Exception
+	 * @return status
+	 */
+	public boolean createCreditMemo() {
+		boolean status = false;
+		try {
+			String creditMemoNo = String.valueOf(generateNo());
+			sendKeys(By.id("txtInvoiceNumber"), creditMemoNo);
+			selectTodayDate();
+			// selectDate(creditMemoDate);
+			addAttachment();
+			// scroll_into_view_element(findElement(By.xpath("//*[@id='vng-collapsibleGrid']//tr[1]/td[1]/input")));
+			Thread.sleep(2000);
+			if (driver.findElement(By.id("vng-collapsibleGrid")).isDisplayed()) {
+				System.out.println("inside if block");
+				Thread.sleep(2000);
+				WebElement foo = driver.findElement(By.xpath(
+						"(//table[@id='vng-collapsibleGrid']/tbody//tr[contains(@id,'itemRow')]//input[not(@disabled)])[1]"));
+				Thread.sleep(2000);
+				scroll_into_view_element(foo);
+				Thread.sleep(2000);
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].click();", foo);
+
+				// ExpectedCondition<WebElement> foo =
+				// ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='vng-collapsibleGrid']//tr[1]/td[1]/input"));
+				// ((WebElement) foo).click();
+			}
+			//DO NOT REMOVE THIS WAIT
+			Thread.sleep(3000);
+			System.out.println("before submit button");
+			findElement(By.id("btnSubmit")).click();
+			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']"));
+			Thread.sleep(5000);
+			if (driver
+					.findElement(By.xpath("//*[@id='invoiceGrid']/tbody/tr[*]/td[1]/a[text()='" + creditMemoNo + "']"))
+					.isDisplayed())
+				status = true;
+			System.out.println("created CM against PO : " + creditMemoNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+
+	}
+}

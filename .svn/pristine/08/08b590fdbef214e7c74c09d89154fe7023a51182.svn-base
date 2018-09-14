@@ -1,0 +1,103 @@
+package com.zycus.eInvoice.Reconciliation;
+
+import java.util.Date;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.relevantcodes.extentreports.ExtentTest;
+
+import Common.eInvoice_CommonFunctions;
+
+public class ReconcileNewStatement extends eInvoice_CommonFunctions {
+
+	private WebDriver driver;
+	private ExtentTest logger;
+	private String batchName;
+	private Date stmtDate;
+	private String bankName;
+	
+	private By pgHead = By.xpath("//h1[span[text()='Reconcile New Statement']]");
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * 
+	 */
+	
+	public ReconcileNewStatement(WebDriver driver, ExtentTest logger) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+	}
+	
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param driver
+	 * @param logger
+	 * @param batchName
+	 * @param bankName
+	 * @param stmtDate
+	 * 
+	 */
+	
+	public ReconcileNewStatement(WebDriver driver, ExtentTest logger, String batchName, String bankName,
+			Date stmtDate) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+		this.batchName = batchName;
+		this.bankName = bankName;
+		this.stmtDate = stmtDate;
+	}
+	
+	/**
+	 * <b>Function:</b> createNewStmt
+	 * 
+	 * @author Varun Khurana
+	 * @since May 2018
+	 * @param matchChargesWithLine
+	 * @param paymentDueDate
+	 * @param filePath
+	 * @return result - True/False
+	 * @throws Exception
+	 */
+
+	public boolean createNewStmt(boolean matchChargesWithLine, Date paymentDueDate, String filePath) throws Exception {
+		boolean result = false;
+		try {
+			findElement(By.id("txtBatchName")).sendKeys(batchName);
+			if(matchChargesWithLine)
+				findElement(By.id("txtLineLevel")).click();
+			findElement(By.id("txtBankName")).sendKeys(bankName);
+			selectDate(stmtDate);
+			selectDate(paymentDueDate);
+			//Click 'Upload & Reconcile' button
+			findElement(By.id("btnNextGcard")).click();
+			sendKeys(By.xpath("//*[contains(@id,'attachmentInput')]"), filePath); 
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+
+	/**
+	 * @return the pgHead
+	 */
+	public By getPgHead() {
+		return pgHead;
+	}
+
+	/**
+	 * @param pgHead the pgHead to set
+	 */
+	public void setPgHead(By pgHead) {
+		this.pgHead = pgHead;
+	}
+
+}

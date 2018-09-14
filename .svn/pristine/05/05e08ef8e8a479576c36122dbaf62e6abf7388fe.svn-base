@@ -1,0 +1,119 @@
+package com.zycus.eProc.Budget;
+
+import java.util.Date;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import Common.eProc_CommonFunctions;
+
+public class Budget_NewBudget extends eProc_CommonFunctions {
+	private WebDriver driver;
+	private ExtentTest logger;
+	
+	private String ownerName;
+	private String budgetName;
+	private String companyName;
+	private String currType;
+	private Date ToDate;
+
+	public Budget_NewBudget(WebDriver driver, ExtentTest logger, String ownerName, String budgetName, String companyName, String currType, 
+			Date ToDt) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+		this.ownerName = ownerName;
+		this.budgetName = budgetName;
+		this.companyName = companyName;
+		this.currType = currType;
+		this.ToDate = ToDt;
+	}
+
+	/**
+	 * <b>Function:</b> enterBudgetDetails
+	 * 
+	 * @author Varun Khurana
+	 * @since April 2018
+	 * @param budgetDesc
+	 * @return result - true/false
+	 */
+
+	public boolean enterBudgetDetails(String budgetDesc) {
+		boolean result = false;
+		try {
+			sendKeys(By.xpath("//input[@name='ownerNameText']"), ownerName);
+			sendKeys(By.xpath("//input[@name='budgetNameText']"), budgetName);
+			sendKeys(By.xpath("//input[@name='companyNameText']"), companyName);
+			sendKeys(By.xpath("//textarea[@name='budgetDescriptionText']"), budgetDesc);
+			sendKeys(By.xpath("//input[@name='currencyTypeText']"), currType);
+			click(By.xpath("(//form[@id='budgetDetailsForm']//li[label/text()[contains(.,'Validity')]]//img)[2]"));
+			selectDate(ToDate);
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> enterSettings
+	 * 
+	 * @author Varun Khurana
+	 * @since April 2018
+	 * @param dispUtilizationToRequesters
+	 * @param dispUtilizationToApprovers
+	 * @param ObserverPercentage
+	 * @param ApproverPercentage
+	 * @param notifyBudgetOwner
+	 * @return result - true/false
+	 */
+
+	public boolean enterSettings(boolean dispUtilizationToRequesters, boolean dispUtilizationToApprovers,
+			int ObserverPercentage, int ApproverPercentage, boolean notifyBudgetOwner) {
+		boolean result = false;
+		try {
+			if (dispUtilizationToRequesters)
+				click(By.id("displayUtilApprover"));
+			if (dispUtilizationToApprovers)
+				click(By.id("displayUtilRequester"));
+			sendKeys(By.id("ownerAsObserver"), String.valueOf(ObserverPercentage));
+			sendKeys(By.id("ownerAsApprover"), String.valueOf(ApproverPercentage));
+			if (notifyBudgetOwner)
+				click(By.xpath("(//*[@id='radioNotifyOwner']//input)[1]"));
+			result = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+
+	/**
+	 * <b>Function:</b> addPeriod
+	 * @author Varun Khurana
+	 * @since April 2018
+	 * @param StartDt
+	 * @param EndDt
+	 * @param periodName
+	 * @param description
+	 * @return result - true/false
+	 */
+
+	public boolean addPeriod(Date StartDt, Date EndDt, String periodName, String description) {
+		boolean result = false;
+		try {
+			click(By.id("addBudgetPeriod"));
+			Budget_AddPeriod objAddPeriod = new Budget_AddPeriod(driver, logger, StartDt, EndDt, periodName);
+			if (objAddPeriod.addPeriod(description))
+				result = true;
+			else
+				System.out.println("Period not added to the list");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+}

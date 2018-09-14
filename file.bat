@@ -1,0 +1,1 @@
+java -cp "%CD%\lib\*;%CD%\bin;%CD%\config;%CD%\Datasheet;%CD%\drivers;%CD%\Attachments" com.main.Main_Sanity
