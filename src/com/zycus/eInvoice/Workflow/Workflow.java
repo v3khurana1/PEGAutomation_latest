@@ -47,4 +47,18 @@ public class Workflow extends eInvoice_CommonFunctions {
 		}
 		return result;
 	}
+
+	/**
+	 * @return the pgHead
+	 */
+	public By getPgHead() {
+		return pgHead;
+	}
+
+	/**
+	 * @param pgHead the pgHead to set
+	 */
+	public void setPgHead(By pgHead) {
+		this.pgHead = pgHead;
+	}
 }

@@ -41,9 +41,10 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 
 	private By mktPricexpath = By
 			.xpath("//div[@id='createNewItem']//input[contains(@class,'pricefield txtMarketPrice')]");
-	private By quantityFieldxpath = By
+	/*private By quantityFieldxpath = By
 			.xpath("(//div[@id='createNewItem']//*[@id='manTxtFields']/div/ol/li[10]/div[1]/input)[1]");
 	private By itemNoXpath = By.xpath("//div[@id='createNewItem']//*[@id='manTxtFields']/div//li[2]/div[1]/input");
+	*/
 	private By descriptionXpath = By
 			.xpath("//div[@id='createNewItem']//*[@id='manTxtFields']/div//li[3]/div[1]/textarea");
 	private By productCategoryxpath = By
@@ -79,7 +80,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		}
 	}
 
-	private String returnLandingTabs(String configSet) {
+	/*private String returnLandingTabs(String configSet) {
 
 		String prodName = null;
 		String tab = null;
@@ -96,7 +97,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		}
 		return tab;
 
-	}
+	}*/
 
 	public void navigate_path(String tab, String subTab) throws Exception {
 		try {

@@ -1,9 +1,7 @@
 package com.zycus.eProc.Approval;
 
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * <p>

@@ -21,17 +21,17 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	private String poNumber;
 	private String supplierName;
 	private String buyerName;
-	private By pgHead = By.xpath("//h1[@class='pgHead' and text()='Purchase Orders']");
+	//private By pgHead = By.xpath("//h1[@class='pgHead' and text()='Purchase Orders']");
 	private By alertBoxmsg = By.xpath("//div[@id='messageContainer']//span");
 	private By POHeader = By.xpath("//h1[@class='pgHead']");
 	private By processingLoader = By.id("polisting_processing");
 	private By statusXpath = By.xpath("//table[@id='polisting']//td[2]/div");
 	private By dateXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'invoiceDate')]");
 	private By amountXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'totalAmountReq')]");
-	private By filterBtnXpath = By.xpath(
-			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
-	private By actionsLinkXpath = By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]");
-	private By PONumTxtXpath = By.xpath("(//table[@id='polisting']//td[2]/a)[1]");
+	/*private By filterBtnXpath = By.xpath(
+			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");*/
+	//private By actionsLinkXpath = By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]");
+	//private By PONumTxtXpath = By.xpath("(//table[@id='polisting']//td[2]/a)[1]");
 	private By descriptionId = By.id("txtDescription");
 	private By saveDraftId = By.id("saveAsDraft");
 	private By creditMemoPageId = By.xpath("//*[@id='cntInvoice']/h1/span[text()='Credit Memo']");

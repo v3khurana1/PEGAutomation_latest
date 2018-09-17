@@ -212,7 +212,7 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 	 */
 
 	//INCOMPLETE FUNCTION
-	public boolean editBillingCostBookingInfo(String billingCompany, String billingBusinessUnit, String billingLocation,
+	/*public boolean editBillingCostBookingInfo(String billingCompany, String billingBusinessUnit, String billingLocation,
 			String CBCostCenter, String CBProject) throws Exception {
 		boolean result = false;
 		try {
@@ -224,6 +224,6 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 			e.printStackTrace();
 		}
 		return result;
-	}
+	}*/
 
 }

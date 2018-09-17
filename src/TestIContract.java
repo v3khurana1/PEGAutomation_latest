@@ -4,7 +4,6 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.w3c.dom.Node;
 
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -59,7 +58,7 @@ public class TestIContract extends eInvoice_CommonFunctions {
 	 * node.getNodeName(); }
 	 */
 
-	private String generateXPATH(WebElement childElement, String current) {
+	/*private String generateXPATH(WebElement childElement, String current) {
 		String childTag = childElement.getTagName();
 		if (childTag.equals("html")) {
 			return "/html[1]" + current;
@@ -78,7 +77,7 @@ public class TestIContract extends eInvoice_CommonFunctions {
 			}
 		}
 		return null;
-	}
+	}*/
 
 	public boolean addLineItem(String itemNo, String desc, String measuremenUnit, int qty, String category,
 			String priceType, String currency, float cost, String pricingType, String copyPricingFrm) {

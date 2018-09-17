@@ -51,9 +51,10 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 	private By requsitionLoadedPromptXpath = By.xpath(
 			"//div[//td[contains(text(),'requisition is already loaded')] and contains(@class,'promptCnt')]/parent::div");
 	private By continueAddtoReqXpath = By.xpath("//span[text()='No, continue adding to existing requisition']");
-	private By statusXpath = By.xpath("//table[@id='reqList']//td[1]/div");
+	/*private By statusXpath = By.xpath("//table[@id='reqList']//td[1]/div");
 	private By dateXpath = By.xpath("//table[@id='reqList']//td[contains(@class,'submittedOn')]");
 	private By amountXpath = By.xpath("//table[@id='reqList']//td[contains(@class,'totalAmountReq')]");
+	*/
 	private By statusTxtXpath = By.xpath("(//table[@id='reqList']//td[1]/div)[1]");
 	private By actionsLinkXpath = By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]");
 	private By requisitionNumTxtXpath = By.xpath("(//table[@id='reqList']//td[2]/a)[1]");

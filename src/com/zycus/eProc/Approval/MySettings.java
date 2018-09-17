@@ -5,9 +5,7 @@ import java.util.Date;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 //import com.zycus.eInvoice.Invoice.ApprovalDetails;
 
@@ -52,7 +50,7 @@ public class MySettings extends ApprovalDetails {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return result;
 
 	}
 

@@ -9,7 +9,6 @@ import common.Functions.CommonFunctions1;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
 public class POActions1 extends CommonFunctions1 {

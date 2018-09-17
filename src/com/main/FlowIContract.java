@@ -3,10 +3,6 @@ package com.main;
 import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Set;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -15,12 +11,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.w3c.dom.Node;
 
 import DataProviders.iContract_DataProviderTestNG;
 import Framework.ConfigurationProperties;
 import Framework.FrameworkUtility;
-import Framework.NavigationClass;
+//import Framework.NavigationClass;
 import SanityDefault.Login;
 import common.Functions.CommonFunctions1;
 import common.Functions.eInvoice_CommonFunctions;
@@ -31,6 +26,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import com.zycus.IContract.ManageContracts.AuthorContract;
 import com.zycus.IContract.ManageContracts.Repository;
 import com.zycus.IContract.ManageContracts.SelectContractType;
+import com.zycus.IContract.ManageContracts.Signers;
 import com.zycus.IContract.ManageContracts.ContractDetails;
 import com.zycus.IContract.ManageContracts.ContractSummary;
 import com.zycus.IContract.ManageContracts.ContractingParty;
@@ -139,7 +135,7 @@ public class FlowIContract {
 		objContract.startAuthoring("Procurement", "Purchase Agreement", false,true, objDetails);
 		ContractingParty objContParty = new ContractingParty(driver, logger);
 		objDetails.enterContractDetails(objContParty);
-		/*ContractingParty objContParty = new ContractingParty(driver, logger);
+		//ContractingParty objContParty = new ContractingParty(driver, logger);
 		objContParty.addContractingParty("TEST IGT", "Suresh Jambhalkar");
 		objContract.navigate_ContractSubTabs("Contract Summary");
 		ContractSummary objSummary = new ContractSummary(driver, logger);
@@ -157,14 +153,15 @@ public class FlowIContract {
 		Actions actions = new Actions(driver);
 		actions.keyDown(Keys.CONTROL).sendKeys(Keys.F5).perform();
 		//driver.switchTo().window("Authoring Contract");
-		objSummary.closeContract();
+		objSummary.closeContract(objAuthor);
 		objAuthor.filterByContractNum(contractNumber);
-		objAuthor.viewContract(contractNumber);
-		objSummary.proceedToSignOff("Offline Signing");
-		callAndLog(objViewContracts.performAction(contractNumber,"Download"), "able to perform action on Contract", "unable to perform action on Contract");*/
+		objAuthor.viewContract(contractNumber, objSummary);
+		Signers objSigners = new Signers(driver, logger);
+		objSummary.proceedToSignOff("Offline Signing", objSigners);
+		callAndLog(objViewContracts.performAction(contractNumber,"Download"), "able to perform action on Contract", "unable to perform action on Contract");
 	}
 	
-	/*@Test(alwaysRun = true, dependsOnMethods = "AuthorContract",priority=3)
+	@Test(alwaysRun = true, dependsOnMethods = "AuthorContract",priority=3)
 	public void AddContractingParty() throws Exception {
 		logger = extent.startTest("Add Contracting Party");
 		ContractingParty objContParty = new ContractingParty(driver, logger);
@@ -207,13 +204,14 @@ public class FlowIContract {
 		Actions actions = new Actions(driver);
 		actions.keyDown(Keys.CONTROL).sendKeys(Keys.F5).perform();
 		//driver.switchTo().window("Authoring Contract");
-		objSummary.closeContract();
+		objSummary.closeContract(objAuthor);
 		objAuthor.filterByContractNum(contractNumber);
-		objAuthor.viewContract(contractNumber);
-		objSummary.proceedToSignOff("Offline Signing");
+		objAuthor.viewContract(contractNumber, objSummary);
+		Signers objSigners = new Signers(driver, logger);
+		objSummary.proceedToSignOff("Offline Signing", objSigners);
 		ViewContracts objViewContracts = new ViewContracts(driver1, logger);
 		callAndLog(objViewContracts.performAction(contractNumber,"Download"), "able to perform action on Contract", "unable to perform action on Contract");
-	}*/
+	}
 	
 	@AfterMethod
 	public void getResult(ITestResult result) {

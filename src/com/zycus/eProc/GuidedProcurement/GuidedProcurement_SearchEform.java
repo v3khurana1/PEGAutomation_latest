@@ -3,10 +3,7 @@ package com.zycus.eProc.GuidedProcurement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eProc_CommonFunctions;
 
 /**
@@ -76,7 +73,7 @@ public class GuidedProcurement_SearchEform extends eProc_CommonFunctions {
 				findElement(By.xpath("(//*[@id='selectEform']//a[@class='scLnk eformitem efrmLnk'])[1]")).click();
 			else {
 				WebElement objItemsFound = findElement(By.xpath("(//*[@id='selectEform']/div[1]/div/div[2])[2]/span"));
-				int itemsFound = Integer.parseInt(objItemsFound.getText());
+				//int itemsFound = Integer.parseInt(objItemsFound.getText());
 				sendKeys(By.id("txtSearchEform"), eForm);
 				if (Integer.parseInt(objItemsFound.getText()) == 1) {
 					findElement(By.xpath(

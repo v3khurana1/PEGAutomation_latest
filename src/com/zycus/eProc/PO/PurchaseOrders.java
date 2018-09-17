@@ -33,15 +33,15 @@ public class PurchaseOrders extends eProc_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 
-	private By processingLoader = By.id("polisting_processing");
+	//private By processingLoader = By.id("polisting_processing");
 	private By recallApprovalCmmntId = By.id("txtComment");
 	private By recallBtnId = By.id("recallBtn");
 	private By recallReqActionMsgId = By.id("status_overlay_savingComment");
 	private By closeCmmntId = By.id("closeCommentTextArea");
 	private By closeBtnId = By.id("closeAction");
-	private By statusXpath = By.xpath("//table[@id='polisting']//td[1]/div");
-	private By dateXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'submittedOn')]");
-	private By amountXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'totalAmountReq')]");
+	//private By statusXpath = By.xpath("//table[@id='polisting']//td[1]/div");
+	//private By dateXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'submittedOn')]");
+	//private By amountXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'totalAmountReq')]");
 	private By statusTxtXpath = By.xpath("(//table[@id='polisting']//td[1]/div)[1]");
 	private By actionsLinkXpath = By.xpath("(//*[@id='polisting']//a[@class='icon actLnk'])[1]");
 	private By poNumTxtXpath = By.xpath("(//table[@id='polisting']//td[2]/a)[1]");

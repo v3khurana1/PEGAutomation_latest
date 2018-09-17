@@ -19,7 +19,7 @@ import Framework.ConfigurationProperties;
 import Framework.FrameworkUtility;
 import SanityDefault.Login;
 import common.Functions.eProc_CommonFunctions;
-import Framework.CommonUtility;
+//import Framework.CommonUtility;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -35,8 +35,8 @@ public class FlowEProc {
 	//private CommonUtility objUtility;
 	eProc_CommonFunctions objFunctions = new eProc_CommonFunctions();
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
-	//private String Customer;
 	private String Customer;
+
 	
 	public FlowEProc() throws Exception {
 		super();

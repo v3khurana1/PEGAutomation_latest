@@ -93,7 +93,7 @@ public class flowZSN {
 		}
 	}
 	
-	/*@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Dashboard", priority = 2, alwaysRun = true)
+	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Dashboard", priority = 2, alwaysRun = true)
 	public void Dashboard(String card_name, String company) throws Exception {
 		logger = extent.startTest("Dashboard");
 		Dashboard objDashboard = new Dashboard(driver, logger, card_name, company, Customer);
@@ -109,7 +109,7 @@ public class flowZSN {
 		callAndLog(objView.view_comp_cust(), "TC06 -  able to view selected company/customer",
 				"TC06 -Could notview selected company/customer");
 
-	}*/
+	}
 
 	@Test(dependsOnMethods = "Login", priority = 4, alwaysRun = true)
 	public void POInvoice() throws Exception {
@@ -123,7 +123,7 @@ public class flowZSN {
 				"TC 13 - Couldnot create PO invoice , TC 15 : unable to upload file or view in side by side panel ");
 	}
 
-	/*@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 6, alwaysRun = true)
+	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 6, alwaysRun = true)
 	public void CreditMemoagainstPO() throws Exception {
 		logger = extent.startTest("create CreditMemo against PO");
 		objFunctions.navigate_path1("My Invoices", "Create Credit Memo against PO", Customer);
@@ -295,7 +295,7 @@ public class flowZSN {
 		Reference objRef = new Reference(driver, logger);
 		callAndLog(objRef.view_ReferenceDoc(), "TC 38 -  able to open the reference docs related to customer",
 				"TC 38 - Unable to open the reference docs related to customer");
-	}*/
+	}
 
 	@AfterMethod
 	public void getResult(ITestResult result) {

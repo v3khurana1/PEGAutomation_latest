@@ -11,7 +11,6 @@ import Invoice.ViewInvoices;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 
 // Referenced classes of package Invoice:
 //            ViewInvoices
@@ -69,10 +68,10 @@ public class createCreditMemoagainstPO1 extends CommonFunctions1
     }
 
     private WebDriver driver;
-    private Actions action;
+    //private Actions action;
     private By invoiceNoid;
     private By itemLessId;
     private By firstRowTableXpath;
-    private String credit_memoNo;
+    //private String credit_memoNo;
     private ExtentTest logger;
 }

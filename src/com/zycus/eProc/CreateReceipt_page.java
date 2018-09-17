@@ -1,6 +1,5 @@
 package com.zycus.eProc;
 
-import java.io.IOException;
 import java.util.Date;
 
 import org.openqa.selenium.By;
@@ -8,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
+//import com.relevantcodes.extentreports.LogStatus;
 
 import common.Functions.eProc_CommonFunctions;
 
@@ -29,6 +28,7 @@ public class CreateReceipt_page extends eProc_CommonFunctions{
 	private By attachFilePopUp 			= By.xpath("//*[@id='addAttachment']/parent::div");
 
 	private ExtentTest logger;
+	
 	public CreateReceipt_page(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
 		this.driver = driver;

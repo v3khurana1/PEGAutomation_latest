@@ -29,7 +29,7 @@ public class WorkflowRoles extends eInvoice_CommonFunctions {
 
 	public boolean createWorkflow() {
 		boolean result = false;
-		int addedRowPos = 0;
+		//int addedRowPos = 0;
 		int i = 1;
 		String role = null;
 		String seq = null;

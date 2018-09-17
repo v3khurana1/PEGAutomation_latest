@@ -1,14 +1,8 @@
 package com.zycus.eProc.Catalog;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eInvoice_CommonFunctions;
 import common.Functions.eProc_CommonFunctions;
 
@@ -38,7 +32,7 @@ public class Catalog extends eProc_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 
-	private By processingLoader = By.id("catalogListing_processing");
+	//private By processingLoader = By.id("catalogListing_processing");
 	private By statusXpath = By.xpath("//table[@id='catalogListing']//td[2]/div");
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");

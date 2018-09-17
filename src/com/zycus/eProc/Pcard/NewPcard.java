@@ -1,13 +1,9 @@
 package com.zycus.eProc.Pcard;
 
 import java.util.Date;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eProc_CommonFunctions;
 
 /**

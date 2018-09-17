@@ -2,10 +2,7 @@ package com.zycus.eProc.Approval;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eProc_CommonFunctions;
 
 public class Catalog extends eProc_CommonFunctions{

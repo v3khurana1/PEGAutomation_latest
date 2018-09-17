@@ -21,6 +21,8 @@ public class UploadsNew extends CommonFunctions1
         super(driver, logger);
         this.driver = driver;
         this.logger = logger;
+        this.credit_memoNo =  credit_memoNo;
+        this.invoice_no = invoice_no;
     }
 
     public UploadsNew(WebDriver driver, ExtentTest logger)

@@ -102,7 +102,10 @@ public class createPOInvoice1 extends CommonFunctions1
         if(path != "View Orders")
             selectedPO = select_PO_to_create_Inv_Creditmemo("");
         result = create_invoice();
-        return selectedPO;
+        if(result)
+        	return selectedPO;
+        else 
+        	return null;
     }
 
     private WebDriver driver;

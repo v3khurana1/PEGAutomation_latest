@@ -7,18 +7,13 @@ import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.Node;
-
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
 import Framework.ConfigurationProperties;
 import common.Functions.eInvoice_CommonFunctions;
 
@@ -189,7 +184,7 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 					while (driver.findElements(By.xpath(elemFinderXpath)).size() > 0) {
 						if (formFillCtr > 5)
 							break;
-						String tempFinderXpath = elemFinderXpath;
+						//String tempFinderXpath = elemFinderXpath;
 						enterFormDetails(elemFinderXpath);
 						Thread.sleep(2000);
 						formFillCtr++;
@@ -526,6 +521,7 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 		}
 	}*/
 	
+	@Deprecated
 	private void enterFormDetails_withoutchanges(String elemFinderXpath) {
 		String elemID = null;
 		int headerYCoord = 0;

@@ -1,12 +1,7 @@
 package com.zycus.eInvoice.Invoice;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eInvoice_CommonFunctions;
 
 /**

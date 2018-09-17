@@ -1,12 +1,8 @@
 package com.zycus.eProc.Catalog;
 
-import org.apache.commons.net.ftp.parser.EnterpriseUnixFTPEntryParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eInvoice_CommonFunctions;
 import common.Functions.eProc_CommonFunctions;
 
@@ -29,16 +25,16 @@ public class ItemDetails extends eProc_CommonFunctions {
 
 	private WebDriver driver;
 	private ExtentTest logger;
-	private By itemDetailsLbl = By.xpath("//div[@aria-describedby='addItemDialog']//span[text()='Item Details']");
-	private String catalogName;
-	private String supplier;
+	//private By itemDetailsLbl = By.xpath("//div[@aria-describedby='addItemDialog']//span[text()='Item Details']");
+	//private String catalogName;
+	//private String supplier;
 	
 	eInvoice_CommonFunctions objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	private String serviceNum;
 	private String shortDesc;
 	private String prodCategory;
 	private String price;
-	private String currency; 
+	//private String currency; 
 
 	/**
 	 * Constructor for the class

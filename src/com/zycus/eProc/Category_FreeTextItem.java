@@ -1,14 +1,10 @@
 package com.zycus.eProc;
 
-import java.io.IOException;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
+//import com.relevantcodes.extentreports.LogStatus;
 import common.Functions.eProc_CommonFunctions;
 
 public class Category_FreeTextItem extends eProc_CommonFunctions{
@@ -65,7 +61,8 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 	private String currency;
 	
 	private ExtentTest logger;
-public Category_FreeTextItem(WebDriver driver, ExtentTest logger, String shortDesc, String quantity, String uom, float price, String itemType, String sourcingStatus, String receiveBillBy, String currency) { 
+
+	public Category_FreeTextItem(WebDriver driver, ExtentTest logger, String shortDesc, String quantity, String uom, float price, String itemType, String sourcingStatus, String receiveBillBy, String currency) { 
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;

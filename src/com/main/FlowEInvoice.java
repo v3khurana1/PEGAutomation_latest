@@ -83,7 +83,7 @@ public class FlowEInvoice {
 		callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");
 	}
 	
-	/*@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Invoices", alwaysRun = true, priority = 2)
+	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Invoices", alwaysRun = true, priority = 2)
 	public void Invoices(String DocStatus, String DocNo, String DocType, String DocDateFrom, String DocDateTo,
 			String DueDateFrom, String DueDateTo, String FromAmtRange, String ToAmtRange, String Currency,
 			String Reference, String Supplier, String NavigatetoPageNo, String RecordsperPage) throws Exception {
@@ -158,7 +158,7 @@ public class FlowEInvoice {
 			objFunctions.navigate_path("Invoice", "Invoices");
 			callAndLog(objInvoice.createInvoiceNonPO(), "able to create invoice non PO", "unable to create invoice non PO");
 
-		}*/
+		}
 	
 	@Test(alwaysRun = true, dependsOnMethods = "Login",priority=5)
 	public void InvoiceAction() throws Exception {
@@ -183,7 +183,7 @@ public class FlowEInvoice {
 	
 	
 	
-	/*@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "PurchaseOrders", alwaysRun = true,priority=6)
+	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "PurchaseOrders", alwaysRun = true,priority=6)
 	public void searchPurchaseOrders(String PONumber, String SupplierName, String BuyerName) throws Exception {
 		logger = extent.startTest("Search PO based on PONumber,Supplier Name and Buyer Name");
 		objFunctions.navigate_path("PO");
@@ -376,7 +376,7 @@ public class FlowEInvoice {
 		objWorkflow.clickCreateWorkflow();
 		WorkflowWizard objWizard = new WorkflowWizard(driver, logger, workflowProcess);
 		objWizard.createWorkflow(workflowDescription, workflowType, Boolean.parseBoolean(approveMoreThanOnce));
-	}*/
+	}
 	
 
 	@AfterMethod

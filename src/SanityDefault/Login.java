@@ -1,9 +1,5 @@
 package SanityDefault;
 
-import java.nio.charset.StandardCharsets;
-
-import javax.xml.bind.DatatypeConverter;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -207,7 +203,7 @@ public class Login extends CommonFunctions1 {
 	
 	public boolean Login_via_PwdMgr1(ConfigurationProperties configurationProperties) {
 		boolean result = false;
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		//JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebDriverWait wait = new WebDriverWait(driver, 120);
 		try {
 			String URL = configurationProperties.getProperty("url_PM");

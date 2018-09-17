@@ -183,12 +183,12 @@ public class CreateCatalog1 extends CommonFunctions1
 
     private WebDriver driver;
     private String catalog_name;
-    private String uploadPath;
+    //private String uploadPath;
     private By catalogNamefieldId;
     private By supplierPartIDfieldid;
     private By descFieldid;
     private By prodCategoryfieldxpath;
-    private By prodCatSelectxpath;
+    //private By prodCatSelectxpath;
     private By priceFieldxpath;
     private By addBtnid;
     private By continueBtnid;

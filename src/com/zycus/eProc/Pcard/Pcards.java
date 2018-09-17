@@ -1,13 +1,9 @@
 package com.zycus.eProc.Pcard;
 
 import java.util.Date;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eProc_CommonFunctions;
 
 /**
@@ -38,10 +34,10 @@ public class Pcards extends eProc_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 
-	private By processingLoader = By.id("pCardList_processing");
+	/*private By processingLoader = By.id("pCardList_processing");
 	private By statusXpath = By.xpath("//table[@id='pCardList']//td[1]/div");
 	private By dateXpath = By.xpath("//table[@id='pCardList']//td[contains(@class,'submittedOn')]");
-	private By amountXpath = By.xpath("//table[@id='pCardList']//td[contains(@class,'totalAmountReq')]");
+	private By amountXpath = By.xpath("//table[@id='pCardList']//td[contains(@class,'totalAmountReq')]");*/
 
 	/**
 	 * Constructor for the class
