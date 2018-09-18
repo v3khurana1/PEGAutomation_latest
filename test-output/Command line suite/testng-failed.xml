@@ -5,7 +5,7 @@
     <classes>
       <class name="com.main.FlowEInvoice">
         <methods>
-          <include name="Login" invocation-numbers="0"/>
+          <include name="Login"/>
           <include name="InvoiceAction"/>
           <include name="shareMyReports" invocation-numbers="0"/>
           <include name="CreditMemowithoutReference"/>
@@ -14,7 +14,6 @@
           <include name="NewBatch" invocation-numbers="0"/>
           <include name="tearDown"/>
           <include name="Reports" invocation-numbers="0"/>
-          <include name="searchPurchaseOrders" invocation-numbers="0"/>
           <include name="ApprovalAction"/>
           <include name="Invoices" invocation-numbers="0"/>
           <include name="getResult"/>
