@@ -10,8 +10,8 @@ public class Main_Sanity {
 
 		TestNG testng = new TestNG();
 		//testng.setTestClasses(new Class[] { FlowEProc.class, flowZSN.class});
-		//testng.setTestClasses(new Class[] { FlowIContract.class});
-		testng.setTestClasses(new Class[] { FlowEInvoice.class});
+		testng.setTestClasses(new Class[] { FlowIContract.class});
+		//testng.setTestClasses(new Class[] { FlowEInvoice.class});
 		ITestNGListener tla = null;
 		testng.addListener(tla);
 		testng.run();
