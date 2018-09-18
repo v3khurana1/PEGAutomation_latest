@@ -59,7 +59,7 @@ public class Login extends CommonFunctions1 {
 	public boolean login(ConfigurationProperties configurationProperties) {
 		boolean result = false;
 		try {
-			String URL = configurationProperties.getProperty("url");
+			String URL = configurationProperties.getProperty("url_Anisha");
 
 			// Launch URL
 			driver.manage().window().maximize();
