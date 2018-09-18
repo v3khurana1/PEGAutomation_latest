@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -19,7 +18,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 	private WebDriver driver;
 
 	private String invoiceDate;
-	private String invoiceNo;
+	//private String invoiceNo;
 	private String supplierName;
 	private String paymentTerm;
 	private String purchaseType;
@@ -178,8 +177,9 @@ public class Invoices extends eInvoice_CommonFunctions {
 		boolean result = false;
 		try {
 			findElement(paginateXpath).clear();
-			sendKeys(paginateXpath, pageNo + Keys.ENTER);
-			waitUntilInvisibilityOfElement(processingLoader);
+			/*sendKeys(paginateXpath, pageNo + Keys.ENTER);
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			searchAndWaitUntilLoaderDisappears(paginateXpath, pageNo, processingLoader);
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,13 +243,13 @@ public class Invoices extends eInvoice_CommonFunctions {
 	 * @throws Exception
 	 * @return status
 	 */
-	public boolean editInvoice() throws Exception {
+	public boolean editInvoice(PurchaseOrder objPO) throws Exception {
 		boolean result = false;
 		try {
 			filterByDocType("Invoice");
 			filterByStatus("Draft");
 			selectActionInvoice("Edit");
-			PurchaseOrder objPO = new PurchaseOrder(driver, logger);
+			//PurchaseOrder objPO = new PurchaseOrder(driver, logger);
 			objPO.editInvoice();
 			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
 				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
@@ -273,12 +273,12 @@ public class Invoices extends eInvoice_CommonFunctions {
 	 * @throws Exception
 	 * @return status
 	 */
-	public boolean createInvoiceagainstPO() throws Exception {
+	public boolean createInvoiceagainstPO(PurchaseOrder objPO) throws Exception {
 		boolean result = false;
 		try {
 			addInvoiceOrCreditMemo("Invoice", "Against PO");
 			findElement(By.xpath("//div/button[contains(@class,'pri')]/span[text()='Continue']")).click();
-			PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
+			//PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
 			objPO.addInvoice();
 			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
 				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
@@ -330,12 +330,12 @@ public class Invoices extends eInvoice_CommonFunctions {
 	 * @throws Exception
 	 * @return status
 	 */
-	public boolean createCreditMemoagainstPO() throws Exception {
+	public boolean createCreditMemoagainstPO(PurchaseOrder objPO) throws Exception {
 		boolean result = false;
 		try {
 			addInvoiceOrCreditMemo("Credit Memo", "Against PO");
 			findElement(By.xpath("//div/button[contains(@class,'pri')]/span[text()='Continue']")).click();
-			PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
+			//PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo, invoiceDate);
 			objPO.addCreditMemo();
 			if (findElement(objPO.getPOHeader()).getText() == "Purchase Orders") {
 				logger.log(LogStatus.INFO, "Redirected to Purchase Orders page");
@@ -398,28 +398,32 @@ public class Invoices extends eInvoice_CommonFunctions {
 			switch (action) {
 			case "Void Invoice":
 				sendKeys(voidInvoiceCommentId , "void invoice comment");
-				findElement(By.xpath("//input[contains(@class,'invoiceCancel')]")).click();
-				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));
+				/*findElement(By.xpath("//input[contains(@class,'invoiceCancel')]")).click();
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));*/
+				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceCancel')]"), By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));
 				result = true;
 				break;
 			case "Close":
 				sendKeys(closeInvoiceCommentId , "close invoice comment");
-				findElement(By.xpath("//input[contains(@class,'invoiceClose')]")).click();
-				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_closingInvoice']/div"));
+				/*findElement(By.xpath("//input[contains(@class,'invoiceClose')]")).click();
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_closingInvoice']/div"));*/
+				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceClose')]"), By.xpath("//*[@id='status_overlay_closingInvoice']/div"));
 				result = true;
 				break;
 			case "Return":
 				sendKeys(returnInvoiceCommentId , "return invoice comment");
-				findElement(By.xpath("//input[contains(@class,'invoiceReturn')]")).click();
-				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_returnInvoice']/div"));
+				/*findElement(By.xpath("//input[contains(@class,'invoiceReturn')]")).click();
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_returnInvoice']/div"));*/
+				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceReturn')]"), By.xpath("//*[@id='status_overlay_returnInvoice']/div"));
 				result = true;
 				break;
 			case "Adjust Credit":
 				break;
 			case "Restrict Payment":
 				sendKeys(adjustAmtCommentId , "restrict payment comment");
-				findElement(By.xpath("//input[contains(@class,'adjustAmount')]")).click();
-				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));
+				/*findElement(By.xpath("//input[contains(@class,'adjustAmount')]")).click();
+				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));*/
+				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'adjustAmount')]"), By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));
 				result = true;
 				break;
 			case "Edit":
@@ -872,8 +876,9 @@ public class Invoices extends eInvoice_CommonFunctions {
 				sendKeys(By.id("txtFltrPoNum"), optionTxt);
 			} else
 				findElement(By.id("txtFltrWithoutPo")).click();
-			findElement(filterBtnXpath).click();
-			waitUntilInvisibilityOfElement(processingLoader);
+			/*findElement(filterBtnXpath).click();
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			clickAndWaitUntilLoaderDisappears(filterBtnXpath, processingLoader);
 			List<WebElement> objfilteredList = driver.findElements(statusXpath);
 			for (WebElement obj : objfilteredList) {
 				if (obj.getText().equals(referenceOption))

@@ -22,8 +22,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 
-	private ExtentTest logger;
-	private WebDriver driver;
+	//private ExtentTest logger;
+	//private WebDriver driver;
 	private String supplierName;
 	private String currency_value;
 	private String creditMemoDate;
@@ -43,16 +43,16 @@ public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 
 	public CreditMemowithoutReference(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.logger = logger;
-		this.driver = driver;
+		//this.logger = logger;
+		//this.driver = driver;
 	}
 
 	public CreditMemowithoutReference(WebDriver driver, ExtentTest logger, String supplierName, String currency_value,
 			String creditMemoDate, String purchaseType, String description, String product_cat, String market_prc,
 			String quantity, String GLType) {
 		super(driver, logger);
-		this.logger = logger;
-		this.driver = driver;
+		//this.logger = logger;
+		//this.driver = driver;
 		this.supplierName = supplierName;
 		this.currency_value = currency_value;
 		this.creditMemoDate = creditMemoDate;

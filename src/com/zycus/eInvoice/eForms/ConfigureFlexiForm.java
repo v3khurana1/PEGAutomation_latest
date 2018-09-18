@@ -14,7 +14,7 @@ public class ConfigureFlexiForm extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
 	private By pgHead = By.xpath("//div[@class='zydf-productInfo']/h1[contains(text(),'Configure FlexiForm')]");
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private String sectionName;
 	private String fieldType;
 	private String fieldName;
@@ -23,14 +23,14 @@ public class ConfigureFlexiForm extends eInvoice_CommonFunctions {
 	public ConfigureFlexiForm(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	public ConfigureFlexiForm(WebDriver driver, ExtentTest logger, String sectionName, String fieldType,
 			String fieldName, String fieldDisplayName) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 		this.sectionName = sectionName;
 		this.fieldType = fieldType;
 		this.fieldName = fieldName + String.valueOf(generateNo());
@@ -74,13 +74,16 @@ public class ConfigureFlexiForm extends eInvoice_CommonFunctions {
 	public boolean addfield_FlexiForm(String defaultValue, int maxChar, boolean mandatory) {
 		boolean result = false;
 		try {
-			findElement(By.xpath("//div[@class='zydf-customField']")).click();
+			/*findElement(By.xpath("//div[@class='zydf-customField']")).click();
 			//JavascriptExecutor js = (JavascriptExecutor)driver;
 			//js.executeScript("var srcElement");
 			//document.evaluate(\"//div[contains(@class,'qtip qtip-default filterPopups') and contains(@style,'block')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
 			//DO NOT REMOVE ELSE DRAG-DROP WILL NOT WORK
 			Thread.sleep(3000);
 			waitUntilVisibilityOfElement(By.xpath("//div[@class='zydf-customField']/div[contains(@style,'block')]"));
+			*/
+			clickAndWaitUntilElementAppears(By.xpath("//div[@class='zydf-customField']"), By.xpath("//div[@class='zydf-customField']/div[contains(@style,'block')]"));
+			
 			/*WebElement srcElement = driver.findElement(
 					By.xpath("//ul[@id='zydf-devLeftDragList']/li/a[span/following-sibling::text()[contains(.,'"
 							+ fieldType + "')]]"));*/
@@ -125,12 +128,13 @@ public class ConfigureFlexiForm extends eInvoice_CommonFunctions {
 		return result;
 	}
 
-	public boolean saveFlexiForm() {
+	public boolean saveFlexiForm(AllForms objForms) {
 		boolean result = false;
 		try {
-			findElement(By.xpath("//input[@name='saveEform']")).click();
-			waitUntilInvisibilityOfElement(By.id("status_overlay_saveFlexiForm"));
-			AllForms objForms = new AllForms(driver, logger);
+			/*findElement(By.xpath("//input[@name='saveEform']")).click();
+			waitUntilInvisibilityOfElement(By.id("status_overlay_saveFlexiForm"));*/
+			clickAndWaitUntilLoaderDisappears(By.xpath("//input[@name='saveEform']"), By.id("status_overlay_saveFlexiForm"));
+			//AllForms objForms = new AllForms(driver, logger);
 			result = driver.findElements(objForms.getPgHead()).size()>0 ? true : false;
 		} catch (Exception e) {
 			e.printStackTrace();

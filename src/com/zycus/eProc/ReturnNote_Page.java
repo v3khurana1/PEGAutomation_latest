@@ -3,14 +3,13 @@ package com.zycus.eProc;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import common.Functions.eProc_CommonFunctions;
 
 public class ReturnNote_Page extends eProc_CommonFunctions {
-	private WebDriver driver;
+	//private WebDriver driver;
 	private ExtentTest logger;
 
 	private By returnNoteNumId 		= By.id("txtReturnNote");
@@ -33,14 +32,14 @@ public class ReturnNote_Page extends eProc_CommonFunctions {
 
 	public ReturnNote_Page(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 
 	public ReturnNote_Page(WebDriver driver, ExtentTest logger, String returnNoteNum, int returnQty, String returnReason, 
 			String returnMethod) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.returnNoteNum = returnNoteNum;
 		this.returnQty = returnQty;
@@ -51,7 +50,7 @@ public class ReturnNote_Page extends eProc_CommonFunctions {
 
 	public ReturnNote_Page(WebDriver driver, ExtentTest logger, int returnQty, String returnReason, String returnMethod) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.returnQty = returnQty;
 		this.returnReason = returnReason;
@@ -94,7 +93,7 @@ public class ReturnNote_Page extends eProc_CommonFunctions {
 		findElement(By.xpath("//*[contains(@id,'closeHeaderAttachmentDialog')]")).click();
 		// Verify if file is uploaded
 		if (attachmentLinkTxt == objAttachmentLink.getText())
-			System.out.println("Attachment file not uploaded");
+			logger.log(LogStatus.INFO, "Attachment file not uploaded");
 		if (notifySupplier)
 			findElement(notifySuppId).click();
 		sendKeys(suppContactId, supplierContact);

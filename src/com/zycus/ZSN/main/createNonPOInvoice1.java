@@ -25,13 +25,13 @@ public class createNonPOInvoice1 extends CommonFunctions1
      throws Exception
  {
      super(driver, logger);
-     custno = "1234";
-     custNoid = By.id("txtCustomerNo");
+     //custno = "1234";
+     //custNoid = By.id("txtCustomerNo");
      locId = By.id("location");
      invoiceNoid = By.id("txtInvoiceNumber");
      paymentTermid = By.id("txtPaymentTerm-customBtn");
      addItembtnid = By.id("addMoreItems");
-     supplierCompanyId = By.id("slctSupplierCompany");
+     //supplierCompanyId = By.id("slctSupplierCompany");
      slctsupplierCompanyId = By.id("slctSupplierCompany-customBtn");
      this.driver = driver;
      this.location = location;
@@ -119,13 +119,13 @@ public class createNonPOInvoice1 extends CommonFunctions1
  private String quantity;
  private String market_price;
  private String product_category;
- private String custno;
- private By custNoid;
+ //private String custno;
+ //private By custNoid;
  private By locId;
  private By invoiceNoid;
  private By paymentTermid;
  private By addItembtnid;
- private By supplierCompanyId;
+ //private By supplierCompanyId;
  private By slctsupplierCompanyId;
  private ExtentTest logger;
 }

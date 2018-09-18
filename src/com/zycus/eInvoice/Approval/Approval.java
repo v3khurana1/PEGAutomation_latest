@@ -36,11 +36,11 @@ public class Approval extends eInvoice_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 
-	private By processingLoader = By.id("workflowApproval_processing");
-	private By statusXpath = By.xpath("//table[@id='workflowApproval']//td[2]/div");
-	private By documentNoXpath = By.xpath("//table[@id='workflowApproval']//td[2]/div");
-	private By dateXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'receivedOn')]");
-	private By amountXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityAmount')]");
+	//private By processingLoader = By.id("workflowApproval_processing");
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
+	private By documentNoXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
+	private By dateXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'receivedOn')]");
+	private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
 	private By approveCommentId = By.id("approvalComments");
@@ -54,8 +54,9 @@ public class Approval extends eInvoice_CommonFunctions {
 	private By delegateCommentId = By.id("delegateComments");
 	private By saveDelegateBtnId = By.id("btnDelegateSave");
 	private By delegateMsgXpath = By.xpath("//div[contains(@class,'globalMessage')]//span[contains(text(),'delegated')]");
-	private By actionBtnXpath = By.xpath("//*[@id='workflowApproval']//tr[1]/td[8]//a[text()='Actions']");
-
+	//private By actionBtnXpath = By.xpath("//*[@id='workflowApproval']//tr[1]/td[8]//a[text()='Actions']");
+	private By actionBtnXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
+	
 	/**
 	 * Constructor for the class
 	 * 
@@ -73,22 +74,24 @@ public class Approval extends eInvoice_CommonFunctions {
 		boolean status = false;
 		try {
 			findElement(actionBtnXpath ).click();
-			findElement(By.xpath("//*[@id='workflowApproval']//tr[1]//li/a[contains(text(),'" + action + "')]"))
+			findElement(By.xpath("//table[contains(@class,'dataTable')]//tr[1]//li/a[contains(text(),'" + action + "')]"))
 					.click();
 			Thread.sleep(2000);
 			switch (action) {
 			case "Approve":
 				// TODO need to add logic to input invoice No
 				sendKeys(approveCommentId, "approving the document");
-				findElement(approveBtnXpath).click();
-				waitUntilVisibilityOfElement(approvedMsgXpath);
+				/*findElement(approveBtnXpath).click();
+				waitUntilVisibilityOfElement(approvedMsgXpath);*/
+				clickAndWaitUntilElementAppears(approveBtnXpath, approvedMsgXpath);
 				logger.log(LogStatus.INFO, "approved the invoice");
 				status = true;
 				break;
 			case "Reject":
 				sendKeys(rejectCommentId , "rejecting the document");
-				findElement(rejectBtnXpath).click();
-				waitUntilVisibilityOfElement(rejectMsgXpath);
+				/*findElement(rejectBtnXpath).click();
+				waitUntilVisibilityOfElement(rejectMsgXpath);*/
+				clickAndWaitUntilElementAppears(rejectBtnXpath, rejectMsgXpath);
 				logger.log(LogStatus.INFO, "rejected the invoice");
 				status = true;
 				break;
@@ -97,8 +100,9 @@ public class Approval extends eInvoice_CommonFunctions {
 				Thread.sleep(2000);
 				findElement(By.xpath("//ul[contains(@style,'block')]/li")).click();
 				sendKeys(delegateCommentId, "delegating the document");
-				findElement(saveDelegateBtnId).click();
-				waitUntilVisibilityOfElement(delegateMsgXpath);
+				/*findElement(saveDelegateBtnId).click();
+				waitUntilVisibilityOfElement(delegateMsgXpath);*/
+				clickAndWaitUntilElementAppears(saveDelegateBtnId, delegateMsgXpath);
 				logger.log(LogStatus.INFO, "delegated the invoice");
 				status = true;
 				break;
@@ -160,8 +164,9 @@ public class Approval extends eInvoice_CommonFunctions {
 			findElement(By.xpath("//th[contains(@class,'statusFilter')]//b")).click();
 			findElement(By.xpath("//input[contains(@class,'pendingSince') and @type='checkbox']")).click();
 			findElement(By.xpath("//input[contains(@class,'pendingSince') and @type='text']")).sendKeys(String.valueOf(pendingDays));
-			findElement(filterBtnXpath).click();
-			waitUntilInvisibilityOfElement(processingLoader);
+			/*findElement(filterBtnXpath).click();
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			clickAndWaitUntilLoaderDisappears(filterBtnXpath);
 			List<WebElement> objfilteredList = driver.findElements(statusXpath);
 			for (WebElement obj : objfilteredList) {
 				if (obj.getText().equals(checkBoxLbl))
@@ -313,11 +318,21 @@ public class Approval extends eInvoice_CommonFunctions {
 	 * @throws ParseException
 	 * @return result
 	 */
-
+	@Deprecated
 	public boolean filterBySupplier(String supplier) throws ParseException {
 		boolean result = false;
 		try {
 			result = filterByText("Supplier", supplier) ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean filterByInitiator(String initiator) throws ParseException {
+		boolean result = false;
+		try {
+			result = filterByText("Supplier", initiator) ? true : false;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -377,9 +392,10 @@ public class Approval extends eInvoice_CommonFunctions {
 			sendKeys(By.id("txtFltrInvoiceNum"), invoiceNo);
 			findElement(By.xpath("(//div[contains(@id,'qtip')]//input[following-sibling::text()[contains(.,'"
 					+ checkBoxLbl + "')]])[1]")).click();
-			findElement(filterBtnXpath).click();
-			waitUntilInvisibilityOfElement(processingLoader);
-					List<WebElement> objfilteredList = driver.findElements(documentNoXpath);
+			/*findElement(filterBtnXpath).click();
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			clickAndWaitUntilLoaderDisappears(filterBtnXpath);
+			List<WebElement> objfilteredList = driver.findElements(documentNoXpath);
 			for (WebElement obj : objfilteredList) {
 				if (obj.getText().equals(invoiceNo))
 					result = true;

@@ -36,14 +36,14 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 	private ExtentTest logger;
 
 	// private By processingLoader = By.id("workflowApproval_processing");
-	private By processingLoader = By.xpath("//div[contains(@id,'processing')]");
-	private By statusXpath = By.xpath("//table[@id='workflowApproval']//td[2]/div");
-	private By dateXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'receivedOn')]");
-	private By amtToApproveXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityAmount')]");
-	private By statusTxtXpath = By.xpath("(//table[@id='workflowApproval']//td[2]/div)[1]");
-	private By actionsLinkXpath = By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]");
-	private By requisitionNumTxtXpath = By.xpath("(//table[@id='workflowApproval']//td[3]/a)[1]");
-	private By requisitionNameTxtXpath = By.xpath("(//table[@id='workflowApproval']//td[4])[1]");
+	//private By processingLoader = By.xpath("//div[contains(@id,'processing')]");
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
+	private By dateXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'receivedOn')]");
+	private By amtToApproveXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
+	private By statusTxtXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div)[1]");
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
+	private By requisitionNumTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[3]/a)[1]");
+	private By requisitionNameTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[4])[1]");
 	
 	eInvoice_CommonFunctions objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	/**
@@ -153,7 +153,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 	private class Requisition extends ApprovalDetails {
 		private WebDriver driver;
 
-		private By amountXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityAmount')]");
+		private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
 		
 		String requisitionNo = "1056";
 		String requisitionName = "Mobile API testing";
@@ -327,7 +327,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 			
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -393,7 +393,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 			Dialog objDialog;
 			if (verifyDisplayedAction(action)) {
@@ -436,7 +436,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -488,7 +488,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -530,8 +530,8 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 	private class Standard_PO extends ApprovalDetails {
 		private WebDriver driver;
 
-		private By amountXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityAmount')]");
-		private By typeXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityType')]");
+		private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
+		private By typeXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityType')]");
 		
 		String poNo = "616";
 		String poName = "Copy of Copy of Copy of O";
@@ -729,7 +729,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -763,8 +763,8 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 	private class Blanket_PO extends ApprovalDetails {
 		private WebDriver driver;
 
-		private By amountXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityAmount')]");
-		private By typeXpath = By.xpath("//table[@id='workflowApproval']//td[contains(@class,'entityType')]");
+		private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
+		private By typeXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityType')]");
 		
 		String poNo = "616";
 		String poName = "Copy of Copy of Copy of O";
@@ -963,7 +963,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -996,9 +996,9 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 	private class Catalog extends ApprovalDetails {
 		private WebDriver driver;
 
-		private By supplierXpath = By.xpath("//table[@id='workflowApproval']//td[5]");
-		private By catalogNameTxtXpath = By.xpath("(//table[@id='workflowApproval']//td[3]/a)[1]");
-		private By receivedOnTxtXpath = By.xpath("(//table[@id='workflowApproval']//td[4])[1]");
+		private By supplierXpath = By.xpath("//table[contains(@class,'dataTable')]//td[5]");
+		private By catalogNameTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[3]/a)[1]");
+		private By receivedOnTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[4])[1]");
 		
 		String catalogName = "firewall sanity";
 		
@@ -1101,7 +1101,7 @@ public class ApprovalDetails extends eProc_CommonFunctions {
 			boolean result = false;
 
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
 
 			if (verifyDisplayedAction(action)) {

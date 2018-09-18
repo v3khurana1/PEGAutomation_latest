@@ -22,8 +22,8 @@ import common.Functions.eProc_CommonFunctions;
  */
 
 public class RequisitionSubmitPg extends eProc_CommonFunctions {
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By RequisitionName = By.id("lblRequisitionName");
 
@@ -35,8 +35,8 @@ public class RequisitionSubmitPg extends eProc_CommonFunctions {
 
 	public RequisitionSubmitPg(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

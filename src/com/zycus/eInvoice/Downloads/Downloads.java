@@ -8,10 +8,10 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class Downloads extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private String APReportCriteria;
-	private By processingLoader = By.id("downloadsGrid_processing");
+	//private By processingLoader = By.id("downloadsGrid_processing");
 
 	/**
 	 * Constructor for the class
@@ -23,8 +23,8 @@ public class Downloads extends eInvoice_CommonFunctions {
 
 	public Downloads(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -37,8 +37,8 @@ public class Downloads extends eInvoice_CommonFunctions {
 
 	public Downloads(WebDriver driver, ExtentTest logger, String APReportCriteria) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.APReportCriteria = APReportCriteria;
 	}
 
@@ -62,8 +62,9 @@ public class Downloads extends eInvoice_CommonFunctions {
 			selectDate_v1(startDt);
 			findElement(By.xpath("//img[@class='ui-datepicker-trigger' and contains(@alt,'end date')]")).click();
 			selectDate_v1(EndDt);
-			findElement(By.id("btnSubmit"));
-			waitUntilInvisibilityOfElement(processingLoader);
+			/*findElement(By.id("btnSubmit"));
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			clickAndWaitUntilLoaderDisappears(By.id("btnSubmit"));
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,8 +87,9 @@ public class Downloads extends eInvoice_CommonFunctions {
 		try {
 			findElement(By.xpath("//select[@id='criteriabased']/option[text()='" + APReportCriteria + "']")).click();
 			findElement(By.xpath("//select[@id='monthVal']/option[@value='"+String.valueOf(monthsSince)+"']"));
-			findElement(By.id("btnSubmit"));
-			waitUntilInvisibilityOfElement(processingLoader);
+			/*findElement(By.id("btnSubmit"));
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			clickAndWaitUntilLoaderDisappears(By.id("btnSubmit"));
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,9 +13,9 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class NewRecurringContract extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private String searchValue;
-	private String paymentTerms;
+	//private String paymentTerms;
 	private String contractName;
 	private String contractOwner;
 	private String autoInvoiceNo;
@@ -24,7 +24,7 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 	private String frequency;
 	private Date fromDt;
 	private String weekDay;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -36,8 +36,8 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 	
 	public NewRecurringContract(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	/**
@@ -58,14 +58,32 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 	 * 
 	 */
 	
-	public NewRecurringContract(WebDriver driver, ExtentTest logger, String searchValue, String paymentTerms, String contractName,
+	/*public NewRecurringContract(WebDriver driver, ExtentTest logger, String searchValue, String paymentTerms, String contractName,
 			String contractOwner, String autoInvoiceNo, String purchaseType, String frequencyNo, String frequency,
 			Date fromDt, String weekDay) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.searchValue = searchValue;
 		this.paymentTerms = paymentTerms;
+		this.contractName = contractName;
+		this.contractOwner = contractOwner;
+		this.autoInvoiceNo = autoInvoiceNo;
+		this.purchaseType = purchaseType;
+		this.frequencyNo = frequencyNo;
+		this.frequency = frequency;
+		this.fromDt = fromDt;
+		this.weekDay = weekDay;
+	}*/
+	
+	public NewRecurringContract(WebDriver driver, ExtentTest logger, String searchValue, String contractName,
+			String contractOwner, String autoInvoiceNo, String purchaseType, String frequencyNo, String frequency,
+			Date fromDt, String weekDay) {
+		super(driver, logger);
+		//this.driver = driver;
+		//this.logger = logger;
+		this.searchValue = searchValue;
+		//this.paymentTerms = paymentTerms;
 		this.contractName = contractName;
 		this.contractOwner = contractOwner;
 		this.autoInvoiceNo = autoInvoiceNo;
@@ -162,7 +180,7 @@ public class NewRecurringContract extends eInvoice_CommonFunctions {
 			findElement(By.id("txtFromDate")).click();
 			selectDate(fromDt);
 			findElement(By.id("txtNeverExpires")).click();
-			findElement(By.xpath("//select[@id='txtDayOfWeek']/option[text()='weekDay']")).click();
+			findElement(By.xpath("//select[@id='txtDayOfWeek']/option[text()='"+weekDay+"']")).click();
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();

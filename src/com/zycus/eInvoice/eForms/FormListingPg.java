@@ -26,8 +26,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class FormListingPg extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By pgHead = By.xpath("//div[@class='zydf-page_label' and contains(text(),'Form Listing Page')]");
 
 	/**
@@ -40,8 +40,8 @@ public class FormListingPg extends eInvoice_CommonFunctions {
 
 	public FormListingPg(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class FormListingPg extends eInvoice_CommonFunctions {
 	 * @throws Exception
 	 */
 
-	public boolean clickCreateNewFlexiFormBtn() throws Exception {
+	public boolean clickCreateNewFlexiFormBtn(ConfigureFlexiForm objFlexi) throws Exception {
 		boolean result = false;
 		try {
 			findElement(By.id("lnkAddForm")).click();
-			ConfigureFlexiForm objFlexi = new ConfigureFlexiForm(driver, logger);
+			//ConfigureFlexiForm objFlexi = new ConfigureFlexiForm(driver, logger);
 			if(objFlexi.getPgHead()!=null)
 				result = true;
 		} catch (Exception e) {

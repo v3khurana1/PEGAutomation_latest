@@ -29,7 +29,7 @@ public class InvoiceAgainstPO extends eInvoice_CommonFunctions {
 	private ExtentTest logger;
 	private WebDriver driver;
 	private String invoiceDate;
-	private String invoiceNo;
+	//private String invoiceNo;
 
 	public InvoiceAgainstPO(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
@@ -60,11 +60,14 @@ public class InvoiceAgainstPO extends eInvoice_CommonFunctions {
 	public boolean createNewInvoice() {
 
 		boolean result = false;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		try {
 			Thread.sleep(3000);
 			String invoiceNo = String.valueOf(generateNo());
 			sendKeys(By.id("txtInvoiceNumber"), invoiceNo);
-			// selectDate(invoiceDate);
+			try{
+				selectDate_v1(invoiceDate);
+			}catch(Exception e){}
 			// TODO invoice due date
 			// add attachment
 			selectTodayDate();
@@ -79,12 +82,12 @@ public class InvoiceAgainstPO extends eInvoice_CommonFunctions {
 				Thread.sleep(2000);
 				scroll_into_view_element(foo);
 				Thread.sleep(2000);
-				JavascriptExecutor js = (JavascriptExecutor) driver;
 				js.executeScript("arguments[0].click();", foo);
 			}
 			Thread.sleep(3000);
-			findElement(By.id("btnSubmit")).click();
-			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']/div"));
+			/*findElement(By.id("btnSubmit")).click();
+			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']/div"));*/
+			clickAndWaitUntilLoaderDisappears(By.id("btnSubmit"), By.xpath("//*[@id='status_overlay_updateInvoice']/div"));
 			if (findElement(By.xpath("//span[text()='Submit for approval']")).isDisplayed())
 				findElement(By.xpath("//div[@class='b-box']//input[@value='Send for confirmation']")).click();
 			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']/div"));

@@ -21,8 +21,8 @@ import common.Functions.eProc_CommonFunctions;
  */
 
 public class CDW_page extends eProc_CommonFunctions{
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By CDWPg 		= By.id("MasterPageBodyTag");
 	
@@ -34,8 +34,8 @@ public class CDW_page extends eProc_CommonFunctions{
 	
 	public CDW_page(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

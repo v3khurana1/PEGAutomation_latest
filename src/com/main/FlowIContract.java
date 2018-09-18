@@ -41,8 +41,8 @@ public class FlowIContract {
 	ExtentTest logger;
 	FrameworkUtility objFrameworkUtility = new FrameworkUtility();
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
-	private String Customer;
-	private String Product;
+	//private String Customer;
+	//private String Product;
 	private String contractNumber;
 	eInvoice_CommonFunctions objFunctions = null;
 	//CommonFunctions objZSNFunctions = null;
@@ -80,10 +80,10 @@ public class FlowIContract {
 	 */
 	@Test(dataProviderClass = iContract_DataProviderTestNG.class, dataProvider = "Login", priority = 1, alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
-		this.Customer = Customer;
-		this.Product = Product;
-		//objFunctions = new eInvoice_CommonFunctions(driver, logger, Product);
-		objFunctions = new eInvoice_CommonFunctions(driver, logger, "iContract");
+		//this.Customer = Customer;
+		//this.Product = Product;
+		objFunctions = new eInvoice_CommonFunctions(driver, logger, Product);
+		//objFunctions = new eInvoice_CommonFunctions(driver, logger, "iContract");
 		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, "iContract", Username, Password, Customer, userAccount);
 		callAndLog(objLogin.Login_via_PwdMgr1(configurationProperties), "login successful", "Not logged in");
@@ -103,7 +103,6 @@ public class FlowIContract {
 		objSelectContract.selectContractTypes(objDetails);
 		ContractingParty objContParty = new ContractingParty(driver, logger);
 		objDetails.enterContractDetails(objContParty);
-	
 	}
 	
 	@Test(alwaysRun = true, dependsOnMethods = "Login",priority=3)

@@ -12,11 +12,11 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class PO_CreditMemo extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private String creditMemoNo;
 	private Date creditMemoDt;
 	private By creditMemoHeader = By.xpath("//h1[@class='pgHead']/span[1]");
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -28,8 +28,8 @@ public class PO_CreditMemo extends eInvoice_CommonFunctions {
 	
 	public PO_CreditMemo(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	/**
@@ -44,8 +44,8 @@ public class PO_CreditMemo extends eInvoice_CommonFunctions {
 	
 	public PO_CreditMemo(WebDriver driver, ExtentTest logger, String creditMemoNo, Date creditMemoDt) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.creditMemoNo = creditMemoNo;
 		this.creditMemoDt = creditMemoDt;
 	}
@@ -61,7 +61,7 @@ public class PO_CreditMemo extends eInvoice_CommonFunctions {
 	 */
 
 	// Need to complete
-	public boolean takeAction(String action) {
+	public boolean takeAction(String action, PO_CreditMemo objCreateMemo) {
 		boolean result = false;
 		try {
 			findElement(By.xpath("//*[@id='actDrop']/span")).click();
@@ -75,7 +75,7 @@ public class PO_CreditMemo extends eInvoice_CommonFunctions {
 			case "Email PO":
 				break;
 			case "Add credit Memo":
-				PO_CreditMemo objCreateMemo = new PO_CreditMemo(driver, logger);
+				//PO_CreditMemo objCreateMemo = new PO_CreditMemo(driver, logger);
 				String creditMemoHeader = findElement(objCreateMemo.getCreditMemoHeader()).getText();
 				if (findElement(objCreateMemo.getCreditMemoHeader()).getText().equals(creditMemoHeader))
 					result = true;

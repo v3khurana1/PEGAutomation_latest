@@ -25,6 +25,7 @@ import com.zycus.eInvoice.Invoice.Invoices;
 import com.zycus.eInvoice.PO.PurchaseOrder;
 import com.zycus.eInvoice.Payment.Batches;
 import com.zycus.eInvoice.Payment.NewPaymentBatch;
+import com.zycus.eInvoice.Payment.NewVoucher;
 import com.zycus.eInvoice.Reports.ReportDetail;
 import com.zycus.eInvoice.Reports.Reports;
 import com.zycus.eInvoice.eForms.AllForms;
@@ -43,7 +44,7 @@ public class FlowEInvoice {
 	FrameworkUtility objFrameworkUtility = new FrameworkUtility();
 	eInvoice_CommonFunctions objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
-	private String Customer;
+	//private String Customer;
 	private String invoiceNo = null;
 
 	public FlowEInvoice() throws Exception {
@@ -77,7 +78,7 @@ public class FlowEInvoice {
 	 */
 	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dataProvider = "Login", priority = 1, alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
-		this.Customer = Customer;
+		//this.Customer = Customer;
 		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, Product, Username, Password, Customer, userAccount);
 		callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");
@@ -165,7 +166,8 @@ public class FlowEInvoice {
 		logger = extent.startTest("Perform action on Invoice");
 		objFunctions.navigate_path("Invoice", "Invoices");
 		Invoices objInvoice = new Invoices(driver, logger);
-		callAndLog(objInvoice.editInvoice(), "able to edit the invoice", "unable to edit the invoice");
+		PurchaseOrder objPO = new PurchaseOrder(driver, logger);
+		callAndLog(objInvoice.editInvoice(objPO), "able to edit the invoice", "unable to edit the invoice");
 		
 		objFunctions.navigate_path("Invoice", "Invoices");
 		objInvoice.filterByStatus("Approved");
@@ -235,7 +237,8 @@ public class FlowEInvoice {
 		logger = extent.startTest("CreditMemo against PO");
 		Invoices objInvoice = new Invoices(driver, logger);
 		objFunctions.navigate_path("Invoice", "Invoices");
-		callAndLog(objInvoice.createCreditMemoagainstPO(), "able to create creditMemo against PO",
+		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
+		callAndLog(objInvoice.createCreditMemoagainstPO(objPO), "able to create creditMemo against PO",
 				"unable to create creditMemo against PO");
 	}
 	
@@ -244,7 +247,8 @@ public class FlowEInvoice {
 		logger = extent.startTest("Invoice against PO");
 		Invoices objInvoice = new Invoices(driver, logger);
 		objFunctions.navigate_path("Invoice", "Invoices");
-		callAndLog(objInvoice.createInvoiceagainstPO(), "able to create invoice against PO",
+		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
+		callAndLog(objInvoice.createInvoiceagainstPO(objPO), "able to create invoice against PO",
 				"unable to create invoice against PO");
 	}
 	
@@ -325,9 +329,11 @@ public class FlowEInvoice {
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		objCommon.navigate_path(tabToNavigate, subTabToNavigate);
 		Batches objBatches = new Batches(driver, logger);
-		if(objBatches.createNewBatch()){
-			NewPaymentBatch objNewPayment = new NewPaymentBatch(driver, logger, organizationUnit, bankAcct);
-			objNewPayment.enterBatchDetails(approver, notes, reviewer);
+		NewPaymentBatch objNewPayment = new NewPaymentBatch(driver, logger, organizationUnit, bankAcct);
+		if(objBatches.createNewBatch(objNewPayment)){
+			//NewPaymentBatch objNewPayment = new NewPaymentBatch(driver, logger, organizationUnit, bankAcct);
+			NewVoucher objVoucher = new NewVoucher(driver, logger, "GDQA_SUPPLIER","chk123","voucher123");
+			objNewPayment.enterBatchDetails(approver, notes, reviewer, objVoucher);
 		}
 	}
 		
@@ -343,9 +349,9 @@ public class FlowEInvoice {
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		objCommon.navigate_path(tabToNavigate, subTabToNavigate);
 		AllForms objAllForms = new AllForms(driver, logger);
-		objAllForms.selectNewFormCreationProcess(formCreationProcess);
 		FormWizard objWizard = new FormWizard(driver, logger, formName, formType, formRelatedProcess,
 				businessUnit, sectionName, fieldToDisplayInSection, fieldName, "Auto_display_Name"); 
+		objAllForms.selectNewFormCreationProcess(formCreationProcess, objWizard);
 		objWizard.createNewForm(formDescription, sectionDescription, sectionLayout, defaultValue, Integer.parseInt(maxChar), Boolean.parseBoolean(hideField), Boolean.parseBoolean(enterSpace), Boolean.parseBoolean(enterSplChar), Boolean.parseBoolean(mandatory));
 	}
 	

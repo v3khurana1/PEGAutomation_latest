@@ -35,7 +35,7 @@ public class FlowEProc {
 	//private CommonUtility objUtility;
 	eProc_CommonFunctions objFunctions = new eProc_CommonFunctions();
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
-	private String Customer;
+	//private String Customer;
 
 	
 	public FlowEProc() throws Exception {
@@ -63,7 +63,7 @@ public class FlowEProc {
 	 */
 	@Test(dataProviderClass = EProc_DataProviderTestNG.class, dataProvider = "Login", priority = 1, alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer) throws Exception {
-		this.Customer = Customer;
+		//this.Customer = Customer;
 		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, Product, Username, Password, Customer);
 		callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");

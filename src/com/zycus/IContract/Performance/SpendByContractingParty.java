@@ -7,13 +7,13 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class SpendByContractingParty extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	public SpendByContractingParty(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	public boolean searchContracts(String searchBy, String searchValue) {

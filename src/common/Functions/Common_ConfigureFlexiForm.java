@@ -17,13 +17,13 @@ public class Common_ConfigureFlexiForm extends common.eInvoice_CommonFunctions {
 	private String fieldType;
 	private String fieldName;
 	private String fieldDisplayName;
-	private String product;
+	//private String product;
 
 	public Common_ConfigureFlexiForm(WebDriver driver, ExtentTest logger, String product) {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
-		this.product = product;
+		//this.product = product;
 	}
 	
 

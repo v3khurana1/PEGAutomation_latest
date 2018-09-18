@@ -34,7 +34,7 @@ public class FormWizard extends Common_FormWizard {
 	private String formName;
 	private String formType;
 	private String relatedProcess;
-	private String company;
+	//private String company;
 	private String sectionName;
 	private By pgHead = By.xpath("//h1[contains(text(),'Form Details and Scope')]");
 	private String fieldType;
@@ -76,7 +76,7 @@ public class FormWizard extends Common_FormWizard {
 		this.formName = formName;
 		this.formType = formType;
 		this.relatedProcess = relatedProcess;
-		this.company = company;
+		//this.company = company;
 		this.sectionName = sectionName;
 		this.fieldType = fieldType;
 		this.fieldName = fieldName + String.valueOf(generateNo());
@@ -90,13 +90,14 @@ public class FormWizard extends Common_FormWizard {
 		this.formName = formName;
 		this.formType = formType;
 		this.relatedProcess = relatedProcess;
-		this.company = company;
+		//this.company = company;
 		this.sectionName = sectionName;
 		this.fieldType = fieldType;
 		this.fieldName = fieldName + String.valueOf(generateNo());
 		this.fieldDisplayName = fieldDisplayName;
 	}
-
+	
+	
 	/**
 	 * <b>Function:</b> createNewForm
 	 * 
@@ -126,13 +127,16 @@ public class FormWizard extends Common_FormWizard {
 
 			// eForm Scope
 			selectEFormScope_new(Iteration);
-			findElement(By.xpath("//input[@value='Save and Continue']")).click();
-			waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));
+			/*findElement(By.xpath("//input[@value='Save and Continue']")).click();
+			waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));*/
+			
+			clickAndWaitUntilLoaderDisappears(By.xpath("//input[@value='Save and Continue']"), By.id("status_overlay_saveForm"));
 			while (findElement(By.xpath("//*[@id='scopesExistsMessageContainer']/div/div[2]")) != null) {
 				Iteration++;
 				selectEFormScope_new(Iteration);
-				findElement(By.xpath("//input[@value='Save and Continue']")).click();
-				waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));
+				/*findElement(By.xpath("//input[@value='Save and Continue']")).click();
+				waitUntilInvisibilityOfElement(By.id("status_overlay_saveForm"));*/
+				clickAndWaitUntilLoaderDisappears(By.xpath("//input[@value='Save and Continue']"), By.id("status_overlay_saveForm"));
 				// Thread.sleep(2000);
 			}
 			if (findElement(By.xpath("//label[text()='This eForm name has already been used']")) != null) {
@@ -148,19 +152,21 @@ public class FormWizard extends Common_FormWizard {
 			} else if (formType.equals("Line level form")) {
 				// In case of navigation to Flexiform
 				FormListingPg objFormListing = new FormListingPg(driver, logger);
-				if (findElement(objFormListing.getPgHead()) != null)
-					if (objFormListing.clickCreateNewFlexiFormBtn()) {
-						ConfigureFlexiForm objFlexi = new ConfigureFlexiForm(driver, logger, sectionName, fieldType, fieldName, fieldDisplayName);
+				if (findElement(objFormListing.getPgHead()) != null){
+					ConfigureFlexiForm objFlexi = new ConfigureFlexiForm(driver, logger, sectionName, fieldType, fieldName, fieldDisplayName);
+					if (objFormListing.clickCreateNewFlexiFormBtn(objFlexi)) {
 						//Thread.sleep(4000);
 						if (objFlexi.addSection_flexiForm(sectionDescription, sectionLayout)){
 							objFlexi.addfield_FlexiForm(defaultValue, maxChar, mandatory);
-							result = objFlexi.saveFlexiForm()?true:false;
+							AllForms objForms = new AllForms(driver, logger);
+							result = objFlexi.saveFlexiForm(objForms)?true:false;
 						}
 						/*findElement(By.xpath("//input[@name='saveEform']")).click();
 						Thread.sleep(6000);
 						AllForms objForms = new AllForms(driver, logger);
 						result = findElement(objForms.getPgHead()) != null ? true : false;*/
 					}
+				}
 			}
 
 		} catch (Exception e) {

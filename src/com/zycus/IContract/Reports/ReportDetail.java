@@ -13,8 +13,8 @@ import common.Reports.Common_ReportDetail;
 public class ReportDetail extends Common_ReportDetail {
 
 	private WebDriver driver;
-	private ExtentTest logger;
-	private By reportLabel = By.xpath("//*[@id='reportNameHeader_RMS']/label");
+	//private ExtentTest logger;
+	//private By reportLabel = By.xpath("//*[@id='reportNameHeader_RMS']/label");
 
 	/**
 	 * Constructor for the class
@@ -27,7 +27,7 @@ public class ReportDetail extends Common_ReportDetail {
 	public ReportDetail(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/**
@@ -96,19 +96,5 @@ public class ReportDetail extends Common_ReportDetail {
 		return result;
 	}
 */
-	/**
-	 * @return the reportLabel
-	 */
-	/*public By getReportLabel() {
-		return reportLabel;
-	}*/
-
-	/**
-	 * @param reportLabel
-	 *            the reportLabel to set
-	 */
-	/*public void setReportLabel(By reportLabel) {
-		this.reportLabel = reportLabel;
-	}*/
-
+	
 }

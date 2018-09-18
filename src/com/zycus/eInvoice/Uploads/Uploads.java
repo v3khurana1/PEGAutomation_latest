@@ -14,7 +14,7 @@ public class Uploads extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
 	private ExtentTest logger;
-	private By actionsLinkXpath = By.xpath("(//*[@id='uploadsListing']//a[@class='icon actLnk'])[1]");
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
 
 	/**
 	 * Constructor for the class
@@ -89,8 +89,8 @@ public class Uploads extends eInvoice_CommonFunctions {
 			wait.until(ExpectedConditions.presenceOfElementLocated(
 					By.xpath("//tr[contains(@class,'attachmentRow')]//td[@class='status' and text()='Uploaded']")));
 			findElement(By.xpath("//*[@id='attachmentsDOM']//input[@value='Done']")).click();
-			String uploadedFileTitle = findElement(By.xpath("//table[@id='uploadsListing']/tbody/tr[1]/td[2]/a"))
-					.getAttribute("title");
+			/*String uploadedFileTitle = findElement(By.xpath("//table[contains(@class,'dataTable')]/tbody/tr[1]/td[2]/a"))
+					.getAttribute("title");*/
 			result = true;
 			// WRITE CODE TO VERIFY THAT THE FILE IS UPLOADED AND A ROW IS
 			// CREATED
@@ -115,10 +115,11 @@ public class Uploads extends eInvoice_CommonFunctions {
 		boolean result = false;
 		try {
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='uploadsListing']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+			/*findElement(By.xpath("(//*[@id='uploadsListing']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 					+ action + "']")).click();
-			waitUntilInvisibilityOfElement(By.id("status_overlay_loading_msg"));
-
+			waitUntilInvisibilityOfElement(By.id("status_overlay_loading_msg"));*/
+			clickAndWaitUntilLoaderDisappears(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+					+ action + "']"), By.id("status_overlay_loading_msg"));
 			switch (action) {
 			case "Create Non-PO Invoice":
 				break;

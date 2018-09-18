@@ -112,7 +112,7 @@ public class createPOInvoice1 extends CommonFunctions1
     private By qtyInvoicefieldxpath;
     private By marketPricefieldxpath;
     private By invoicenoId;
-    private String invoice_no;
+    //private String invoice_no;
     private ExtentTest logger;
     ConfigurationProperties configurationProperties;
 }

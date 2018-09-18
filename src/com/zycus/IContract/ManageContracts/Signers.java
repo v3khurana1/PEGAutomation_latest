@@ -11,12 +11,12 @@ public class Signers extends eInvoice_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 	private By processingLoader =By.xpath("//div[contains(@id,'Processing')]");
-	private By filterBtnXpath = By.xpath(
+	/*private By filterBtnXpath = By.xpath(
 			"//div[contains(@class,'typeFilterContent') and contains(@style,'block')]//a[text()='Filter'][ancestor::div[@aria-hidden='false']]");
 	private By contractSrcXpath = By.xpath("//table[@id='authorContractListing-grid']/tbody//td[4]/span");
 	private By statusXpath = By.xpath("//table[@id='authorContractListing-grid']/tbody//td[6]/span");
 	private By stageXpath = By.xpath("//table[@id='authorContractListing-grid']/tbody//td[8]//li[@class='inprogress']/span");
-	
+	*/
 	public Signers(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;

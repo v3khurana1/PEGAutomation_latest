@@ -23,7 +23,7 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
         throws Exception
     {
         super(driver, logger);
-        custNoId = By.id("txtCustomerNo");
+        //custNoId = By.id("txtCustomerNo");
         invoiceNoId = By.id("txtInvoiceNumber");
         addItemId = By.id("addMoreItems");
         itemLessId = By.id("itemLess");
@@ -97,7 +97,7 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
 
     private WebDriver driver;
     private ExtentTest logger;
-    private By custNoId;
+    //private By custNoId;
     private By invoiceNoId;
     private By addItemId;
     private By itemLessId;

@@ -11,13 +11,13 @@ import com.relevantcodes.extentreports.ExtentTest;
 
 public class MySettings extends ApprovalDetails {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	public MySettings(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	/**

@@ -11,6 +11,7 @@ import com.zycus.eProc.*;
 import common.Functions.eProc_CommonFunctions;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * <p>
@@ -55,10 +56,10 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 	private By dateXpath = By.xpath("//table[@id='reqList']//td[contains(@class,'submittedOn')]");
 	private By amountXpath = By.xpath("//table[@id='reqList']//td[contains(@class,'totalAmountReq')]");
 	*/
-	private By statusTxtXpath = By.xpath("(//table[@id='reqList']//td[1]/div)[1]");
-	private By actionsLinkXpath = By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]");
-	private By requisitionNumTxtXpath = By.xpath("(//table[@id='reqList']//td[2]/a)[1]");
-	private By requisitionNameTxtXpath = By.xpath("(//table[@id='reqList']//td[3]/a)[1]");
+	private By statusTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[1]/div)[1]");
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
+	private By requisitionNumTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[2]/a)[1]");
+	private By requisitionNameTxtXpath = By.xpath("(//table[contains(@class,'dataTable')]//td[3]/a)[1]");
 	private By DeletePopUpXpath = By.xpath("//div[div//td[text()='Are you sure want to delete this requisition?']]");
 	private By DeletePopUpYesLink = By
 			.xpath("//div[div//td[text()='Are you sure want to delete this requisition?']]//button/span[text()='Yes']");
@@ -105,7 +106,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 				} else if (requisitionFlow == "Punchout") {
 
 				} else
-					System.out.println("Online Store page not displayed");
+					logger.log(LogStatus.INFO, "Online Store page not displayed");
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -305,7 +306,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 		boolean result = false;
 		try {
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
 					+ "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -322,22 +323,22 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 						findElement(DeletePopUpYesLink).click();
 					if (findElement(processingLoader).getAttribute("style").contains("block")) {
 						WebElement objDeletedReqNum = findElement(
-								By.xpath("//table[@id='reqList']//td[2]/a[text()='" + requisitionNum + "']"));
+								By.xpath("//table[contains(@class,'dataTable')]//td[2]/a[text()='" + requisitionNum + "']"));
 						if (objDeletedReqNum == null)
 							result = true;
 						else {
-							System.out.println("Deleted Requisition still exists");
+							logger.log(LogStatus.INFO, "Deleted Requisition still exists");
 							result = false;
 						}
 					} else
-						System.out.println("Are you sure want to delete this requisition - message not displayed");
+						logger.log(LogStatus.INFO, "Are you sure want to delete this requisition - message not displayed");
 					break;
 				case "Edit":
 					CheckoutPg objReqCheckout = new CheckoutPg(driver, logger);
 					if (findElement(objReqCheckout.getRequisitionNm()).getAttribute("value") == requisitionName)
 						result = true;
 					else {
-						System.out.println("Requested Requisition not opened for editing");
+						logger.log(LogStatus.INFO, "Requested Requisition not opened for editing");
 						result = false;
 					}
 					break;
@@ -346,7 +347,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 					if (findElement(objReqSubmit.getRequisitionName()).getText() == requisitionName)
 						result = true;
 					else {
-						System.out.println("Requested Requisition not opened for review & submit");
+						logger.log(LogStatus.INFO, "Requested Requisition not opened for review & submit");
 						result = false;
 					}
 					break;
@@ -356,7 +357,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 							&& findElement(objCreateReceipt.getHeaderReqName()).getText() == requisitionName)
 						result = true;
 					else {
-						System.out.println("Requested Requisition not opened for Create Receipt");
+						logger.log(LogStatus.INFO, "Requested Requisition not opened for Create Receipt");
 						result = false;
 					}
 					break;
@@ -364,7 +365,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 					if (findElement(reminderMsgSentXpath) != null)
 						result = true;
 					else {
-						System.out.println("Reminder message has been sent not displayed");
+						logger.log(LogStatus.INFO, "Reminder message has been sent not displayed");
 						result = false;
 					}
 					break;
@@ -382,17 +383,17 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 						if (findElement(objReqCheckout1.getRequisitionNm()).getAttribute("value") == requisitionName)
 							result = true;
 						else {
-							System.out.println("Requested Requisition not opened for editing");
+							logger.log(LogStatus.INFO, "Requested Requisition not opened for editing");
 							result = false;
 						}
 					} else {
-						System.out.println("Requested Requisition not opened for editing");
+						logger.log(LogStatus.INFO, "Requested Requisition not opened for editing");
 						result = false;
 					}
 					break;
 				}
 			} else
-				System.out.println("Requisition is not in required status for the requested action");
+				logger.log(LogStatus.INFO, "Requisition is not in required status for the requested action");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -414,7 +415,7 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 		boolean result = false;
 		try {
 			findElement(actionsLinkXpath).click();
-			findElement(By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
 					+ "']")).click();
 
 			if (verifyDisplayedAction(action)) {
@@ -429,12 +430,12 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 						findElement(recallBtnId).click();
 						if (findElement(recallReqActionMsgId) != null) {
 							WebElement objRecalledReqNum = findElement(
-									By.xpath("//table[@id='reqList']//td[2]/a[text()='" + requisitionNum + "']"));
+									By.xpath("//table[contains(@class,'dataTable')]//td[2]/a[text()='" + requisitionNum + "']"));
 							if (objRecalledReqNum == null)
 								result = true;
 						}
 					} else {
-						System.out.println("Recall Approval Request pop up not displayed");
+						logger.log(LogStatus.INFO, "Recall Approval Request pop up not displayed");
 						result = false;
 					}
 					break;
@@ -454,13 +455,13 @@ public class RequisitionDetails extends eProc_CommonFunctions {
 						 */
 
 					} else {
-						System.out.println("Recall Approval Request pop up not displayed");
+						logger.log(LogStatus.INFO, "Recall Approval Request pop up not displayed");
 						result = false;
 					}
 					break;
 				}
 			} else
-				System.out.println("Requisition is not in required status for the requested action");
+				logger.log(LogStatus.INFO, "Requisition is not in required status for the requested action");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

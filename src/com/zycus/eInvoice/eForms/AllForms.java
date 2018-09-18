@@ -29,7 +29,7 @@ import common.Functions.eInvoice_CommonFunctions;
 public class AllForms extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private By pgHead = By.xpath("//h1[@class='pgHead'][contains(text(),'All Forms')]");
 	/**
 	 * Constructor for the class
@@ -42,7 +42,7 @@ public class AllForms extends eInvoice_CommonFunctions {
 	public AllForms(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/**
@@ -55,14 +55,14 @@ public class AllForms extends eInvoice_CommonFunctions {
 	 * @throws Exception
 	 */
 
-	public boolean selectNewFormCreationProcess(String formCreationProcess) throws Exception {
+	public boolean selectNewFormCreationProcess(String formCreationProcess, FormWizard objWizard) throws Exception {
 		boolean result = false;
 		try {
 			WebElement hoverElem = findElement(By.xpath("//a[span[text()='New eForm']]"));
 			Actions builder = new Actions(driver);
 			builder.moveToElement(hoverElem).build().perform();
 			findElement(By.xpath("//a[span[text()='"+formCreationProcess+"']]")).click();
-			FormWizard objWizard = new FormWizard(driver, logger);
+			//FormWizard objWizard = new FormWizard(driver, logger);
 			if(objWizard.getPgHead()!=null)
 				result = true;
 		} catch (Exception e) {

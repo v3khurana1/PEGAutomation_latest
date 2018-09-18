@@ -10,6 +10,7 @@ import com.zycus.eProc.Punchout.*;
 import common.Functions.eProc_CommonFunctions;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * <p>
@@ -75,12 +76,12 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 						+ "')]]/div[2]/a[contains(text(),'" + searchItem + "')]")).click();
 				Requisition_OnlineStore_SearchResults objReqSrchRes = new Requisition_OnlineStore_SearchResults(driver, logger);
 				if (findElement(objReqSrchRes.getNo_catalog_items_found()) == null) {
-					System.out.println("No catalog items found message displayed");
+					logger.log(LogStatus.INFO, "No catalog items found message displayed");
 				} else if (driver.findElements(objReqSrchRes.getSearch_results()).size() > 0) {
 					result = true;
 				}
 			} else {
-				System.out.println("Side bar category is not displayed");
+				logger.log(LogStatus.INFO, "Side bar category is not displayed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,7 +106,7 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 			findElement(By.id("btnBigSearch")).click();
 			Requisition_OnlineStore_SearchResults objReqSrchRes = new Requisition_OnlineStore_SearchResults(driver, logger);
 			if (findElement(objReqSrchRes.getNo_catalog_items_found()) == null) {
-				System.out.println("No catalog items found message displayed");
+				logger.log(LogStatus.INFO, "No catalog items found message displayed");
 				result = true;
 			} else if (driver.findElements(objReqSrchRes.getSearch_results()).size() > 0) {
 				result = true;
@@ -135,7 +136,7 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 			if (findElement(objGPSrchEFrms.getEForms_popUp()) != null)
 				result = true;
 			else
-				System.out.println("All eForms pop up not displayed");
+				logger.log(LogStatus.INFO, "All eForms pop up not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,7 +175,7 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 			if (findElement(objCategItem.getGuidedProc_createItemPg()) != null)
 				result = true;
 			else
-				System.out.println("Create free-item for category page not displayed");
+				logger.log(LogStatus.INFO, "Create free-item for category page not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -200,7 +201,7 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 			if (findElement(objPnsSrchPnchout.getAllPunchouts_popUp()) != null)
 				result = true;
 			else
-				System.out.println("All Punchouts pop up not displayed");
+				logger.log(LogStatus.INFO, "All Punchouts pop up not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -229,7 +230,7 @@ public class Requisition_OnlineStore extends eProc_CommonFunctions {
 			if (findElement(objCDWPg.getCDWPg()) != null)
 				result = true;
 			else
-				System.out.println("Create free-item for category page not displayed");
+				logger.log(LogStatus.INFO, "Create free-item for category page not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

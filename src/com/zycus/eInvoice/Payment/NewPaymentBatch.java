@@ -123,7 +123,7 @@ public class NewPaymentBatch extends eInvoice_CommonFunctions {
 	 */
 	
 	//public void enterBatchDetails(Date scheduledFor, String approver, String notes, String reviewer) throws Exception {
-	public void enterBatchDetails(String approver, String notes, String reviewer) throws Exception {
+	public void enterBatchDetails(String approver, String notes, String reviewer, NewVoucher objVoucher) throws Exception {
 		try {
 			selectOrgUnit_and_Bank();
 			/*findElement(By.id("txtBatchNo")).sendKeys(batchNo);
@@ -150,7 +150,7 @@ public class NewPaymentBatch extends eInvoice_CommonFunctions {
 			}
 			Thread.sleep(2000);
 			//Add Voucher
-			if(addVoucher())
+			if(addVoucher(objVoucher))
 				Thread.sleep(6000);
 				findElement(By.id("btnSubmit")).click();
 		} catch (Exception e) {
@@ -159,11 +159,12 @@ public class NewPaymentBatch extends eInvoice_CommonFunctions {
 		}
 	}
 	
-	public boolean addVoucher() throws Exception{
+	public boolean addVoucher(NewVoucher objVoucher) throws Exception{
 		boolean result = false;
 		try{
-			findElement(By.id("addVoucher")).click();
-			waitUntilInvisibilityOfElement(By.id("status_overlay_savePaymentBatch"));
+			/*findElement(By.id("addVoucher")).click();
+			waitUntilInvisibilityOfElement(By.id("status_overlay_savePaymentBatch"));*/
+			clickAndWaitUntilLoaderDisappears(By.id("addVoucher"), By.id("status_overlay_savePaymentBatch"));
 			try{
 				if (driver.findElement(By.xpath("//label[contains(text(),'Duplicate batch number')]")) != null){
 					String batchNo = String.valueOf(generateNo());
@@ -171,11 +172,12 @@ public class NewPaymentBatch extends eInvoice_CommonFunctions {
 					objBatchNum.clear();
 					objBatchNum.sendKeys(batchNo);
 					//addVoucher();
-					findElement(By.id("addVoucher")).click();
-					waitUntilInvisibilityOfElement(By.id("status_overlay_savePaymentBatch"));
+					/*findElement(By.id("addVoucher")).click();
+					waitUntilInvisibilityOfElement(By.id("status_overlay_savePaymentBatch"));*/
+					clickAndWaitUntilLoaderDisappears(By.id("addVoucher"), By.id("status_overlay_savePaymentBatch"));
 				}
 			}catch(Exception ex){}
-			NewVoucher objVoucher = new NewVoucher(driver, logger, "GDQA_SUPPLIER","chk123","voucher123");
+			//NewVoucher objVoucher = new NewVoucher(driver, logger, "GDQA_SUPPLIER","chk123","voucher123");
 			if(objVoucher.getPgHead()!=null){
 				logger.log(LogStatus.INFO, "Navigated to 'Create New Voucher' page");
 				//objVoucher.createNewVoucher(voucherDate, supplierEmail, description, invoiceNo);

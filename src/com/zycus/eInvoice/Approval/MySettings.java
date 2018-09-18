@@ -22,8 +22,8 @@ import common.Functions.eInvoice_CommonFunctions;
  */
 public class MySettings extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By btnRevokeID = By.id("btnRevoke");
 	private By delegateToID = By.id("delegateTo");
@@ -33,8 +33,8 @@ public class MySettings extends eInvoice_CommonFunctions {
 
 	public MySettings(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -56,8 +56,9 @@ public class MySettings extends eInvoice_CommonFunctions {
 				Thread.sleep(4000);
 			}
 			enterText_AutoComplete(delegateToID, delegateTo);
-			findElement(btnSaveID).click();
-			waitUntilInvisibilityOfElement(notificationMsgXpath);
+			/*findElement(btnSaveID).click();
+			waitUntilInvisibilityOfElement(notificationMsgXpath);*/
+			clickAndWaitUntilLoaderDisappears(btnSaveID, notificationMsgXpath);
 			status = true;
 		} catch (Exception e) {
 			e.printStackTrace();

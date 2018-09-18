@@ -1,15 +1,11 @@
 package com.zycus.eInvoice.PO;
 
-import java.util.Date;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
 import common.Functions.eInvoice_CommonFunctions;
 
 /**
@@ -29,8 +25,8 @@ import common.Functions.eInvoice_CommonFunctions;
 public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
 	private ExtentTest logger;
 	private WebDriver driver;
-	private String creditMemoNo;
-	private Date creditMemoDate;
+	//private String creditMemoNo;
+	//private Date creditMemoDate;
 
 	public CreditMemoagainstPO(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
@@ -38,12 +34,12 @@ public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
 		this.logger = logger;
 	}
 
-	public CreditMemoagainstPO(WebDriver driver, ExtentTest logger, Date creditMemoDate) {
+	/*public CreditMemoagainstPO(WebDriver driver, ExtentTest logger, Date creditMemoDate) {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
 		this.creditMemoDate = creditMemoDate;
-	}
+	}*/
 	
 	/**
 	 * <b>Function:</b> createCreditMemo
@@ -57,6 +53,7 @@ public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
 	
 	public boolean createCreditMemo() {
 		boolean result = false;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		try {
 			String creditMemoNo = String.valueOf(generateNo());
 			sendKeys(By.id("txtInvoiceNumber"), creditMemoNo);
@@ -73,7 +70,6 @@ public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
 				Thread.sleep(2000);
 				scroll_into_view_element(foo);
 				Thread.sleep(2000);
-				JavascriptExecutor js = (JavascriptExecutor) driver;
 				js.executeScript("arguments[0].click();", foo);
 
 				// ExpectedCondition<WebElement> foo =
@@ -83,8 +79,9 @@ public class CreditMemoagainstPO extends eInvoice_CommonFunctions {
 			//DO NOT REMOVE THIS WAIT
 			Thread.sleep(3000);
 			logger.log(LogStatus.INFO, "before submit button");
-			findElement(By.id("btnSubmit")).click();
-			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']"));
+			/*findElement(By.id("btnSubmit")).click();
+			waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_updateInvoice']"));*/
+			clickAndWaitUntilLoaderDisappears(By.id("btnSubmit"), By.xpath("//*[@id='status_overlay_updateInvoice']"));
 			Thread.sleep(5000);
 			if (driver
 					.findElement(By.xpath("//*[@id='invoiceGrid']/tbody/tr[*]/td[1]/a[text()='" + creditMemoNo + "']"))

@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import common.Functions.eProc_CommonFunctions;
 
 /**
@@ -25,7 +27,7 @@ import common.Functions.eProc_CommonFunctions;
 
 public class GuidedProcurement_SearchEform extends eProc_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private ExtentTest logger;
 
 	private By EForms_popUp = By.xpath("//div[@class='guidemepage clearfix']");
@@ -38,7 +40,7 @@ public class GuidedProcurement_SearchEform extends eProc_CommonFunctions {
 
 	public GuidedProcurement_SearchEform(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 
@@ -80,7 +82,7 @@ public class GuidedProcurement_SearchEform extends eProc_CommonFunctions {
 							"//*[@id='selectEform']//a[@class='scLnk eformitem efrmLnk']/div[text()='" + eForm + "']"));
 					result = true;
 				} else
-					System.out.println("No eForm displayed for the search item");
+					logger.log(LogStatus.INFO, "No eForm displayed for the search item");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

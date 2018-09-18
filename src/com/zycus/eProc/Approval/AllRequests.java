@@ -18,8 +18,8 @@ import com.relevantcodes.extentreports.ExtentTest;
 
 public class AllRequests extends ApprovalDetails{
 
-	private WebDriver driver;
-	private ExtentTest logger; 
+	//private WebDriver driver;
+	//private ExtentTest logger; 
 	
 	/**
 	 * Constructor for the class
@@ -28,8 +28,8 @@ public class AllRequests extends ApprovalDetails{
 	
 	public AllRequests(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 }

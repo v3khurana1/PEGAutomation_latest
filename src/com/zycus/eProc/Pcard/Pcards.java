@@ -31,8 +31,8 @@ import common.Functions.eProc_CommonFunctions;
 
 public class Pcards extends eProc_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 
 	/*private By processingLoader = By.id("pCardList_processing");
 	private By statusXpath = By.xpath("//table[@id='pCardList']//td[1]/div");
@@ -47,8 +47,8 @@ public class Pcards extends eProc_CommonFunctions {
 
 	public Pcards(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

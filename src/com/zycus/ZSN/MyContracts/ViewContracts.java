@@ -12,13 +12,13 @@ import com.relevantcodes.extentreports.ExtentTest;
 public class ViewContracts extends CommonFunctions1 {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private By processingLoader = By.xpath("//div[contains(@id,'Processing')]");
 
 	public ViewContracts(WebDriver driver, ExtentTest logger) throws Exception {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	public boolean performAction(String contractNo, String action) throws Exception {

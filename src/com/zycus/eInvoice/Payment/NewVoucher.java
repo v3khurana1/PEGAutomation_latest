@@ -10,7 +10,7 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class NewVoucher extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private ExtentTest logger;
 	private String supplier;
 	private String chkNo;
@@ -27,7 +27,7 @@ public class NewVoucher extends eInvoice_CommonFunctions {
 
 	public NewVoucher(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 
@@ -44,7 +44,7 @@ public class NewVoucher extends eInvoice_CommonFunctions {
 
 	public NewVoucher(WebDriver driver, ExtentTest logger, String supplier, String chkNo, String voucherNo) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.supplier = supplier;
 		this.chkNo = chkNo;
@@ -75,8 +75,9 @@ public class NewVoucher extends eInvoice_CommonFunctions {
 			enterVoucherDetails(supplierEmail, description);
 			try {
 				createVoucherLine(invoiceNo);
-				findElement(By.id("btnAddVoucher")).click();
-				waitUntilInvisibilityOfElement(By.id("status_overlay_updateVoucher"));
+				/*findElement(By.id("btnAddVoucher")).click();
+				waitUntilInvisibilityOfElement(By.id("status_overlay_updateVoucher"));*/
+				clickAndWaitUntilLoaderDisappears(By.id("btnAddVoucher"), By.id("status_overlay_updateVoucher"));
 				Thread.sleep(5000);
 				try{
 					if (findElement(By.xpath("//label[contains(text(),'Duplicate voucher no')]")) != null){
@@ -84,8 +85,9 @@ public class NewVoucher extends eInvoice_CommonFunctions {
 						WebElement objVoucherNum = findElement(By.id("txtVoucherNumber"));
 						objVoucherNum.clear();
 						objVoucherNum.sendKeys(voucherNo);
-						findElement(By.id("btnAddVoucher")).click();
-						waitUntilInvisibilityOfElement(By.id("status_overlay_updateVoucher"));
+						/*findElement(By.id("btnAddVoucher")).click();
+						waitUntilInvisibilityOfElement(By.id("status_overlay_updateVoucher"));*/
+						clickAndWaitUntilLoaderDisappears(By.id("btnAddVoucher"), By.id("status_overlay_updateVoucher"));
 					}
 				}catch(Exception ex){}
 				result = true;
@@ -118,8 +120,9 @@ public class NewVoucher extends eInvoice_CommonFunctions {
 	// String description) throws Exception {
 	private void enterVoucherDetails(String supplierEmail, String description) throws Exception {
 		try {
-			findElement(By.id("txtSupplier")).sendKeys(supplier);
-			waitUntilInvisibilityOfElement(By.xpath("//input[contains(@class,'ui-autocomplete-loading')]"));
+			/*findElement(By.id("txtSupplier")).sendKeys(supplier);
+			waitUntilInvisibilityOfElement(By.xpath("//input[contains(@class,'ui-autocomplete-loading')]"));*/
+			clickAndWaitUntilLoaderDisappears(By.id("txtSupplier"), By.xpath("//input[contains(@class,'ui-autocomplete-loading')]"));
 			Thread.sleep(8000);
 			findElement(By.xpath("//ul[contains(@style,'block')]/li/a//span[text()='" + supplier + "']")).click();
 			Thread.sleep(3000);

@@ -8,19 +8,19 @@ import common.Functions.eInvoice_CommonFunctions;
 public class AliasUsers extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private String emailId;
 
 	public AliasUsers(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	public AliasUsers(WebDriver driver, ExtentTest logger, String emailId) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 		this.emailId = emailId;
 	}
 

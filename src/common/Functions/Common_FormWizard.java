@@ -33,7 +33,7 @@ public class Common_FormWizard extends eInvoice_CommonFunctions {
 	private String formName;
 	private String formType;
 	private String relatedProcess;
-	private String company;
+	//private String company;
 	private String sectionName;
 	private By pgHead = By.xpath("//h1[contains(text(),'Form Details and Scope')]");
 	private String fieldType;
@@ -75,7 +75,7 @@ public class Common_FormWizard extends eInvoice_CommonFunctions {
 		this.formName = formName;
 		this.formType = formType;
 		this.relatedProcess = relatedProcess;
-		this.company = company;
+		//this.company = company;
 		this.sectionName = sectionName;
 		this.fieldType = fieldType;
 		this.fieldName = fieldName + String.valueOf(generateNo());
@@ -89,7 +89,7 @@ public class Common_FormWizard extends eInvoice_CommonFunctions {
 		this.formName = formName;
 		this.formType = formType;
 		this.relatedProcess = relatedProcess;
-		this.company = company;
+		//this.company = company;
 		this.sectionName = sectionName;
 		this.fieldType = fieldType;
 		this.fieldName = fieldName + String.valueOf(generateNo());

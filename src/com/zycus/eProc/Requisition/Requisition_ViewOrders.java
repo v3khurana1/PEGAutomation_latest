@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import com.zycus.eProc.*;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * <p>
@@ -26,6 +27,7 @@ public class Requisition_ViewOrders extends RequisitionDetails {
 
 	private WebDriver driver;
 	private ExtentTest logger;
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
 	
 	/**
 	 * Constructor for the class
@@ -51,8 +53,8 @@ public class Requisition_ViewOrders extends RequisitionDetails {
 	public boolean takeAction(String action) {
 		boolean result = false;
 		try {
-			findElement(By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]")).click();
-			findElement(By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
+			findElement(actionsLinkXpath).click();
+			findElement(By.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='" + action
 					+ "']")).click();
 
 			if (super.verifyDisplayedAction(action)) {
@@ -70,7 +72,7 @@ public class Requisition_ViewOrders extends RequisitionDetails {
 							&& findElement(objCreateReceipt.getHeaderReqName()).getText() == requisitionName)
 						result = true;
 					else {
-						System.out.println("Requested Requisition not opened for Create Receipt");
+						logger.log(LogStatus.INFO, "Requested Requisition not opened for Create Receipt");
 						result = false;
 					}
 					break;
@@ -80,7 +82,7 @@ public class Requisition_ViewOrders extends RequisitionDetails {
 					break;
 				}
 			} else
-				System.out.println("Requisition is not in required status for the requested action");
+				logger.log(LogStatus.INFO, "Requisition is not in required status for the requested action");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

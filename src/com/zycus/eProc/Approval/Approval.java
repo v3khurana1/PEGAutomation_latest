@@ -17,8 +17,8 @@ import com.relevantcodes.extentreports.ExtentTest;
 
 public class Approval extends ApprovalDetails{
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -27,8 +27,8 @@ public class Approval extends ApprovalDetails{
 	
 	public Approval(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 }

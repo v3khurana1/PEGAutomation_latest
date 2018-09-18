@@ -21,8 +21,8 @@ import common.Functions.eProc_CommonFunctions;
  */
 
 public class Requisition_OnlineStore_ProductComparison extends eProc_CommonFunctions{
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By compareItemsPg 		= By.id("compareItems");
 	
@@ -34,8 +34,8 @@ public class Requisition_OnlineStore_ProductComparison extends eProc_CommonFunct
 	
 	public Requisition_OnlineStore_ProductComparison(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

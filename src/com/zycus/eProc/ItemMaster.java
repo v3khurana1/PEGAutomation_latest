@@ -10,14 +10,14 @@ import common.Functions.eProc_CommonFunctions;
 
 public class ItemMaster extends eProc_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private String itemMasterName;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	public ItemMaster(WebDriver driver, ExtentTest logger, String itemMasterName) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.itemMasterName = itemMasterName;
 	}
 	

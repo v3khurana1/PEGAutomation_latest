@@ -17,7 +17,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -139,8 +138,8 @@ public class CommonUtility {
 		ExpectedCondition<Boolean> elementIsDisplayed = arg0 -> element.isDisplayed();
 		wait.until(elementIsDisplayed);
 	}
-
-	public void waitUntilElementDisplayed(final WebElement webElement, WebDriver driver) {
+	
+	/*public void waitUntilElementDisplayed(final WebElement webElement, WebDriver driver) {
 		final int TIMEOUT = 10;
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
@@ -158,7 +157,7 @@ public class CommonUtility {
 		};
 		wait.until(elementIsDisplayed);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	}
+	}*/
 
 	/*
 	 * public WebElement waitFluent(By element) {

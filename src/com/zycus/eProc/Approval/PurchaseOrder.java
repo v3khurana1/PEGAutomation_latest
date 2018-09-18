@@ -9,16 +9,16 @@ import common.Functions.eProc_CommonFunctions;
 
 public class PurchaseOrder extends eProc_CommonFunctions{
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 
 	private By HeaderReqNum 	= By.xpath("//h1[@class='pgHead']/span[1]");
 	private By HeaderReqName 	= By.xpath("//h1[@class='pgHead']/span[3]");
 	
 	public PurchaseOrder(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

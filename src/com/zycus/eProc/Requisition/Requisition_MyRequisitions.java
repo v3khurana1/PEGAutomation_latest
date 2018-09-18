@@ -18,7 +18,7 @@ import com.relevantcodes.extentreports.ExtentTest;
  */
 
 public class Requisition_MyRequisitions extends RequisitionDetails{
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class

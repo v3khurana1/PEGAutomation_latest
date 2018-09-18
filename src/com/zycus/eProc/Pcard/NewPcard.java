@@ -25,8 +25,8 @@ import common.Functions.eProc_CommonFunctions;
 
 public class NewPcard extends eProc_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private String issuedTo;
 	private String cardNo;
@@ -50,8 +50,8 @@ public class NewPcard extends eProc_CommonFunctions {
 	public NewPcard(WebDriver driver, ExtentTest logger, String issuedTo, String cardNo, Date lastBilledOn, String issuingBank, 
 			String stmtFreq, int creditDays) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.issuedTo = issuedTo;
 		this.cardNo = cardNo;
 		this.lastBilledOn = lastBilledOn;

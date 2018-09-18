@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.*;
 public class UploadsNew extends CommonFunctions1
 {
 
-    public UploadsNew(WebDriver driver, ExtentTest logger, String credit_memoNo, String invoice_no)
+    /*public UploadsNew(WebDriver driver, ExtentTest logger, String credit_memoNo, String invoice_no)
         throws Exception
     {
         super(driver, logger);
@@ -23,7 +23,7 @@ public class UploadsNew extends CommonFunctions1
         this.logger = logger;
         this.credit_memoNo =  credit_memoNo;
         this.invoice_no = invoice_no;
-    }
+    }*/
 
     public UploadsNew(WebDriver driver, ExtentTest logger)
         throws Exception
@@ -57,7 +57,7 @@ public class UploadsNew extends CommonFunctions1
     }
 
     private WebDriver driver;
-    private String credit_memoNo;
-    private String invoice_no;
+    //private String credit_memoNo;
+    //private String invoice_no;
     private ExtentTest logger;
 }

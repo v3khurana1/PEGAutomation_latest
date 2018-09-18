@@ -8,8 +8,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class ReconciliationSummary extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By pgHead = By.xpath("//h1[@class='pgHead']/span[text()='Reconciliation Summary']");
 	private By batchName = By.xpath("//*[@id='uploadStatementFile']//li[label[contains(text(),'Batch Name')]]/div[1]/div");
 	
@@ -23,8 +23,8 @@ public class ReconciliationSummary extends eInvoice_CommonFunctions {
 	
 	public ReconciliationSummary(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	/**

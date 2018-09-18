@@ -33,7 +33,7 @@ public class Catalog extends eProc_CommonFunctions {
 	private ExtentTest logger;
 
 	//private By processingLoader = By.id("catalogListing_processing");
-	private By statusXpath = By.xpath("//table[@id='catalogListing']//td[2]/div");
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
 

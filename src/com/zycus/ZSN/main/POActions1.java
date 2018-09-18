@@ -27,7 +27,7 @@ public class POActions1 extends CommonFunctions1 {
 		XmlDataId = By.id("preCxmlData");
 		selectItemCheckboxXpath = By
 				.xpath("//*[@id='frmShipmentNoticeCreate']//table//tr[1]/td/input[contains(@id,'chkItemNo')]");
-		this.driver = driver;
+		//this.driver = driver;
 		this.action = action;
 		this.logger = logger;
 	}
@@ -116,7 +116,7 @@ public class POActions1 extends CommonFunctions1 {
 		return status.booleanValue();
 	}
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private Actions action;
 	private ExtentTest logger;
 	private By downloadBtnid;

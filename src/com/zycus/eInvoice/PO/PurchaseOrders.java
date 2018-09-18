@@ -9,8 +9,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class PurchaseOrders extends eInvoice_CommonFunctions{
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By processingLoader = By.id("reconciliationList_processing");
 	private By pgHead = By.xpath("//h1[@class='pgHead' and text()='Purchase Orders']");
 	private By alertBoxmsg = By.xpath("//div[@id='messageContainer']//span");
@@ -25,8 +25,8 @@ public class PurchaseOrders extends eInvoice_CommonFunctions{
 	
 	public PurchaseOrders(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -55,6 +55,20 @@ public class PurchaseOrders extends eInvoice_CommonFunctions{
 	 */
 	public void setAlertBoxmsg(By alertBoxmsg) {
 		this.alertBoxmsg = alertBoxmsg;
+	}
+
+	/**
+	 * @return the pgHead
+	 */
+	public By getPgHead() {
+		return pgHead;
+	}
+
+	/**
+	 * @param pgHead the pgHead to set
+	 */
+	public void setPgHead(By pgHead) {
+		this.pgHead = pgHead;
 	}
 	
 	

@@ -18,16 +18,16 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	private ExtentTest logger;
 	private String invoiceNo;
 	private String invoiceDate;
-	private String poNumber;
-	private String supplierName;
-	private String buyerName;
+	//private String poNumber;
+	//private String supplierName;
+	//private String buyerName;
 	//private By pgHead = By.xpath("//h1[@class='pgHead' and text()='Purchase Orders']");
 	private By alertBoxmsg = By.xpath("//div[@id='messageContainer']//span");
 	private By POHeader = By.xpath("//h1[@class='pgHead']");
 	private By processingLoader = By.id("polisting_processing");
-	private By statusXpath = By.xpath("//table[@id='polisting']//td[2]/div");
-	private By dateXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'invoiceDate')]");
-	private By amountXpath = By.xpath("//table[@id='polisting']//td[contains(@class,'totalAmountReq')]");
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
+	private By dateXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'invoiceDate')]");
+	private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'totalAmountReq')]");
 	/*private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");*/
 	//private By actionsLinkXpath = By.xpath("(//*[@id='reqList']//a[@class='icon actLnk'])[1]");
@@ -35,9 +35,9 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	private By descriptionId = By.id("txtDescription");
 	private By saveDraftId = By.id("saveAsDraft");
 	private By creditMemoPageId = By.xpath("//*[@id='cntInvoice']/h1/span[text()='Credit Memo']");
-	private By poTableId = By.id("polisting");
+	//private By poTableId = By.id("polisting");
 	private By updateInvStatusXpath = By.xpath(".//*[@id='status_overlay_updateInvoice']");
-	private By tableElementXpath = By.xpath("//*[@id='polisting']/tbody/tr[1]/td[2]/a");
+	private By tableElementXpath = By.xpath("//table[contains(@class,'dataTable')]/tbody/tr[1]/td[2]/a");
 	private By pdfLinkId = By.id("pdfPOLink");
 
 	/**
@@ -61,7 +61,7 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	 * @param invoiceNo
 	 * @param invoiceDate
 	 */
-	public PurchaseOrder(WebDriver driver, ExtentTest logger, String poNumber, String supplierName, String buyerName) {
+	/*public PurchaseOrder(WebDriver driver, ExtentTest logger, String poNumber, String supplierName, String buyerName) {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
@@ -69,7 +69,7 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 		this.supplierName = supplierName;
 		this.buyerName = buyerName;
 
-	}
+	}*/
 
 	public PurchaseOrder(WebDriver driver, ExtentTest logger, String invoiceNo, String invoiceDate) {
 		super(driver, logger);
@@ -77,6 +77,14 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 		this.logger = logger;
 		this.invoiceNo = invoiceNo;
 		this.invoiceDate = invoiceDate;
+	}
+	
+	public PurchaseOrder(WebDriver driver, ExtentTest logger, String invoiceNo) {
+		super(driver, logger);
+		this.driver = driver;
+		this.logger = logger;
+		this.invoiceNo = invoiceNo;
+		
 	}
 
 	/**
@@ -109,16 +117,12 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	}
 	
 	
-	/**
-	 * @return the processingLoader
-	 */
+
 	public By getProcessingLoader() {
 		return processingLoader;
 	}
 
-	/**
-	 * @param processingLoader the processingLoader to set
-	 */
+
 	public void setProcessingLoader(By processingLoader) {
 		this.processingLoader = processingLoader;
 	}
@@ -130,8 +134,9 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 			findElement(descriptionId).clear();
 			sendKeys(descriptionId, "editing invoice");
 			Thread.sleep(2000);
-			findElement(saveDraftId).click();
-			waitUntilInvisibilityOfElement(updateInvStatusXpath);
+			clickAndWaitUntilLoaderDisappears(saveDraftId, updateInvStatusXpath);
+			/*findElement(saveDraftId).click();
+			waitUntilInvisibilityOfElement(updateInvStatusXpath);*/
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,7 +181,7 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 		boolean result = false;
 		try {
 			filterByType("Standard");
-			if (findElement(poTableId).isDisplayed())
+			if (findElement(By.xpath("//table[contains(@class,'dataTable')]")).isDisplayed())
 				findElement(tableElementXpath).click();
 			findElement(By.xpath("//*[@id='actDrop']/span")).click();
 			//Thread.sleep(2000);
@@ -213,7 +218,7 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 			filterByStatus("Partially Invoiced");
 			filterByType("Standard");
 			Actions action = new Actions(driver);
-			WebElement mainMenu = driver.findElement(By.xpath("//*[@id='polisting']/tbody/tr[1]/td[2]/a"));
+			WebElement mainMenu = driver.findElement(By.xpath("//table[contains(@class,'dataTable')]/tbody/tr[1]/td[2]/a"));
 			action.moveToElement(mainMenu)
 					.moveToElement(
 							driver.findElement(By.xpath("//div[contains(@id,'qtip')]//a[text()='Add Credit Memo']")))
@@ -477,7 +482,7 @@ public class PurchaseOrder extends eInvoice_CommonFunctions {
 	protected boolean verifyDisplayedAction(String action) {
 		boolean result = false;
 		try {
-			String status = findElement(By.xpath("//table[@id='polisting']//td[1]/div")).getText();
+			String status = findElement(By.xpath("//table[contains(@class,'dataTable')]//td[1]/div")).getText();
 			switch (action) {
 			case "Add Credit Memo":
 				if (status.equals("Released"))

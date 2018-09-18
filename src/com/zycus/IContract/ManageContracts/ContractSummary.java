@@ -10,14 +10,14 @@ import common.Functions.eInvoice_CommonFunctions;
 public class ContractSummary extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private By processingLoader = By.xpath("//span[@class='zys-loader-icon']");
 	private By pgHead = By.xpath("//span[@id='headerLabel']/following-sibling::h2[text()='Contract Summary']");
 
 	public ContractSummary(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/**

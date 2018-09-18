@@ -9,8 +9,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class Batches extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -22,8 +22,8 @@ public class Batches extends eInvoice_CommonFunctions {
 	
 	public Batches(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -36,11 +36,11 @@ public class Batches extends eInvoice_CommonFunctions {
 	 * @throws None
 	 */
 
-	public boolean createNewBatch() {
+	public boolean createNewBatch(NewPaymentBatch objPaymentBatch) {
 		boolean result = false;
 		try {
 			findElement(By.id("lnkCreatePaymentBatch")).click();
-			NewPaymentBatch objPaymentBatch = new NewPaymentBatch(driver, logger);
+			//NewPaymentBatch objPaymentBatch = new NewPaymentBatch(driver, logger);
 			if (findElement(objPaymentBatch.getPgHead()) != null)
 				result = true;
 		} catch (Exception e) {

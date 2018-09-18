@@ -21,8 +21,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class InvoiceNonPO extends eInvoice_CommonFunctions {
 
-	private ExtentTest logger;
-	private WebDriver driver;
+	//private ExtentTest logger;
+	//private WebDriver driver;
 	private String supplierName;
 	private String paymentTerm;
 	private String currency_value;
@@ -45,16 +45,16 @@ public class InvoiceNonPO extends eInvoice_CommonFunctions {
 
 	public InvoiceNonPO(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.logger = logger;
-		this.driver = driver;
+		//this.logger = logger;
+		//this.driver = driver;
 	}
 
 	public InvoiceNonPO(WebDriver driver, ExtentTest logger, String supplierName, String paymentTerm,
 			String currency_value, String invoiceDate, String purchaseType, String description, String product_cat,
 			String market_prc, String quantity, String GLType) {
 		super(driver, logger);
-		this.logger = logger;
-		this.driver = driver;
+		//this.logger = logger;
+		//this.driver = driver;
 		this.supplierName = supplierName;
 		this.paymentTerm = paymentTerm;
 		this.currency_value = currency_value;

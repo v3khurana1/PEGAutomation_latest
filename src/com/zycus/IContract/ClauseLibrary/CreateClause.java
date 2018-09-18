@@ -7,32 +7,32 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class CreateClause extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By pgHead = By.xpath("//div[@id='dialog-confirm']//span[contains(text(),'Create Clause')]");
 	private String clauseTitle;
 	private String clauseCategory;
 	private String assocBaseType;
 	private String language;
-	private String clauseText;
+	//private String clauseText;
 
 
 	public CreateClause(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	public CreateClause(WebDriver driver, ExtentTest logger, String clauseTitle, String clauseCategory,
 			String assocBaseType, String language, String clauseText) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.clauseTitle = clauseTitle;
 		this.clauseCategory = clauseCategory;
 		this.assocBaseType = assocBaseType;
 		this.language = language;
-		this.clauseText = clauseText;
+		//this.clauseText = clauseText;
 	}
 
 	public boolean createClause(String description) {

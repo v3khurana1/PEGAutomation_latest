@@ -521,8 +521,7 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 		}
 	}*/
 	
-	@Deprecated
-	private void enterFormDetails_withoutchanges(String elemFinderXpath) {
+	/*private void enterFormDetails_withoutchanges(String elemFinderXpath) {
 		String elemID = null;
 		int headerYCoord = 0;
 		int footerYCoord = 0;
@@ -558,7 +557,7 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 					((JavascriptExecutor) driver).executeScript("window.scrollBy(0,"+ scrollValue +");", objElem);
 				}
 				
-				/*if(scrollCtr==0)
+				if(scrollCtr==0)
 					elemRelPos = objElem.getLocation().getY() + 100-scrollValue;
 				else
 					elemRelPos = objElem.getLocation().getY() + 100-scrollValue*scrollCtr;
@@ -567,7 +566,7 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 					((JavascriptExecutor) driver).executeScript("window.scrollBy(0,"+ scrollValue +");", objElem);
 					Thread.sleep(1500);
 					scrollCtr++;
-				}*/
+				}
 				String fieldType = objElem.getAttribute("fieldtype");
 				switch (fieldType) {
 				case "INTEGER":
@@ -610,8 +609,8 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 				case "DECIMAL":
 					try {
 						clearAndSendKeys(objElem, String.valueOf(rnd.nextInt(10) + rnd.nextFloat()));
-						/*objElem.clear();
-						objElem.sendKeys(String.valueOf(rnd.nextInt(10) + rnd.nextFloat()));*/
+						objElem.clear();
+						objElem.sendKeys(String.valueOf(rnd.nextInt(10) + rnd.nextFloat()));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -634,19 +633,19 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 									.findElements(By.xpath(elemFinderXpath + "[@id='" + elemID + "']/option")).size();
 							System.out.println("No of options for "+ elemID+" is "+optionsCount);
 							//WebElement elem = findElement(By.id(elemID));
-							/*Select objSelect = new Select(elem);
+							Select objSelect = new Select(elem);
 							objSelect.selectByIndex(1 + rnd.nextInt(optionsCount - 1));
-							System.out.println("contains edited : "+driver.findElement(By.id("select2-"+elemID+"-container")).getText());*/
+							System.out.println("contains edited : "+driver.findElement(By.id("select2-"+elemID+"-container")).getText());
 							//if(driver.findElement(By.id("select2-"+elemID+"-container")).getText()!="")
 								//((JavascriptExecutor)driver).executeScript("arguments[0].class='customSelect inputMaterial required select2-hidden-accessible edited'", objElem);
 							
 							
 							findElement(By.xpath("//select[@id='" + elemID+ "']/following-sibling::span//span[contains(@class,'arrow')]")).click();
-							/*String temp = elemFinderXpath + "[@id='" + elemID + "']/option["
-									+ String.valueOf(2 + rnd.nextInt(optionsCount - 1)) + "]";*/
+							String temp = elemFinderXpath + "[@id='" + elemID + "']/option["
+									+ String.valueOf(2 + rnd.nextInt(optionsCount - 1)) + "]";
 							//findElement(By.xpath(temp)).click();
-							/*findElement(By.xpath("//select[@id='" + elemID
-									+ "']/following-sibling::span//span[contains(@class,'arrow')]")).click();*/
+							findElement(By.xpath("//select[@id='" + elemID
+									+ "']/following-sibling::span//span[contains(@class,'arrow')]")).click();
 							objElem.findElement(By.xpath("./option["
 									+ String.valueOf(2 + rnd.nextInt(optionsCount - 1)) + "]")).click();
 							driver.findElement(By.xpath("//div[@class='leftMenuDiv']")).click();
@@ -671,12 +670,12 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	private void enterFormDetails(String elemFinderXpath) {
 		Long scrollPos = (long) 0;
-		String elemID = null;
-		int headerYCoord = 0;
+		//String elemID = null;
+		//int headerYCoord = 0;
 		int firstElemYCoord = 0;
 		int footerYCoord = 0;
 		try {
@@ -1033,15 +1032,15 @@ public class ContractDetails extends eInvoice_CommonFunctions {
 		boolean result = false;
 		WebElement objElem = null;
 		String fieldType = null;
-		int optionsCount = 0;
-		int numOfChoices = 0;
-		List<WebElement> objChoices;
+		//int optionsCount = 0;
+		//int numOfChoices = 0;
+		//List<WebElement> objChoices;
 		int headerYCoord = 0;
 		int footerYCoord = 0;
 		int elemRelPos = 0;
-		int randomYr = 0;
-		int randomMnth = 0;
-		int randomDay = 0;
+		//int randomYr = 0;
+		//int randomMnth = 0;
+		//int randomDay = 0;
 		try {
 			scrollCtr = 0;
 			scrollValue = 0;

@@ -15,13 +15,13 @@ public class Statements extends eInvoice_CommonFunctions {
 	private ExtentTest logger;
 	private By pgHead = By.xpath("//h1[@class='pgHead'][text()='Statements']");
 	private By processingLoader = By.id("reconciliationList_processing");
-	private By statusXpath = By.xpath("//table[@id='reconciliationList']//td[1]/div");
-	private By typeXpath = By.xpath("//table[@id='reconciliationList']//td[4]/div");
-	private By stmtDtXpath = By.xpath("//table[@id='reconciliationList']//td[5]");
-	private By processedOnXpath = By.xpath("//table[@id='reconciliationList']//td[6]");
-	private By actionsLinkXpath = By.xpath("(//*[@id='reconciliationList']//a[@class='icon actLnk'])[1]");
-	private By batchNameXpath = By.xpath("//table[@id='reconciliationList']//td[2]/a");
-
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[1]/div");
+	private By typeXpath = By.xpath("//table[contains(@class,'dataTable')]//td[4]/div");
+	private By stmtDtXpath = By.xpath("//table[contains(@class,'dataTable')]//td[5]");
+	private By processedOnXpath = By.xpath("//table[contains(@class,'dataTable')]//td[6]");
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
+	private By batchNameXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/a");
+	
 	/**
 	 * Constructor for the class
 	 * 
@@ -229,7 +229,7 @@ public class Statements extends eInvoice_CommonFunctions {
 		boolean result = false;
 		try {
 			// NO DATA AVAIALABLE FOR OTHER STATUS
-			String status = findElement(By.xpath("(//table[@id='reconciliationList']//td[1]/div)[1]")).getText();
+			String status = findElement(By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[1]/div")).getText();
 			switch (action) {
 			case "Review":
 				if (status.equals("Not Matched"))
@@ -265,7 +265,7 @@ public class Statements extends eInvoice_CommonFunctions {
 
 				findElement(actionsLinkXpath).click();
 				findElement(By
-						.xpath("(//*[@id='reconciliationList']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+						.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 								+ action + "']")).click();
 
 				switch (action) {
@@ -289,7 +289,7 @@ public class Statements extends eInvoice_CommonFunctions {
 					if (findElement(processingLoader).getAttribute("style").contains("block")) {
 						try {
 							WebElement objDeletedReqNum = findElement(
-									By.xpath("//table[@id='reconciliationList']//td[2]/a[text()='" + batchName + "']"));
+									By.xpath("//table[contains(@class,'dataTable')]//td[2]/a[text()='" + batchName + "']"));
 							if (objDeletedReqNum != null)
 								logger.log(LogStatus.INFO, "Deleted Requisition still exists");
 						} catch (Exception e) {

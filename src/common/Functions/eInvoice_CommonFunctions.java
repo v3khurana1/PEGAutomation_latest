@@ -54,7 +54,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 	private ExtentTest logger;
 	JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	private String product;
+	//private String product;
 
 	public eInvoice_CommonFunctions(WebDriver driver, ExtentTest logger) {
 		super(driver,logger);
@@ -66,7 +66,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
-		this.product = product;
+		//this.product = product;
 	}
 
 	public void navigate_path(String tab) {

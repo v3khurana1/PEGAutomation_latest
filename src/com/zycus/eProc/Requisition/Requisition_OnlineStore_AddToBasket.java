@@ -21,8 +21,8 @@ import common.Functions.eProc_CommonFunctions;
  */
 
 public class Requisition_OnlineStore_AddToBasket extends eProc_CommonFunctions{
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By AddToBasketPg 		= By.xpath("//div[div/span[text()='Add to basket']]");
 	
@@ -34,8 +34,8 @@ public class Requisition_OnlineStore_AddToBasket extends eProc_CommonFunctions{
 	
 	public Requisition_OnlineStore_AddToBasket(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

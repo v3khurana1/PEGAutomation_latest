@@ -9,13 +9,13 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class ContractSummary extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private String billingCompany;
-	private String billingBusinessUnit;
-	private String billingLocation;
-	private String CBCostCenter;
-	private String CBProject;
-	private ExtentTest logger;
+	//private String billingBusinessUnit;
+	//private String billingLocation;
+	//private String CBCostCenter;
+	//private String CBProject;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -27,8 +27,8 @@ public class ContractSummary extends eInvoice_CommonFunctions {
 	
 	public ContractSummary(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	
@@ -45,17 +45,17 @@ public class ContractSummary extends eInvoice_CommonFunctions {
 	 * 
 	 */
 	
-	public ContractSummary(WebDriver driver, ExtentTest logger, String billingCompany, String billingBusinessUnit, String billingLocation,
+	/*public ContractSummary(WebDriver driver, ExtentTest logger, String billingCompany, String billingBusinessUnit, String billingLocation,
 			String CBCostCenter, String CBProject) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.billingCompany = billingCompany;
 		this.billingBusinessUnit = billingBusinessUnit;
 		this.billingLocation = billingLocation;
 		this.CBCostCenter = CBCostCenter;
 		this.CBProject = CBProject;
-	}
+	}*/
 
 	/**
 	 * <b>Function:</b> enterBillingInfo

@@ -12,12 +12,12 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class PO_NewInvoice extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private String invoiceNo;
 	private Date invoiceDt;
 	private Date invoiceDueDt;
 	private By invoiceHeader = By.xpath("//h1[@class='pgHead']/span[1]");
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -29,8 +29,8 @@ public class PO_NewInvoice extends eInvoice_CommonFunctions {
 	
 	public PO_NewInvoice(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	/**
@@ -45,8 +45,8 @@ public class PO_NewInvoice extends eInvoice_CommonFunctions {
 
 	public PO_NewInvoice(WebDriver driver, ExtentTest logger, String invoiceNo, Date invoiceDt) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.invoiceNo = invoiceNo;
 		this.invoiceDt = invoiceDt;
 	}
@@ -62,7 +62,7 @@ public class PO_NewInvoice extends eInvoice_CommonFunctions {
 	 */
 
 	// Need to complete
-	public boolean takeAction(String action) {
+	public boolean takeAction(String action, PO_NewInvoice objCreateInvoice) {
 		boolean result = false;
 		try {
 			findElement(By.xpath("//*[@id='actDrop']/span")).click();
@@ -76,7 +76,7 @@ public class PO_NewInvoice extends eInvoice_CommonFunctions {
 			case "Email PO":
 				break;
 			case "Add Invoice":
-				PO_NewInvoice objCreateInvoice = new PO_NewInvoice(driver, logger);
+				//PO_NewInvoice objCreateInvoice = new PO_NewInvoice(driver, logger);
 				String invoiceHeader = findElement(objCreateInvoice.getInvoiceHeader()).getText();
 				if (findElement(objCreateInvoice.getInvoiceHeader()).getText().equals(invoiceHeader))
 					result = true;

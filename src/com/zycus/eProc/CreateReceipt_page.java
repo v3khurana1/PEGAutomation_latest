@@ -8,11 +8,12 @@ import org.openqa.selenium.WebElement;
 
 import com.relevantcodes.extentreports.ExtentTest;
 //import com.relevantcodes.extentreports.LogStatus;
+import com.relevantcodes.extentreports.LogStatus;
 
 import common.Functions.eProc_CommonFunctions;
 
 public class CreateReceipt_page extends eProc_CommonFunctions{
-	private WebDriver driver;
+	//private WebDriver driver;
 	
 	private Date receiptDt;
 	
@@ -31,14 +32,14 @@ public class CreateReceipt_page extends eProc_CommonFunctions{
 	
 	public CreateReceipt_page(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 	
 
 	public CreateReceipt_page(WebDriver driver, ExtentTest logger, Date receiptDt) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.receiptDt = receiptDt;
 	}
@@ -105,7 +106,7 @@ public class CreateReceipt_page extends eProc_CommonFunctions{
 			
 			//Verify if file is uploaded
 			if(attachmentLinkTxt==objAttachmentLink.getText())
-				System.out.println("Attachment file not uploaded");
+				logger.log(LogStatus.INFO, "Attachment file not uploaded");
 			findElement(submitBtnId).click();
 		if(findElement(By.xpath("//td[contains(text(),'The selected items will be marked received and invoices')]/ancestor::div[contains(@class,'promptbx')]"))!=null)
 			findElement(By.xpath("//div[contains(@class,'promptbx')]/div[3]//span[text()='Yes']")).click();

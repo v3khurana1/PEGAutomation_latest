@@ -10,7 +10,7 @@ import common.Functions.eInvoice_CommonFunctions;
 public class CreateContract extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	// private By processingLoader =
 	// By.xpath("//div[contains(@id,'Processing')]");
 	private By processingLoader = By.xpath("//span[@class='zys-loader-icon']");
@@ -19,7 +19,7 @@ public class CreateContract extends eInvoice_CommonFunctions {
 	public CreateContract(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/**

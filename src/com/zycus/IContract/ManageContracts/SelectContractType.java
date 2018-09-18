@@ -8,7 +8,7 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class SelectContractType extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private ExtentTest logger;
 	private By pgHead = By.xpath("//div[@id='main-action-button']/h3[text()='Author Contract']");
 	private String contractType;
@@ -16,13 +16,13 @@ public class SelectContractType extends eInvoice_CommonFunctions {
 
 	public SelectContractType(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 	
 	public SelectContractType(WebDriver driver, ExtentTest logger, String contractType, String contractSubType) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.contractType = contractType;
 		this.contractSubType = contractSubType;

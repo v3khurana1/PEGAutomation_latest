@@ -11,7 +11,7 @@ import common.Functions.eInvoice_CommonFunctions;
 public class Template extends eInvoice_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@class,'typeFilterContent') and contains(@style,'block')]//a[text()='Filter'][ancestor::div[@aria-hidden='false']]");
 	private By sourceXpath = By.xpath("//table[@id='TemplateGridImpl-grid']/tbody//td[2]/span");
@@ -20,7 +20,7 @@ public class Template extends eInvoice_CommonFunctions {
 	public Template(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/*

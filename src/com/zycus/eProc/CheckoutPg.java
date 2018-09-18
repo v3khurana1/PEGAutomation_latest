@@ -9,14 +9,14 @@ import com.relevantcodes.extentreports.ExtentTest;
 import common.Functions.eProc_CommonFunctions;
 
 public class CheckoutPg extends eProc_CommonFunctions{
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By RequisitionNm = By.id("txtRequisitionName");
 	
 	public CheckoutPg(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**

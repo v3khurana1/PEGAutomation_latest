@@ -3,16 +3,30 @@
 <suite name="Failed suite [Command line suite]">
   <test thread-count="5" name="Command line test(failed)">
     <classes>
-      <class name="com.main.FlowEProc">
+      <class name="com.main.FlowEInvoice">
         <methods>
-          <include name="Login"/>
+          <include name="Login" invocation-numbers="0"/>
+          <include name="InvoiceAction"/>
+          <include name="shareMyReports" invocation-numbers="0"/>
+          <include name="CreditMemowithoutReference"/>
+          <include name="InvoiceNonPO"/>
           <include name="startReport"/>
+          <include name="NewBatch" invocation-numbers="0"/>
           <include name="tearDown"/>
-          <include name="OnlineStore"/>
+          <include name="Reports" invocation-numbers="0"/>
+          <include name="searchPurchaseOrders" invocation-numbers="0"/>
+          <include name="ApprovalAction"/>
+          <include name="Invoices" invocation-numbers="0"/>
           <include name="getResult"/>
-          <include name="Punchouts"/>
+          <include name="AddReconciliationStatements"/>
+          <include name="InvoiceagainstPO"/>
+          <include name="ConfigureOOO"/>
+          <include name="CreditMemoagainstPO"/>
+          <include name="createProcessForm" invocation-numbers="0"/>
+          <include name="Statements"/>
+          <include name="Batches" invocation-numbers="0"/>
         </methods>
-      </class> <!-- com.main.FlowEProc -->
+      </class> <!-- com.main.FlowEInvoice -->
     </classes>
   </test> <!-- Command line test(failed) -->
 </suite> <!-- Failed suite [Command line suite] -->

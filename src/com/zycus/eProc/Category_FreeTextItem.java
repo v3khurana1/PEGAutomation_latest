@@ -4,11 +4,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 //import com.relevantcodes.extentreports.LogStatus;
 import common.Functions.eProc_CommonFunctions;
 
 public class Category_FreeTextItem extends eProc_CommonFunctions{
-	private WebDriver driver;
+	//private WebDriver driver;
 	
 	private By shortDescID 						= By.id("name");
 	private By partNumID 						= By.id("supplierPartId");
@@ -64,7 +66,7 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 
 	public Category_FreeTextItem(WebDriver driver, ExtentTest logger, String shortDesc, String quantity, String uom, float price, String itemType, String sourcingStatus, String receiveBillBy, String currency) { 
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 		this.shortDesc = shortDesc;
 		this.quantity = quantity;
@@ -102,47 +104,50 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 	
 	public boolean createFreeTextItem(String partNumber, String longDesc, String filePath) throws Exception{
 		boolean result = false;
-		
-		//Enter Item Details
-		sendKeys(shortDescID, shortDesc);
-		sendKeys(partNumID, partNumber);
-		sendKeys(quantityID, quantity);
-		sendKeys(longDescID, longDesc);
-		sendKeys(uomID, uom);
-		if(price==0)
-			findElement(priceCheckbox).click();
-		else
-			sendKeys(priceID, String.valueOf(price));
-		findElement(By.id("itemType_"+itemType.toLowerCase())).click();
-		switch(sourcingStatus){
-			case "Quoted by supplier":
-				findElement(suppQuotedSourcingStatus).click();
-				break;
-			case "Estimated price":
-				findElement(estimatedPriceSrcStatus).click();
-				break;
-			case "Need a quote":
-				findElement(needQuoteSrcStatus).click();
-				break;
+		try{
+			//Enter Item Details
+			sendKeys(shortDescID, shortDesc);
+			sendKeys(partNumID, partNumber);
+			sendKeys(quantityID, quantity);
+			sendKeys(longDescID, longDesc);
+			sendKeys(uomID, uom);
+			if(price==0)
+				findElement(priceCheckbox).click();
+			else
+				sendKeys(priceID, String.valueOf(price));
+			findElement(By.id("itemType_"+itemType.toLowerCase())).click();
+			switch(sourcingStatus){
+				case "Quoted by supplier":
+					findElement(suppQuotedSourcingStatus).click();
+					break;
+				case "Estimated price":
+					findElement(estimatedPriceSrcStatus).click();
+					break;
+				case "Need a quote":
+					findElement(needQuoteSrcStatus).click();
+					break;
+			}
+			switch(receiveBillBy){
+				case "Quoted by supplier":
+					findElement(qtyReceiveBy).click();
+					break;
+				case "Estimated price":
+					findElement(amtReceiveBy).click();
+					break;
+				case "Need a quote":
+					findElement(noReceiptReceiveBy).click();
+					break;
+			}
+			sendKeys(currencyID, currency);
+			//Add Attachments
+			findElement(addAttachmentsLink).click();
+			if(findElement(attachFilePopUp)!=null)
+				uploadFile(filePath);
+			findElement(By.xpath("//*[contains(@id,'closeGuidedAttachmentsBtn')]")).click();
+				result = true;
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		switch(receiveBillBy){
-			case "Quoted by supplier":
-				findElement(qtyReceiveBy).click();
-				break;
-			case "Estimated price":
-				findElement(amtReceiveBy).click();
-				break;
-			case "Need a quote":
-				findElement(noReceiptReceiveBy).click();
-				break;
-		}
-		sendKeys(currencyID, currency);
-		//Add Attachments
-		findElement(addAttachmentsLink).click();
-		if(findElement(attachFilePopUp)!=null)
-			uploadFile(filePath);
-		findElement(By.xpath("//*[contains(@id,'closeGuidedAttachmentsBtn')]")).click();
-			result = true;
 		return result;
 		
 	}
@@ -167,22 +172,26 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 	
 	public boolean addExtraFields(String manufacturerName, String imageURL, String supProductURL, String manufactProductURL, String manufactPartURL, String isGreen, String isPreferred, String specificationsName, List<String> specifications) throws Exception{
 		boolean result = false;
-		sendKeys(manufactNameID, manufacturerName);
-		sendKeys(imgURLID, imageURL);
-		sendKeys(suppProdURLID, supProductURL);
-		sendKeys(manufactProdURLID, manufactProductURL);
-		sendKeys(manufactPartID, manufactPartURL);
-		findElement(By.id("dev_isGreen_"+isGreen.toLowerCase())).click();
-		findElement(By.id("dev_isPreferred_"+isPreferred.toLowerCase())).click();
-		sendKeys(specificNameID, specificationsName);
-		int i = 1;
-		if(specifications.size()>2)
-			findElement(addSpecificBtn).click();
-		for(String spec:specifications){
-			sendKeys(By.xpath("//div[@id='dev_guidedParametricDataContainer']//input[i]"), spec);
-			i++;
+		//int i=1;
+		try{
+			sendKeys(manufactNameID, manufacturerName);
+			sendKeys(imgURLID, imageURL);
+			sendKeys(suppProdURLID, supProductURL);
+			sendKeys(manufactProdURLID, manufactProductURL);
+			sendKeys(manufactPartID, manufactPartURL);
+			findElement(By.id("dev_isGreen_"+isGreen.toLowerCase())).click();
+			findElement(By.id("dev_isPreferred_"+isPreferred.toLowerCase())).click();
+			sendKeys(specificNameID, specificationsName);
+			if(specifications.size()>2)
+				findElement(addSpecificBtn).click();
+			for(String spec:specifications){
+				sendKeys(By.xpath("//div[@id='dev_guidedParametricDataContainer']//input[i]"), spec);
+				//i++;
+			}
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		result = true;
 		return result;
 	}
 	
@@ -199,34 +208,37 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 	 */
 	public boolean selectExistingSupplier(String searchBy, String searchByValue, String suppPhone, String suppOthrDetails) throws Exception{
 		boolean result = false;
-		
-		findElement(existSuppAddLinkID).click();
-		findElement(By.xpath("//*[@id='supplierNameDropdown']/div/a/span[text()='"+searchBy+"']")).click();
-		sendKeys(By.id("dev_existingSupplierInput"), searchByValue);
-		if(findElement(By.xpath("//li[@class='ui-menu-item']/parent::ul")).getAttribute("style").contains("block")){
-			//Select first menu item from the list
-			findElement(By.xpath("//li[@class='ui-menu-item'][1]")).click();
-			if(findElement(disabledAddr_ExistSupp)!=null)
-				System.out.println("Address field gets enabled");
-			else	
-				System.out.println("Address field does not get enabled");
-			if(findElement(disabledContact_ExistSupp)!=null)
-				System.out.println("Supplier Contact field gets enabled");
-			else	
-				System.out.println("Supplier Contact field does not get enabled");
-			if(findElement(disabledEmail_ExistSupp)!=null)
-				System.out.println("Supplier Email ID field gets enabled");
-			else	
-				System.out.println("Supplier Email ID field does not get enabled");
-			if(findElement(disabledContractNo_ExistSupp)!=null)
-				System.out.println("Contract/OrderNo field gets enabled");
-			else	
-				System.out.println("Contract/OrderNo field does not get enabled");
+		try{
+			findElement(existSuppAddLinkID).click();
+			findElement(By.xpath("//*[@id='supplierNameDropdown']/div/a/span[text()='"+searchBy+"']")).click();
+			sendKeys(By.id("dev_existingSupplierInput"), searchByValue);
+			//if(findElement(By.xpath("//li[@class='ui-menu-item']/parent::ul")).getAttribute("style").contains("block")){
+				//Select first menu item from the list
+				findElement(By.xpath("//li[@class='ui-menu-item'][1]")).click();
+				if(findElement(disabledAddr_ExistSupp)!=null)
+					logger.log(LogStatus.INFO, "Address field gets enabled");
+				else	
+					logger.log(LogStatus.INFO, "Address field does not get enabled");
+				if(findElement(disabledContact_ExistSupp)!=null)
+					logger.log(LogStatus.INFO, "Supplier Contact field gets enabled");
+				else	
+					logger.log(LogStatus.INFO, "Supplier Contact field does not get enabled");
+				if(findElement(disabledEmail_ExistSupp)!=null)
+					logger.log(LogStatus.INFO, "Supplier Email ID field gets enabled");
+				else	
+					logger.log(LogStatus.INFO, "Supplier Email ID field does not get enabled");
+				if(findElement(disabledContractNo_ExistSupp)!=null)
+					logger.log(LogStatus.INFO, "Contract/OrderNo field gets enabled");
+				else	
+					logger.log(LogStatus.INFO, "Contract/OrderNo field does not get enabled");
+	
+				sendKeys(existPhnInputID, suppPhone);
+				sendKeys(existSuppOtheDetID, suppOthrDetails);
+				result = true;
+		}catch(Exception e){
+			logger.log(LogStatus.INFO, "Search By Menu list is not displayed");
 
-			sendKeys(existPhnInputID, suppPhone);
-			sendKeys(existSuppOtheDetID, suppOthrDetails);
-		}else
-			System.out.println("Search By Menu list is not displayed");
+		}
 		return result;
 	}
 	
@@ -247,16 +259,20 @@ public class Category_FreeTextItem extends eProc_CommonFunctions{
 	 */
 	public boolean addNewSupplier(String supplierType, String suppName, String suppAddr, String suppContact, String suppEmail, String suppPhone, String suppOrderNum, String suppOthrDetails) throws Exception{
 		boolean result = false;
-		findElement(newSuppAddLinkID).click();
-		sendKeys(name_newSuppID, suppName);
-		sendKeys(addr_newSuppID, suppAddr);
-		sendKeys(contact_newSuppID, suppContact);
-		sendKeys(email_newSuppID, suppEmail);
-		sendKeys(phn_newSuppID, suppPhone);
-		sendKeys(contractNo_newSuppID, suppOrderNum);
-		sendKeys(othrDet_newSuppID, suppOthrDetails);
-		findElement(addSuppBtn).click();
-		result = true;
+		try{
+			findElement(newSuppAddLinkID).click();
+			sendKeys(name_newSuppID, suppName);
+			sendKeys(addr_newSuppID, suppAddr);
+			sendKeys(contact_newSuppID, suppContact);
+			sendKeys(email_newSuppID, suppEmail);
+			sendKeys(phn_newSuppID, suppPhone);
+			sendKeys(contractNo_newSuppID, suppOrderNum);
+			sendKeys(othrDet_newSuppID, suppOthrDetails);
+			findElement(addSuppBtn).click();
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return result;
 		
 	}

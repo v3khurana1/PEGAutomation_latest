@@ -90,12 +90,18 @@ public class ReconcileNewStatement extends eInvoice_CommonFunctions {
 			sendKeys(By.xpath("//*[contains(@id,'attachmentInput')]"), filePath);
 			waitUntilInvisibilityOfElement(processingLoader);
 			// Click 'Upload & Reconcile' button
-			findElement(By.id("btnNextGcard")).click();
-			waitUntilInvisibilityOfElement(processingLoader);
-			findElement(By
+			/*findElement(By.id("btnNextGcard")).click();
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			
+			clickAndWaitUntilLoaderDisappears(By.id("btnNextGcard"));
+			
+			/*findElement(By
 					.xpath("//div[contains(@style,'block')][div/span[text()='Information']]//button[span[text()='OK']]"))
 							.click();
-			waitUntilInvisibilityOfElement(processingLoader);
+			waitUntilInvisibilityOfElement(processingLoader);*/
+			
+			clickAndWaitUntilLoaderDisappears(By
+					.xpath("//div[contains(@style,'block')][div/span[text()='Information']]//button[span[text()='OK']]"));
 			Statements objStatements = new Statements(driver, logger);
 			if (findElement(objStatements.getPgHead()) != null)
 				result = true;

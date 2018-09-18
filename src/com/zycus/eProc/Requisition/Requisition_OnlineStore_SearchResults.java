@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 import common.Functions.eProc_CommonFunctions;
 
@@ -110,16 +111,16 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 				findElement(addToCartAction).click();
 
 			if (findElement(By.xpath("//div[text()='" + quantity + " item(s) were added to cart']")) != null) {
-				System.out.println(quantity + " item(s) added to the cart message displayed");
+				logger.log(LogStatus.INFO, quantity + " item(s) added to the cart message displayed");
 				if (findElement(By
 						.xpath("(//div[@class='item-incart itemInCart']/span/following-sibling::text())[1]")) != null) {
-					System.out.println("..already in the cart message displayed under Add to Cart button");
+					logger.log(LogStatus.INFO, "..already in the cart message displayed under Add to Cart button");
 					if (numOfItems <= Integer.parseInt(selectedItemsLbl.getText())) {
-						System.out.println("selected item count increased");
+						logger.log(LogStatus.INFO, "selected item count increased");
 						if (price < Float.parseFloat((itemPriceLbl.getText().split(" ", 2))[1])) {
-							System.out.println("Cart price increased on adding the item");
+							logger.log(LogStatus.INFO, "Cart price increased on adding the item");
 							if (findElement(disabledCheckoutBtn) == null) {
-								System.out.println("Checkout button gets enabled");
+								logger.log(LogStatus.INFO, "Checkout button gets enabled");
 								result = true;
 							}
 						}
@@ -151,7 +152,7 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 				findElement(addToFavAction).click();
 
 			if (findElement(By.xpath("//div[text()='" + quantity + " item(s) were added to My Favorites']")) != null) {
-				System.out.println(quantity + " item(s) added to My Favorites message displayed");
+				logger.log(LogStatus.INFO, quantity + " item(s) added to My Favorites message displayed");
 				result = true;
 			}
 		} catch (Exception e) {
@@ -180,9 +181,9 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 
 			Requisition_OnlineStore_AddToBasket objAddToBasket = new Requisition_OnlineStore_AddToBasket(driver, logger);
 			if (findElement(objAddToBasket.getAddToBasketPg()) != null)
-				System.out.println("Add to Basket page displayed");
+				logger.log(LogStatus.INFO, "Add to Basket page displayed");
 			else
-				System.out.println("Add to Basket page not displayed");
+				logger.log(LogStatus.INFO, "Add to Basket page not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -208,25 +209,26 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 				findElement(addToCompItemsAction).click();
 			if (quantity <= 1) {
 				if (findElement(By.xpath("//div//td[text()='Please select at least 2 items for comparison']")) != null)
-					System.out.println("Alert message to select at least 2 items displayed");
+					logger.log(LogStatus.INFO, "Alert message to select at least 2 items displayed");
 				else
-					System.out.println("Alert message to select at least 2 items not displayed");
+					logger.log(LogStatus.INFO, "Alert message to select at least 2 items not displayed");
 			} else if (quantity > 4) {
 				if (findElement(By.xpath("//div//td[text()='You can select upto 4 items for Comparison']")) != null)
-					System.out.println("Alert message to select upto 4 items displayed");
+					logger.log(LogStatus.INFO, "Alert message to select upto 4 items displayed");
 				else
-					System.out.println("Alert message to select upto 4 items displayed");
+					logger.log(LogStatus.INFO, "Alert message to select upto 4 items displayed");
 			} else if (quantity > 1 && quantity <= 4) {
 				Requisition_OnlineStore_ProductComparison objProdComp = new Requisition_OnlineStore_ProductComparison(
 						driver, logger);
 				if (findElement(objProdComp.getCompareItemsPg()) != null)
-					System.out.println("Product Comparison page displayed");
+					logger.log(LogStatus.INFO, "Product Comparison page displayed");
 				else
-					System.out.println("Product Comparison page not displayed");
+					logger.log(LogStatus.INFO, "Product Comparison page not displayed");
 			}
 
 			if (findElement(By.xpath("//div[text()='" + quantity + " item(s) were added to My Favorites']")) != null) {
-				System.out.println(quantity + " item(s) added to My Favorites message displayed");
+				logger.log(LogStatus.INFO, quantity + " item(s) added to My Favorites message displayed");
+				
 				result = true;
 			}
 		} catch (Exception e) {
@@ -275,22 +277,22 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 			 * 
 			 * WebElement elem =
 			 * findElement(By.xpath("//div[@id='updFlash']//em"));
-			 * System.out.println(elem.getText());
+			 * logger.log(LogStatus.INFO, elem.getText());
 			 */
 			/*
 			 * if(waitFluent(By.xpath("//div[@id='updFlash']//em[text()='"+
 			 * quantity+" EA item(s) added to the cart']"))!=null)
-			 * System.out.println(quantity
+			 * logger.log(LogStatus.INFO, quantity
 			 * +" EA item(s) added to the cart message displayed");
 			 */
 			if (waitFluent(By.xpath("(//div[@class='item-incart itemInCart'])[1]")) != null)
-				System.out.println("..already in the cart message displayed under Add to Cart button");
+				logger.log(LogStatus.INFO, "..already in the cart message displayed under Add to Cart button");
 			if (numOfItems + 1 <= Integer.parseInt(selectedItemsLbl.getText()))
-				System.out.println("selected item count increased if different item chosen");
+				logger.log(LogStatus.INFO, "selected item count increased if different item chosen");
 			if (price < Float.parseFloat((itemPriceLbl.getText().split(" ", 2))[1]))
-				System.out.println("Cart price increased on adding the item");
+				logger.log(LogStatus.INFO, "Cart price increased on adding the item");
 			if (!waitFluent(disabledCheckoutBtn).getAttribute("class").contains("disableMe")) {
-				System.out.println("Checkout button gets enabled");
+				logger.log(LogStatus.INFO, "Checkout button gets enabled");
 				result = true;
 			}
 		} catch (Exception e) {
@@ -316,10 +318,10 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 			addToFav.click();
 			if (findElement(By.xpath("//em[text()='Item added to favorites successfully']")) != null)
 				if (addToFav.getText() == "Remove from Favorites") {
-					System.out.println("Item added to favorites");
+					logger.log(LogStatus.INFO, "Item added to favorites");
 					result = true;
 				} else
-					System.out.println("Item not added to favorites");
+					logger.log(LogStatus.INFO, "Item not added to favorites");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -344,10 +346,10 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 			findElement(By.xpath("//button[span[text()='Yes']]")).click();
 			if (findElement(By.xpath("//em[text()='Item removed from favorites successfully']")) != null)
 				if (removeFrmFav.getText() == "Remove from Favorites") {
-					System.out.println("Item removed from favorites");
+					logger.log(LogStatus.INFO, "Item removed from favorites");
 					result = true;
 				} else
-					System.out.println("Item not removed from favorites");
+					logger.log(LogStatus.INFO, "Item not removed from favorites");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -371,9 +373,9 @@ public class Requisition_OnlineStore_SearchResults extends eProc_CommonFunctions
 			new Actions(driver).dragAndDrop(draggable, droppable).build().perform();
 			if (findElement(By.xpath(
 					"//*[@id='cartHover']//span[@class='cartHoverTxt']/text()[contains(.,'added to cart')]")) != null)
-				System.out.println("1 EA added to cart message displayed");
+				logger.log(LogStatus.INFO, "1 EA added to cart message displayed");
 			else
-				System.out.println("1 EA added to cart message not displayed");
+				logger.log(LogStatus.INFO, "1 EA added to cart message not displayed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

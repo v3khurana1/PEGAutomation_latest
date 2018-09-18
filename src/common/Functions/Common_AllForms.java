@@ -26,10 +26,10 @@ import com.relevantcodes.extentreports.ExtentTest;
 
 public class Common_AllForms extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By pgHead = By.xpath("//h1[@class='pgHead'][contains(text(),'All Forms')]");
-	private String product;
+	//private String product;
 	/**
 	 * Constructor for the class
 	 * 

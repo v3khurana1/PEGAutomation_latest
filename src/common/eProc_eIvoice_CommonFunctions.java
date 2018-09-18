@@ -54,7 +54,7 @@ public class eProc_eIvoice_CommonFunctions extends CommonUtility {
 	private By maxAmtInputXpath = By.xpath("//div[contains(@id,'qtip')]//input[contains(@class, 'maxAmount')]");
 	private By clrAllFiltersIconXpath = By.xpath("//span[contains(@class,'clearAllFilters')]");
 
-	private ExtentTest logger;
+	//private ExtentTest logger;
 
 	/**
 	 * Constructor for the class
@@ -65,7 +65,7 @@ public class eProc_eIvoice_CommonFunctions extends CommonUtility {
 	public eProc_eIvoice_CommonFunctions(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	/**

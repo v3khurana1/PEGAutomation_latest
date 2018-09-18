@@ -75,9 +75,12 @@ public class NewCatalog extends eProc_CommonFunctions {
 			findElement(By.name("btnMyAddress")).click();
 			findElement(By.xpath("//ul[contains(@style,'block')]/li[1]")).click();
 			// Click Next button
-			findElement(By.xpath("//form[@id='frmCreateCatalog']//a[@id='btnLnkNext']")).click();
+			/*findElement(By.xpath("//form[@id='frmCreateCatalog']//a[@id='btnLnkNext']")).click();
 			waitUntilVisibilityOfElement(
-					By.xpath("//ul[@class='stepsMenu']/li[@class='active']/p[text()='Item Details']"));
+					By.xpath("//ul[@class='stepsMenu']/li[@class='active']/p[text()='Item Details']"));*/
+			
+			clickAndWaitUntilElementAppears(By.xpath("//form[@id='frmCreateCatalog']//a[@id='btnLnkNext']"), By.xpath("//ul[@class='stepsMenu']/li[@class='active']/p[text()='Item Details']"));
+			
 			ItemDetails objDetails = new ItemDetails(driver, logger, serviceNum, shortDesc, prodCategory, price);
 			if (objDetails.enterItemDetails())
 				findElement(By.xpath("//form[@id='frmCreateCatalog']//a[@id='btnLnkNext']")).click();

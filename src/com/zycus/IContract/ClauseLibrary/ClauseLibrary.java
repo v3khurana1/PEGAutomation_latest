@@ -7,6 +7,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import common.Functions.eInvoice_CommonFunctions;
 
 public class ClauseLibrary extends eInvoice_CommonFunctions {
@@ -44,8 +46,10 @@ public class ClauseLibrary extends eInvoice_CommonFunctions {
 		boolean result = false;
 		try {
 			findElement(By.xpath("//input[@id='newClause']")).click();
-			if (objCreateClause.getPgHead() != null)
+			if (objCreateClause.getPgHead() != null){
+				logger.log(LogStatus.INFO, "Navigated to 'Create Clause' page");
 				result = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

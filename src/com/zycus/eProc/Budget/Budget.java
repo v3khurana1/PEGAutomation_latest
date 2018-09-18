@@ -48,12 +48,12 @@ public class Budget extends eProc_CommonFunctions {
 	private ExtentTest logger;
 
 	private By createBudgetBtn = By.id("createBudgetBtn");
-	private By createNewBudgetLink = By.xpath("//table[@id='budgetList']//a[@title='Create new budget']");
-	private By processingLoader = By.id("budgetList_processing");
-	private By statusXpath = By.xpath("//table[@id='budgetList']//td[1]/div");
-	private By plannedAmountXpath = By.xpath("//table[@id='budgetList']//td[contains(@class,'totalAmountReq')]");
-	private By reservedAmountXpath = By.xpath("//table[@id='budgetList']//td[contains(@class,'totalAmountReq')]");
-	private By actionsLinkXpath = By.xpath("(//*[@id='budgetList']//a[@class='icon actLnk'])[1]");
+	private By createNewBudgetLink = By.xpath("//table[contains(@class,'dataTable')]//a[@title='Create new budget']");
+	//private By processingLoader = By.id("budgetList_processing");
+	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[1]/div");
+	private By plannedAmountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'totalAmountReq')]");
+	private By reservedAmountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'totalAmountReq')]");
+	private By actionsLinkXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
 
 	public Budget(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
@@ -288,7 +288,7 @@ public class Budget extends eProc_CommonFunctions {
 		try {
 			findElement(actionsLinkXpath).click();
 			findElement(By
-					.xpath("(//*[@id='workflowApproval']//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
+					.xpath("(//table[contains(@class,'dataTable')]//a[@class='icon actLnk'])[1]/following-sibling::ul//a[text()='"
 							+ action + "']")).click();
 			switch (action) {
 			case "View":
@@ -301,8 +301,9 @@ public class Budget extends eProc_CommonFunctions {
 				break;
 			case "Deactivate":
 				if(driver.findElements(By.xpath("//div[contains(@class,'promptbx')][div/span[text()='Confirm']]")).size()>0){
-					findElement(By.xpath("//div[contains(@class,'promptbx')][div/span[text()='Confirm']]//button[span[text()='Yes']]")).click();
-					waitUntilInvisibilityOfElement(processingLoader);
+					/*findElement(By.xpath("//div[contains(@class,'promptbx')][div/span[text()='Confirm']]//button[span[text()='Yes']]")).click();
+					waitUntilInvisibilityOfElement(processingLoader);*/
+					clickAndWaitUntilLoaderDisappears(By.xpath("//div[contains(@class,'promptbx')][div/span[text()='Confirm']]//button[span[text()='Yes']]"));
 				}
 				break;
 			}

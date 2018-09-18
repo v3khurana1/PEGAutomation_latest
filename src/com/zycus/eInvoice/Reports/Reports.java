@@ -10,8 +10,8 @@ import common.Reports.Common_Reports;
 
 public class Reports extends Common_Reports {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 
 	/**
 	 * Constructor for the class
@@ -23,8 +23,8 @@ public class Reports extends Common_Reports {
 
 	public Reports(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -95,8 +95,9 @@ public class Reports extends Common_Reports {
 	public boolean selectMyReports(String reportName) throws Exception {
 		boolean result = false;
 		try {
-			findElement(By.xpath("//div[div[text()='My Reports']]//a[@title='" + reportName + "']")).click();
-			waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));
+			/*findElement(By.xpath("//div[div[text()='My Reports']]//a[@title='" + reportName + "']")).click();
+			waitUntilInvisibilityOfElement(By.id("viewdetailsloadingdiv"));*/
+			clickAndWaitUntilLoaderDisappears(By.xpath("//div[div[text()='My Reports']]//a[@title='" + reportName + "']"), By.id("viewdetailsloadingdiv"));
 			viewReportDetails(reportName);
 			result = true;
 		} catch (Exception e) {

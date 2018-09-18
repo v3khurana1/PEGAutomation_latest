@@ -9,24 +9,24 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class ContractAwaitingApproval extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	private ExtentTest logger;
 	private By pgHead = By.xpath("//div[contains(text(),'Contracts/Amendments Awaiting Approval')]");
-	private String contractType;
-	private String contractSubType;
+	//private String contractType;
+	//private String contractSubType;
 
 	public ContractAwaitingApproval(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
 	}
 	
 	public ContractAwaitingApproval(WebDriver driver, ExtentTest logger, String contractType, String contractSubType) {
 		super(driver, logger);
-		this.driver = driver;
+		//this.driver = driver;
 		this.logger = logger;
-		this.contractType = contractType;
-		this.contractSubType = contractSubType;
+		//this.contractType = contractType;
+		//this.contractSubType = contractSubType;
 	}
 	
 	
