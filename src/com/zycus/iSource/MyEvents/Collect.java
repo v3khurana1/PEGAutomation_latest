@@ -3,7 +3,6 @@ package com.zycus.iSource.MyEvents;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 import common.iSource_CommonFunctions;
 
 public class Collect extends iSource_CommonFunctions {

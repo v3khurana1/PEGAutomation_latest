@@ -3,13 +3,12 @@ package com.zycus.iSource.MyEvents;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 import common.iSource_CommonFunctions;
 
 public class ScheduleEvent extends iSource_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private String closingDt;
 	private String closingTime;
 	private String startDt;
@@ -24,14 +23,14 @@ public class ScheduleEvent extends iSource_CommonFunctions {
 
 	public ScheduleEvent(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	public ScheduleEvent(WebDriver driver, ExtentTest logger, String startDt, String startTime, String closingDt, String closingTime) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.startDt = startDt;
 		this.startTime = startTime;
 		this.closingDt = closingDt;
@@ -40,8 +39,8 @@ public class ScheduleEvent extends iSource_CommonFunctions {
 	
 	public ScheduleEvent(WebDriver driver, ExtentTest logger, String closingDt, String closingTime) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.closingDt = closingDt;
 		this.closingTime = closingTime;
 	}

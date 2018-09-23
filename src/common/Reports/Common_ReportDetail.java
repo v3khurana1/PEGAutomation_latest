@@ -7,8 +7,8 @@ import common.Functions.eInvoice_CommonFunctions;
 
 public class Common_ReportDetail extends eInvoice_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private By reportLabel = By.xpath("//*[@id='reportNameHeader_RMS']/label");
 
 	/**
@@ -21,8 +21,8 @@ public class Common_ReportDetail extends eInvoice_CommonFunctions {
 
 	public Common_ReportDetail(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 

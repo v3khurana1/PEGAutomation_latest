@@ -11,27 +11,6 @@ public class FullSource extends iSource_CommonFunctions {
 	private WebDriver driver;
 	private ExtentTest logger;
 
-	//private By processingLoader = By.id("workflowApproval_processing");
-	private By statusXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
-	private By documentNoXpath = By.xpath("//table[contains(@class,'dataTable')]//td[2]/div");
-	private By dateXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'receivedOn')]");
-	private By amountXpath = By.xpath("//table[contains(@class,'dataTable')]//td[contains(@class,'entityAmount')]");
-	private By filterBtnXpath = By.xpath(
-			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
-	private By approveCommentId = By.id("approvalComments");
-	private By approveBtnXpath = By.xpath(".//*[@id='frmApprove']//input[contains(@class,'dev_approve')]");
-	private By approvedMsgXpath = By
-			.xpath("//div[contains(@class,'globalMessage')]//span[contains(text(),'approved')]");
-	private By rejectCommentId = By.id("rejectComments");
-	private By rejectBtnXpath = By.xpath("//*[@id='frmReject']//input[contains(@class,'dev_reject')]");
-	private By rejectMsgXpath = By.xpath("//div[contains(@class,'globalMessage')]//span[contains(text(),'rejected')]");
-	private By delegateNameId = By.id("txtDelegateName");
-	private By delegateCommentId = By.id("delegateComments");
-	private By saveDelegateBtnId = By.id("btnDelegateSave");
-	private By delegateMsgXpath = By.xpath("//div[contains(@class,'globalMessage')]//span[contains(text(),'delegated')]");
-	//private By actionBtnXpath = By.xpath("//*[@id='workflowApproval']//tr[1]/td[8]//a[text()='Actions']");
-	private By actionBtnXpath = By.xpath("//table[contains(@class,'dataTable')]//tr[1]/td[last()]//a[text()='Actions']");
-	
 	/**
 	 * Constructor for the class
 	 * 

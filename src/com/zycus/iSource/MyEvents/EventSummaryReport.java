@@ -1,24 +1,14 @@
 package com.zycus.iSource.MyEvents;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import common.iSource_CommonFunctions;
-import common.Functions.eInvoice_CommonFunctions;
 
 public class EventSummaryReport extends iSource_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	
 	private By reportHeader = By.xpath("//label[@class='iconsR title']/strong[contains(text(),'Event Summary Report')]");
 	private By eventAuditTrailTitle = By.xpath("//h3[@class='evtAudTrailTitle']");
@@ -32,8 +22,8 @@ public class EventSummaryReport extends iSource_CommonFunctions {
 
 	public EventSummaryReport(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	public boolean filterByEventHistory(String startDt, String endDt){

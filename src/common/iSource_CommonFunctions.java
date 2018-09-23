@@ -6,22 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-
 import Framework.CommonUtility;
-import Framework.ConfigurationProperties;
 
 public class iSource_CommonFunctions extends CommonUtility {
 
 	private WebDriver driver;
-
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	protected By processingLoader = By.xpath("//*[contains(@id,'_processing')]");
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and contains(@class,'focus')]//a[text()='Filter']");
@@ -31,7 +24,7 @@ public class iSource_CommonFunctions extends CommonUtility {
 	public iSource_CommonFunctions(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 
 	public void navigate_path(String tab) {

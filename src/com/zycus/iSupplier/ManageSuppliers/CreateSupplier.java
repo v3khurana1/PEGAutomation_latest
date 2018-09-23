@@ -2,11 +2,7 @@ package com.zycus.iSupplier.ManageSuppliers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import com.relevantcodes.extentreports.ExtentTest;
-
-//import common.Functions.eInvoice_CommonFunctions;\
 import common.Reports.Common_Reports;
 
 public class CreateSupplier extends Common_Reports {

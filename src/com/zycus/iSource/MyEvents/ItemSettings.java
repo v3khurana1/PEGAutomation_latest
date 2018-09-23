@@ -3,13 +3,12 @@ package com.zycus.iSource.MyEvents;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 import common.iSource_CommonFunctions;
 
 public class ItemSettings extends iSource_CommonFunctions {
 
 	private WebDriver driver;
-	private ExtentTest logger;
+	//private ExtentTest logger;
 	
 	/**
 	 * Constructor for the class
@@ -21,7 +20,7 @@ public class ItemSettings extends iSource_CommonFunctions {
 	public ItemSettings(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
 		this.driver = driver;
-		this.logger = logger;
+		//this.logger = logger;
 	}
 	
 	public boolean setItemSettings(int noOfDefaultItems, String...settings){

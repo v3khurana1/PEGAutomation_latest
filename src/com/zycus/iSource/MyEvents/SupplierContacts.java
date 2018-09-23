@@ -1,15 +1,13 @@
 package com.zycus.iSource.MyEvents;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 import common.iSource_CommonFunctions;
 
 public class SupplierContacts extends iSource_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 	private String supplierCompany;
 	private String supplierContact;
 	
@@ -22,21 +20,21 @@ public class SupplierContacts extends iSource_CommonFunctions {
 
 	public SupplierContacts(WebDriver driver, ExtentTest logger) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 	
 	public SupplierContacts(WebDriver driver, ExtentTest logger, String supplierCompany) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.supplierCompany = supplierCompany;
 	}
 	
 	public SupplierContacts(WebDriver driver, ExtentTest logger, String supplierCompany, String supplierContact) {
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
+		//this.driver = driver;
+		//this.logger = logger;
 		this.supplierCompany = supplierCompany;
 		this.supplierContact = supplierContact;
 	}
