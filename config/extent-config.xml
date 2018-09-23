@@ -3,7 +3,7 @@
 	<configuration>
 		<!-- report theme -->
 		<!-- standard, dark -->
-		<theme>standard</theme>
+		<theme>standard, dark</theme>
 
 		<!-- document encoding -->
 		<!-- defaults to UTF-8 -->
@@ -20,10 +20,10 @@
 		<statusIcon>check-circle</statusIcon>
 
 		<!-- report name - displayed at top-nav -->
-		<reportName>ZSN Sanity</reportName>
+		<reportName>Automation Execution Report</reportName>
 
 		<!-- report headline - displayed at top-nav, after reportHeadline -->
-		<reportHeadline>Automation Report</reportHeadline>
+		<!--<reportHeadline>Automation Report</reportHeadline> -->
 
 		<!-- global date format override -->
 		<!-- defaults to yyyy-MM-dd -->

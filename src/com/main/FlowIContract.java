@@ -42,9 +42,10 @@ public class FlowIContract {
 	FrameworkUtility objFrameworkUtility = new FrameworkUtility();
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
 	//private String Customer;
-	//private String Product;
+	private String Product = "iContract";
 	private String contractNumber;
 	eInvoice_CommonFunctions objFunctions = null;
+	private String displayStyle;
 	//CommonFunctions objZSNFunctions = null;
 
 	public FlowIContract() throws Exception {
@@ -66,19 +67,17 @@ public class FlowIContract {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		extent = new ExtentReports(System.getProperty("user.dir") + configurationProperties.getProperty("reportpath")
-				+ "//Execution_Report_eInvoice " + sdf.format(timestamp) + ".html", false);
+				+ "//Execution_Report_ " + Product +sdf.format(timestamp) + ".html", false);
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/config/extent-config.xml"));
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	}
 
-	/**
-	 * @param Product
-	 * @param Username
-	 * @param Password
-	 * @param Customer
-	 * @throws Exception
-	 */
-	@Test(dataProviderClass = iContract_DataProviderTestNG.class, dataProvider = "Login", priority = 1, alwaysRun = true)
+
+	@Test(description = "Login Method",
+			dataProviderClass = iContract_DataProviderTestNG.class, 
+			dataProvider = "Login", 
+			priority = 1, 
+			alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
 		//this.Customer = Customer;
 		//this.Product = Product;
@@ -86,16 +85,20 @@ public class FlowIContract {
 		//objFunctions = new eInvoice_CommonFunctions(driver, logger, "iContract");
 		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, "iContract", Username, Password, Customer, userAccount);
-		callAndLog(objLogin.Login_via_PwdMgr1(configurationProperties), "login successful", "Not logged in");
+		displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
+		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
 	}
 	
 	
-	@Test(alwaysRun = true, dependsOnMethods = "Login",priority=1)
+	/*@Test(description = "",
+			dependsOnMethods = "Login",
+			priority = 1)
 	public void Repository() throws Exception {
 		logger = extent.startTest("Repository");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 		//NavigationClass objNavigate = new NavigationClass(driver, logger, Product, tab, subTab)
-		objFunctions.navigate_Rainbowpath("Manage Contracts", "Repository");
+		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Repository");
+		//objFunctions.navigate_Rainbowpath("Manage Contracts", "Repository");
 		Repository objRepo = new Repository(driver, logger); 
 		SelectContractType objSelectContract = new SelectContractType(driver, logger, "Procurement", "Purchase Agreement");
 		objRepo.uploadContract(objSelectContract);
@@ -105,11 +108,14 @@ public class FlowIContract {
 		objDetails.enterContractDetails(objContParty);
 	}
 	
-	@Test(alwaysRun = true, dependsOnMethods = "Login",priority=3)
+	@Test(description = "",
+			dependsOnMethods = "Login",
+			priority = 3)
 	public void AuthorContract() throws Exception {
 		logger = extent.startTest("Author Contract");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
-		objFunctions.navigate_Rainbowpath("Manage Contracts", "Author Contract");
+		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Author Contract");
+		//objFunctions.navigate_Rainbowpath("Manage Contracts", "Author Contract");
 		AuthorContract objAuthor = new AuthorContract(driver, logger);
 		CreateContract objContract = new CreateContract(driver, logger);
 		objAuthor.createContract(objContract);
@@ -135,7 +141,7 @@ public class FlowIContract {
 		ContractingParty objContParty = new ContractingParty(driver, logger);
 		objDetails.enterContractDetails(objContParty);
 		//ContractingParty objContParty = new ContractingParty(driver, logger);
-		objContParty.addContractingParty("TEST IGT", "Suresh Jambhalkar");
+		/*objContParty.addContractingParty("TEST IGT", "Suresh Jambhalkar");
 		objContract.navigate_ContractSubTabs("Contract Summary");
 		ContractSummary objSummary = new ContractSummary(driver, logger);
 		this.setContractNumber(objSummary.getContractNum());
@@ -158,9 +164,20 @@ public class FlowIContract {
 		Signers objSigners = new Signers(driver, logger);
 		objSummary.proceedToSignOff("Offline Signing", objSigners);
 		callAndLog(objViewContracts.performAction(contractNumber,"Download"), "able to perform action on Contract", "unable to perform action on Contract");
-	}
+	}*/
 	
-	@Test(alwaysRun = true, dependsOnMethods = "AuthorContract",priority=3)
+	@Test(description = "",
+			dependsOnMethods = "Login",
+			priority = 3)
+	public void AuthorContract() throws Exception {
+		logger = extent.startTest("Author Contract");
+		objFunctions = new eInvoice_CommonFunctions(driver, logger);
+		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Author Contract");
+		}
+	
+	/*@Test(description = "",
+			dependsOnMethods = "AuthorContract",
+			priority=3)
 	public void AddContractingParty() throws Exception {
 		logger = extent.startTest("Add Contracting Party");
 		ContractingParty objContParty = new ContractingParty(driver, logger);
@@ -170,7 +187,9 @@ public class FlowIContract {
 		objContParty.addContractingParty("USER TESTING, INC.", "Hinal Shah");
 	}
 	
-	@Test(alwaysRun = true, dependsOnMethods = "AddContractingParty",priority=3)
+	@Test(description = "",
+			dependsOnMethods = "AddContractingParty",
+			priority=3)
 	public void SendToContractingPartyForNegotiation() throws Exception {
 		logger = extent.startTest("Send to Contracting Party for Negotiation");
 		CreateContract objContract = new CreateContract(driver, logger);
@@ -181,7 +200,9 @@ public class FlowIContract {
 		objSummary.sendToContractingParty();
 	}
 	
-	@Test(alwaysRun = true, dependsOnMethods = "SendToContractingPartyForNegotiation",priority=3)
+	@Test(description = "",
+			dependsOnMethods = "SendToContractingPartyForNegotiation",
+			priority=3)
 	public void ContractingPartMarkingReviewed() throws Exception {
 		logger = extent.startTest("Contracting Party - Marking As Reviewed");
 		this.driver1 = objFrameworkUtility.getWebDriverInstance(
@@ -195,7 +216,9 @@ public class FlowIContract {
 		
 	}
 	
-	@Test(alwaysRun = true, dependsOnMethods = "ContractingPartMarkingReviewed",priority=3)
+	@Test(description = "",
+			dependsOnMethods = "ContractingPartMarkingReviewed",
+			priority=3)
 	public void SendingContractForSignoff() throws Exception {
 		logger = extent.startTest("Contract sent for signoff");
 		AuthorContract objAuthor = new AuthorContract(driver, logger);
@@ -210,7 +233,7 @@ public class FlowIContract {
 		objSummary.proceedToSignOff("Offline Signing", objSigners);
 		ViewContracts objViewContracts = new ViewContracts(driver1, logger);
 		callAndLog(objViewContracts.performAction(contractNumber,"Download"), "able to perform action on Contract", "unable to perform action on Contract");
-	}
+	}*/
 	
 	@AfterMethod
 	public void getResult(ITestResult result) {

@@ -13,10 +13,10 @@ public class iContract_DataProviderTestNG {
 	
 	public iContract_DataProviderTestNG() throws Exception {
 		super();
-		System.out.println(System.getProperty("user.dir"));
+		//System.out.println(System.getProperty("user.dir"));
 	}
 
-	@DataProvider
+	@DataProvider(parallel = true)
 	public Object[][] Login() throws Exception {
 		return objFunctions.dataProvider("Login", Datasheet_iContract);
 	}

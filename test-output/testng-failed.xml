@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Command line suite]">
-  <test thread-count="5" name="Command line test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.main.FlowEInvoice">
+      <class name="com.main.FlowIContract">
         <methods>
-          <include name="Login"/>
-          <include name="InvoiceAction"/>
-          <include name="shareMyReports" invocation-numbers="0"/>
-          <include name="CreditMemowithoutReference"/>
-          <include name="InvoiceNonPO"/>
-          <include name="startReport"/>
-          <include name="NewBatch" invocation-numbers="0"/>
-          <include name="tearDown"/>
-          <include name="Reports" invocation-numbers="0"/>
-          <include name="ApprovalAction"/>
-          <include name="Invoices" invocation-numbers="0"/>
+          <include name="AuthorContract"/>
           <include name="getResult"/>
-          <include name="AddReconciliationStatements"/>
-          <include name="InvoiceagainstPO"/>
-          <include name="ConfigureOOO"/>
-          <include name="CreditMemoagainstPO"/>
-          <include name="createProcessForm" invocation-numbers="0"/>
-          <include name="Statements"/>
-          <include name="Batches" invocation-numbers="0"/>
+          <include name="Login" invocation-numbers="0"/>
+          <include name="startReport"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.main.FlowEInvoice -->
+      </class> <!-- com.main.FlowIContract -->
     </classes>
-  </test> <!-- Command line test(failed) -->
-</suite> <!-- Failed suite [Command line suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

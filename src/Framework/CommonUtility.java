@@ -506,12 +506,12 @@ public class CommonUtility {
 	}
 
 	public String getWorkingWindowTitle(String parent) {
-		String workingView = "Rainbow";
+		String workingView = null;
 		try {
 			if (switchWindowHandles(parent, "Product Selection"))
 				workingView = "Classic";
-			else
-				switchWindowHandles(parent, "Rainbow Home");
+			else if (switchWindowHandles(parent, "Rainbow Home"))
+				workingView = "Rainbow";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

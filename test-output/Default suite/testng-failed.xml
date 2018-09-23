@@ -7,7 +7,7 @@
         <methods>
           <include name="AuthorContract"/>
           <include name="getResult"/>
-          <include name="Login"/>
+          <include name="Login" invocation-numbers="0"/>
           <include name="startReport"/>
           <include name="tearDown"/>
         </methods>

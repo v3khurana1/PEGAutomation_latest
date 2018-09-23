@@ -100,6 +100,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 	}*/
 
 	public void navigate_path(String tab, String subTab) throws Exception {
+		Actions action = new Actions(driver);
 		try {
 			/*ConfigurationProperties config = ConfigurationProperties.getInstance();
 			String landingTab = returnLandingTabs(config.getProperty("landingTab"));
@@ -108,10 +109,9 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			} else {*/
 				Thread.sleep(3000);
 				waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
-				Actions action = new Actions(driver);
+				
 				WebElement path_tab = findElement(
 						By.xpath("//div[@id='subHeaderNav']//a[text()[contains(.,'" + tab + "')]]"));
-				
 				//if(path_tab.getAttribute("class") != "activeSubHeaderTab"){
 					action.click(path_tab).build().perform();
 					WebElement subpath_tab = findElement(By.xpath("//div[@id='subHeaderNav']//a[text()[contains(.,'" + tab
@@ -127,6 +127,20 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			ex.printStackTrace();
 			logger.log(LogStatus.INFO, "Not Navigated to "+ tab +" - "+ subTab);
 			throw new Exception();
+		}
+	}
+	
+	public void navigateToMainPage(String displayStyle, String tab, String subTab) throws Exception {
+		if(displayStyle.equals("Rainbow")){
+			if(subTab!="")
+				navigate_Rainbowpath(tab,subTab);
+			else
+				navigate_Rainbowpath(tab);
+		}else{
+			if(subTab!="")
+				navigate_path(tab,subTab);
+			else
+				navigate_path(tab);
 		}
 	}
 	
@@ -526,7 +540,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		try {
 			// List<WebElement> headerList =
 			// driver.findElements(By.xpath("//thead/tr[1]/th/div/text()[contains(.,'"+fieldName+"')]"));
-			List<WebElement> headerList = driver.findElements(By.xpath("//thead/tr[1]/th/div[text()]"));
+			List<WebElement> headerList = driver.findElements(By.xpath("//thead/tr[1]/th/*[text()]"));
 			for (WebElement header : headerList) {
 				intColNum++;
 				if (header.getText().equals(fieldName))

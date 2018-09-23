@@ -1,5 +1,9 @@
 package SanityDefault;
 
+import java.nio.charset.StandardCharsets;
+
+import javax.xml.bind.DatatypeConverter;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -68,12 +72,10 @@ public class Login extends CommonFunctions1 {
 			// Enter credentials & click Login button
 			sendKeys(By.id("login-email"), username);
 			logger.log(LogStatus.INFO, "username entered is " + username);
-			/*
-			 * sendKeys(By.id("login-password"), new
-			 * String(DatatypeConverter.parseBase64Binary(password),
-			 * StandardCharsets.UTF_8));
-			 */
-			sendKeys(By.id("login-password"), password);
+			
+			sendKeys(By.id("login-password"), new String(DatatypeConverter.parseBase64Binary(password),StandardCharsets.UTF_8));
+			 
+			//sendKeys(By.id("login-password"), password);
 			findElement(By.xpath("//div/input[contains(@class,'btn btn-primary')]")).click();
 
 			try {
@@ -201,8 +203,8 @@ public class Login extends CommonFunctions1 {
 		return result;
 	}
 	
-	public boolean Login_via_PwdMgr1(ConfigurationProperties configurationProperties) {
-		boolean result = false;
+	public String Login_via_PwdMgr1(ConfigurationProperties configurationProperties) {
+		String result = null;
 		//JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebDriverWait wait = new WebDriverWait(driver, 120);
 		try {
@@ -269,7 +271,7 @@ public class Login extends CommonFunctions1 {
 						logger.log(LogStatus.INFO, "not switched to classic");
 				}*/
 				if (selectProduct(displayStyle))
-					result = true;
+					result = displayStyle;
 			}else{
 				logger.log(LogStatus.INFO, "no such user displayed for the selected environment");
 				throw new Exception();
@@ -282,20 +284,21 @@ public class Login extends CommonFunctions1 {
 
 	public boolean selectProduct(String displayStyle) {
 		boolean result = false;
+		Actions action = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 120);
 		try {
 			if (displayStyle.equals("Rainbow")) {
 				findElement(By.xpath("(//div[@id='rainbowHeader']/a/span/*)[1]")).click();
-				WebDriverWait wait = new WebDriverWait(driver, 20);
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='rb-header-wrap-bg' and contains(@style,'block')]")));
-				Actions action = new Actions(driver);
+				
 				WebElement productLink = findElement(
 						By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']"));
 				action.click(productLink).build().perform();
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']/../ul[contains(@style,'block')]")));
+				result = true;
 			}else{
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				String modifiedXpath = "activePan_" + product;
-				WebDriverWait wait = new WebDriverWait(driver, 120);
 				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(modifiedXpath)));
 				// element = findElement(By.id(modifiedXpath));
 				while(!js.executeScript("return document.readyState").equals("complete")){
