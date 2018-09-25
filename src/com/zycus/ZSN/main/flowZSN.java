@@ -1,4 +1,4 @@
-package com.main;
+package com.zycus.ZSN.main;
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -11,7 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import common.Functions.CommonFunctions;
+import common.Functions.*;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -37,7 +37,6 @@ import Dashboards.Dashboard;
 import Dashboards.viewDashboardCompanyCustomer;
 import Invoice.ViewInvoices;
 import Reference.Reference;
-import com.zycus.ZSN.main.*;
 //@Listeners(flowZSN.Listen.class)
 
 public class flowZSN {

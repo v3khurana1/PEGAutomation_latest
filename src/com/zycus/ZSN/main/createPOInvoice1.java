@@ -5,7 +5,7 @@
 
 package com.zycus.ZSN.main;
 
-import common.Functions.CommonFunctions1;
+import common.Functions.*;
 import Framework.ConfigurationProperties;
 import Invoice.ViewInvoices;
 
@@ -16,7 +16,7 @@ import org.openqa.selenium.*;
 // Referenced classes of package Invoice:
 //            ViewInvoices
 
-public class createPOInvoice1 extends CommonFunctions1
+public class createPOInvoice1 extends CommonFunctions
 {
 
     public createPOInvoice1(WebDriver driver, ExtentTest logger)
@@ -102,17 +102,14 @@ public class createPOInvoice1 extends CommonFunctions1
         if(path != "View Orders")
             selectedPO = select_PO_to_create_Inv_Creditmemo("");
         result = create_invoice();
-        if(result)
-        	return selectedPO;
-        else 
-        	return null;
+        return selectedPO;
     }
 
     private WebDriver driver;
     private By qtyInvoicefieldxpath;
     private By marketPricefieldxpath;
     private By invoicenoId;
-    //private String invoice_no;
+    private String invoice_no;
     private ExtentTest logger;
     ConfigurationProperties configurationProperties;
 }

@@ -5,7 +5,7 @@
 
 package com.zycus.ZSN.main;
 
-import common.Functions.CommonFunctions1;
+import common.Functions.*;
 import Framework.ConfigurationProperties;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -13,7 +13,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CreateCatalog1 extends CommonFunctions1
+public class CreateCatalog1 extends CommonFunctions
 {
 
     public CreateCatalog1(WebDriver driver, ExtentTest logger, String catalog_name, String supplier_name, String supplierPartID, String prodCategory, String price)
@@ -67,21 +67,21 @@ public class CreateCatalog1 extends CommonFunctions1
         { 
         sendKeys(supplierFieldXpath, supplier_name);
         Thread.sleep(2000L);
-        findElement(By.xpath((new StringBuilder("//ul[contains(@style,'block')]/li[contains(text(),'")).append(supplier_name).append("')]").toString())).click();
+        click(By.xpath((new StringBuilder("//ul[contains(@style,'block')]/li[contains(text(),'")).append(supplier_name).append("')]").toString()));
         logger.log(LogStatus.INFO, (new StringBuilder("selected supplier name is: ")).append(supplier_name).toString());
         } 
-        findElement(continueBtnid).click();
-        findElement(createNewcatalogBtnxpath).click();
+        click(continueBtnid);
+        click(createNewcatalogBtnxpath);
         Thread.sleep(2000L);
-        findElement(addItemBtnxpath).click();
+        click(addItemBtnxpath);
         Thread.sleep(3000L);
         String is_item_added = String.valueOf(addItem(catalog_name, supplierPartID, prodCategory, price));
         LogScreenshot(is_item_added, "succesfully added an item to the catalog");
         Thread.sleep(3000L);
         if(findElement(btnContinuexpath).isEnabled())
-        	findElement(btnContinuexpath).click();
+            click(btnContinuexpath);
         Thread.sleep(2000L);
-        findElement(continueBtnid).click();
+        click(continueBtnid);
         waitUntilInvisibilityOfElement(By.id("status_overlay_publish"));
         Thread.sleep(3000L);
         try
@@ -121,7 +121,7 @@ public class CreateCatalog1 extends CommonFunctions1
                 findElement(prodCategoryfieldxpath).clear();
                 sendKeys(prodCategoryfieldxpath, "a");
                 Thread.sleep(2000L);
-                findElement(By.xpath("//div[@id='additemDialog']//ul[contains(@style,'block')]/li[1]")).click();
+                click(By.xpath("//div[@id='additemDialog']//ul[contains(@style,'block')]/li[1]"));
             }
             findElement(priceFieldxpath).sendKeys(new CharSequence[] {
                 price
@@ -129,7 +129,7 @@ public class CreateCatalog1 extends CommonFunctions1
             WebElement addButton = findElement(addBtnid);
             if(addButton.isDisplayed())
             {
-            	findElement(addBtnid).click();
+                click(addBtnid);
                 result = true;
             }
         }
@@ -149,8 +149,8 @@ public class CreateCatalog1 extends CommonFunctions1
             catalog_name
         });
         findElement(continueBtnid).submit();
-        findElement(createNewcatalogBtnxpath).click();
-        findElement(uploadFilebtnxpath).click();
+        click(createNewcatalogBtnxpath);
+        click(uploadFilebtnxpath);
         WebElement select = findElement(selectBtnxpath);
         String uploadPath = configurationProperties.getProperty("upload_path");
         select.sendKeys(new CharSequence[] {
@@ -161,7 +161,7 @@ public class CreateCatalog1 extends CommonFunctions1
         try
         {
             if(!loc.getText().isEmpty())
-            	findElement(Uploadbtnid).click();
+                click(Uploadbtnid);
             wait.until(ExpectedConditions.visibilityOf(findElement(By.xpath("//table/tbody/tr/th[@class='aLft']"))));
             WebElement src = findElement(By.xpath("//*[@id='header-supplierpartid/servicenumber']/td[2]/div"));
             WebElement dest = findElement(By.id("SUPPLIER_PART_ID"));
@@ -177,18 +177,18 @@ public class CreateCatalog1 extends CommonFunctions1
         {
             ex.printStackTrace();
         }
-        findElement(By.id("btnContinue")).click();
+        click(By.id("btnContinue"));
         return status;
     }
 
     private WebDriver driver;
     private String catalog_name;
-    //private String uploadPath;
+    private String uploadPath;
     private By catalogNamefieldId;
     private By supplierPartIDfieldid;
     private By descFieldid;
     private By prodCategoryfieldxpath;
-    //private By prodCatSelectxpath;
+    private By prodCatSelectxpath;
     private By priceFieldxpath;
     private By addBtnid;
     private By continueBtnid;

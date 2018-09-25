@@ -5,8 +5,9 @@
 
 package com.zycus.ZSN.main;
 
-import common.Functions.CommonFunctions1;
-//import Orders.POActions;
+import common.Functions.*;
+import Orders.POActions;
+
 import com.relevantcodes.extentreports.ExtentTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -14,7 +15,7 @@ import org.openqa.selenium.interactions.Actions;
 // Referenced classes of package Orders:
 //            POActions
 
-public class Orders1 extends CommonFunctions1
+public class Orders1 extends CommonFunctions
 {
 
     public Orders1(WebDriver driver, ExtentTest logger, Actions action, String carrier, String shipmentNo, String shipped_via, String service_level, 

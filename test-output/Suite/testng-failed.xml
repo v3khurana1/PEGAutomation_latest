@@ -6,21 +6,20 @@
       <class name="com.main.flowZSN">
         <methods>
           <include name="getResult"/>
-          <include name="Uploads_NonPOInvoice"/>
-          <include name="Uploads_CreditMemowithoutreference"/>
-          <include name="CreditMemowithoutreference"/>
+          <include name="Uploads_NonPOInvoice" invocation-numbers="0"/>
+          <include name="Uploads_CreditMemowithoutreference" invocation-numbers="0"/>
+          <include name="CreditMemowithoutreference" invocation-numbers="0"/>
           <include name="CreditMemoagainstPO"/>
           <include name="Invoice_againstBPO"/>
           <include name="Reference"/>
-          <include name="NonPOInvoice"/>
-          <include name="Order"/>
-          <include name="POInvoice"/>
-          <include name="Catalog"/>
+          <include name="NonPOInvoice" invocation-numbers="0"/>
+          <include name="Order" invocation-numbers="0"/>
+          <include name="Catalog" invocation-numbers="0"/>
           <include name="Uploads_CreditMemoagainstPO"/>
-          <include name="Dashboard"/>
+          <include name="Dashboard" invocation-numbers="0"/>
           <include name="startReport"/>
           <include name="Login"/>
-          <include name="ViewInvoice"/>
+          <include name="ViewInvoice" invocation-numbers="0"/>
           <include name="tearDown"/>
           <include name="Uploads_POInvoice"/>
         </methods>

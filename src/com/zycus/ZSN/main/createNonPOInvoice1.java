@@ -6,7 +6,7 @@ package com.zycus.ZSN.main;
 //Decompiler options: packimports(3) 
 //Source File Name:   createNonPOInvoice.java
 
-import common.Functions.CommonFunctions1;
+import common.Functions.*;
 import Invoice.ViewInvoices;
 
 import com.relevantcodes.extentreports.ExtentTest;
@@ -17,7 +17,7 @@ import org.openqa.selenium.WebDriver;
 //Referenced classes of package Invoice:
 //         ViewInvoices
 
-public class createNonPOInvoice1 extends CommonFunctions1
+public class createNonPOInvoice1 extends CommonFunctions
 {
 
  public createNonPOInvoice1(WebDriver driver, String location, String currency, String payment_term, String supplier_name, String item_no, String item_description, 
@@ -25,13 +25,13 @@ public class createNonPOInvoice1 extends CommonFunctions1
      throws Exception
  {
      super(driver, logger);
-     //custno = "1234";
-     //custNoid = By.id("txtCustomerNo");
+     custno = "1234";
+     custNoid = By.id("txtCustomerNo");
      locId = By.id("location");
      invoiceNoid = By.id("txtInvoiceNumber");
      paymentTermid = By.id("txtPaymentTerm-customBtn");
      addItembtnid = By.id("addMoreItems");
-     //supplierCompanyId = By.id("slctSupplierCompany");
+     supplierCompanyId = By.id("slctSupplierCompany");
      slctsupplierCompanyId = By.id("slctSupplierCompany-customBtn");
      this.driver = driver;
      this.location = location;
@@ -55,7 +55,7 @@ public class createNonPOInvoice1 extends CommonFunctions1
          if(subtab.contains("Invoice"))
          {
         	 if(driver.findElements(By.xpath("//form[@id='frmInvoice']//label[@for='slctSupplierCompany']/ancestor::li//span[2]")).size()==0){
-	        	 findElement(slctsupplierCompanyId).click();
+	        	 click(slctsupplierCompanyId);
 	             selectDropdown(supplier_name);
 	             logger.log(LogStatus.INFO, (new StringBuilder("selected supplier: ")).append(supplier_name).toString());
         	 }
@@ -65,7 +65,7 @@ public class createNonPOInvoice1 extends CommonFunctions1
          sendKeys(locId, location);
          logger.log(LogStatus.INFO, (new StringBuilder("selected location: ")).append(location).toString());
          Thread.sleep(2000L);
-         findElement(By.xpath((new StringBuilder("//div[@id='cntInvoice']/ul[contains(@style,'block')]/li[contains(text(),'")).append(location).append("')]").toString())).click();
+         click(By.xpath((new StringBuilder("//div[@id='cntInvoice']/ul[contains(@style,'block')]/li[contains(text(),'")).append(location).append("')]").toString()));
          Thread.sleep(3000L);
          LogScreenshot("INFO");
 		//	select_AutoComplete_Dropdown(locId, location);
@@ -76,14 +76,14 @@ public class createNonPOInvoice1 extends CommonFunctions1
          logger.log(LogStatus.INFO, (new StringBuilder("selected currency : ")).append(currency).toString());
          selectDate("txtInvoiceDate");
          Thread.sleep(2000L);
-         findElement(paymentTermid).click();
+         click(paymentTermid);
          selectDropdown(payment_term);
          logger.log(LogStatus.INFO, (new StringBuilder("selected payment term : ")).append(payment_term).toString());
          selectRemit_ToAddress();
          selectShip_ToAddress();
          LogScreenshot("INFO");
          scroll_into_view_element(findElement(addItembtnid));
-         findElement(addItembtnid).click();
+         click(addItembtnid);
          Thread.sleep(2000L);
          add_item(item_no, item_description, product_category, market_price, quantity);
          click_Submit();
@@ -119,13 +119,13 @@ public class createNonPOInvoice1 extends CommonFunctions1
  private String quantity;
  private String market_price;
  private String product_category;
- //private String custno;
- //private By custNoid;
+ private String custno;
+ private By custNoid;
  private By locId;
  private By invoiceNoid;
  private By paymentTermid;
  private By addItembtnid;
- //private By supplierCompanyId;
+ private By supplierCompanyId;
  private By slctsupplierCompanyId;
  private ExtentTest logger;
 }

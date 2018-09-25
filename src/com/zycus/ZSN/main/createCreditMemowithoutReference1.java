@@ -4,8 +4,7 @@
 // Source File Name:   createCreditMemowithoutReference.java
 
 package com.zycus.ZSN.main;
-
-import common.Functions.CommonFunctions1;
+import common.Functions.*;
 import Invoice.ViewInvoices;
 
 import com.relevantcodes.extentreports.ExtentTest;
@@ -15,7 +14,7 @@ import org.openqa.selenium.*;
 // Referenced classes of package Invoice:
 //            ViewInvoices
 
-public class createCreditMemowithoutReference1 extends CommonFunctions1
+public class createCreditMemowithoutReference1 extends CommonFunctions
 {
 
     public createCreditMemowithoutReference1(WebDriver driver, String currency, String supplier_company, String item_no, String item_description, String product_category, String market_price, 
@@ -23,7 +22,7 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
         throws Exception
     {
         super(driver, logger);
-        //custNoId = By.id("txtCustomerNo");
+        custNoId = By.id("txtCustomerNo");
         invoiceNoId = By.id("txtInvoiceNumber");
         addItemId = By.id("addMoreItems");
         itemLessId = By.id("itemLess");
@@ -48,7 +47,7 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
             if(subtab.contains("Credit Memo"))
             {
            	 if(driver.findElements(By.xpath("//form[@id='frmInvoice']//label[@for='slctSupplierCompany']/ancestor::li//span[2]")).size()==0){
-            	findElement(slctsupplierCompanyId).click();
+            	click(slctsupplierCompanyId);
                 selectDropdown(supplier_company);
                 logger.log(LogStatus.INFO, (new StringBuilder("selected supplier company: ")).append(supplier_company).toString());
            	 }
@@ -62,11 +61,12 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
             selectDate("txtInvoiceDate");
             scroll_into_view_element(findElement(itemLessId));
             selectRemit_ToAddress();
+            add_attachment("C:\\Users\\anisha.jain\\Downloads\\test_11July_automation.pdf");
             if(!findElement(itemLessId).isSelected())
             {
                 try
                 {
-                    findElement(addItemId).click();
+                    click(addItemId);
                     Thread.sleep(2000L);
                 }
                 catch(Exception exception) { }
@@ -97,7 +97,7 @@ public class createCreditMemowithoutReference1 extends CommonFunctions1
 
     private WebDriver driver;
     private ExtentTest logger;
-    //private By custNoId;
+    private By custNoId;
     private By invoiceNoId;
     private By addItemId;
     private By itemLessId;

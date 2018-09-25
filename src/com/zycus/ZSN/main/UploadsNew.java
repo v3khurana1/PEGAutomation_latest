@@ -5,25 +5,23 @@
 
 package com.zycus.ZSN.main;
 
-import common.Functions.CommonFunctions1;
+import common.Functions.*;
 import Framework.ConfigurationProperties;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
-public class UploadsNew extends CommonFunctions1
+public class UploadsNew extends CommonFunctions
 {
 
-    /*public UploadsNew(WebDriver driver, ExtentTest logger, String credit_memoNo, String invoice_no)
+    public UploadsNew(WebDriver driver, ExtentTest logger, String credit_memoNo, String invoice_no)
         throws Exception
     {
         super(driver, logger);
         this.driver = driver;
         this.logger = logger;
-        this.credit_memoNo =  credit_memoNo;
-        this.invoice_no = invoice_no;
-    }*/
+    }
 
     public UploadsNew(WebDriver driver, ExtentTest logger)
         throws Exception
@@ -37,7 +35,7 @@ public class UploadsNew extends CommonFunctions1
         throws Exception
     {
         boolean status = false;
-        findElement(By.id("uploadNewFile")).click();
+        click(By.id("uploadNewFile"));
         if(driver.findElements(By.xpath("//label[@for='supplierCompany']/ancestor::li/div/div[text()]")).size()==0){
         Select suppDropdown = new Select(findElement(By.id("supplierCompany")));
         suppDropdown.selectByIndex(1);
@@ -50,14 +48,14 @@ public class UploadsNew extends CommonFunctions1
         if(((Boolean)wait.until(ExpectedConditions.textToBePresentInElement(locator, "Uploaded"))).booleanValue())
         {
             logger.log(LogStatus.INFO, "Uploaded the file to ZSN!!");
-            findElement(By.id("closeAttachments")).click();
+            click(By.id("closeAttachments"));
             status = true;
         }
         return status;
     }
 
     private WebDriver driver;
-    //private String credit_memoNo;
-    //private String invoice_no;
+    private String credit_memoNo;
+    private String invoice_no;
     private ExtentTest logger;
 }

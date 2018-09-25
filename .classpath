@@ -37,6 +37,6 @@
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/testng-6.14.3.jar"/>
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/ZSNCore.jar"/>
-	<classpathentry kind="lib" path="C:/Users/varun.khurana/newWorkspace/Sanity_ZSN_2018/lib/extentreports-2.41.2.jar"/>
+	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/extentreports-2.41.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
