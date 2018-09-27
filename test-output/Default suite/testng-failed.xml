@@ -3,25 +3,31 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.main.flowZSN">
+      <class name="com.main.FlowEInvoice">
         <methods>
-          <include name="getResult"/>
-          <include name="Uploads_NonPOInvoice" invocation-numbers="0"/>
-          <include name="Uploads_CreditMemowithoutreference" invocation-numbers="0"/>
-          <include name="CreditMemoagainstPO"/>
-          <include name="Invoice_againstBPO"/>
-          <include name="Reference"/>
-          <include name="NonPOInvoice" invocation-numbers="0"/>
-          <include name="Catalog" invocation-numbers="0"/>
-          <include name="Uploads_CreditMemoagainstPO"/>
-          <include name="Dashboard" invocation-numbers="0"/>
-          <include name="startReport"/>
           <include name="Login"/>
-          <include name="ViewInvoice" invocation-numbers="0"/>
+          <include name="InvoiceAction"/>
+          <include name="Uploads" invocation-numbers="0"/>
+          <include name="shareMyReports" invocation-numbers="0"/>
+          <include name="CreditMemowithoutReference"/>
+          <include name="InvoiceNonPO"/>
+          <include name="startReport"/>
+          <include name="NewBatch" invocation-numbers="0"/>
           <include name="tearDown"/>
-          <include name="Uploads_POInvoice"/>
+          <include name="Reports" invocation-numbers="0"/>
+          <include name="Workflow" invocation-numbers="0"/>
+          <include name="searchPurchaseOrders" invocation-numbers="0"/>
+          <include name="ApprovalAction"/>
+          <include name="getResult"/>
+          <include name="AddReconciliationStatements"/>
+          <include name="InvoiceagainstPO"/>
+          <include name="ConfigureOOO"/>
+          <include name="CreditMemoagainstPO"/>
+          <include name="createProcessForm" invocation-numbers="0"/>
+          <include name="Statements"/>
+          <include name="Batches" invocation-numbers="0"/>
         </methods>
-      </class> <!-- com.main.flowZSN -->
+      </class> <!-- com.main.FlowEInvoice -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

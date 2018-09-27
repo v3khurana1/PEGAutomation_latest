@@ -174,9 +174,13 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			Thread.sleep(3000);
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
 			WebElement path_tab = findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]"));
+			//driver.findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]")).click();
 			path_tab.click();
-			WebElement subpath_tab = findElement(By.xpath("//ul[@class='rb-smenu-sub-sub']/li/a[span[text()='"+subTab+"']]"));
-			subpath_tab.click();
+			WebElement subpath_tab = findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
+			Thread.sleep(3000);
+			//driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]")).click();
+			Thread.sleep(3000);
+					subpath_tab.click();
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
 			LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
 		} catch (Exception ex) {

@@ -3,9 +3,9 @@
 <suite name="Suite">
 	<test thread-count="5" name="Test">
 		<classes>
-			<!-- <class name="com.main.FlowEProc"/> -->
-			<class name="com.main.flowZSN" />
-			<!-- <class name="com.main.FlowEInvoice"/> -->
+		<!--	 <class name="com.main.FlowEProc"/> -->
+			<!--<class name="com.main.flowZSN" />-->
+			 <class name="com.main.FlowEInvoice"/> 
 			<!-- <class name="com.main.FlowEInvoice"/> -->
 		</classes>
 	</test> <!-- Test -->

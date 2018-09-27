@@ -46,6 +46,7 @@ public class FlowEInvoice {
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
 	//private String Customer;
 	private String invoiceNo = null;
+	private String displayStyle;
 
 	public FlowEInvoice() throws Exception {
 		super();
@@ -81,16 +82,19 @@ public class FlowEInvoice {
 		//this.Customer = Customer;
 		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, Product, Username, Password, Customer, userAccount);
-		callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");
+		//callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");
+		displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
+		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
 	}
 	
-	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Invoices", alwaysRun = true, priority = 2)
+	/*@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Invoices", alwaysRun = true, priority = 2)
 	public void Invoices(String DocStatus, String DocNo, String DocType, String DocDateFrom, String DocDateTo,
 			String DueDateFrom, String DueDateTo, String FromAmtRange, String ToAmtRange, String Currency,
 			String Reference, String Supplier, String NavigatetoPageNo, String RecordsperPage) throws Exception {
 
 		Invoices objInvoice = new Invoices(driver, logger);
-		objFunctions.navigate_path("Invoice", "Invoices");
+		//objFunctions.navigate_path("Invoice", "Invoices");
+		objFunctions.navigateToMainPage(displayStyle, "Invoice", "Invoices");
 		callAndLog(objInvoice.changeNoOfRecordsPerPage(Integer.valueOf(RecordsperPage)), "able to change no of records",
 				"unable to change no of records");
 
@@ -136,7 +140,7 @@ public class FlowEInvoice {
 	 @Test(alwaysRun = true, dependsOnMethods = "Login",priority=3)
 		public void ApprovalAction() throws Exception {
 			logger = extent.startTest("Approve|Reject|Delegate an invoice");
-			objFunctions.navigate_path("Approval", "All Requests");
+			objFunctions.navigateToMainPage(displayStyle,"Approval", "All Requests");
 			objFunctions.clrAllFilters();
 			Approval objApproval = new Approval(driver, logger);
 			objApproval.filterByStatus("Pending");
@@ -147,7 +151,7 @@ public class FlowEInvoice {
 			Thread.sleep(3000);
 			objApproval.performActionOnInvoice("Delegate");
 
-		}
+		}*/
 	 
 		@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dataProvider = "InvoiceNonPO", alwaysRun = true, dependsOnMethods = "Login", priority = 4)
 		public void InvoiceNonPO(String supplierName, String paymentTerm, String currency_value, String invoiceDate,
@@ -156,7 +160,7 @@ public class FlowEInvoice {
 			logger = extent.startTest("Invoice Non PO");
 			Invoices objInvoice = new Invoices(driver, logger, supplierName, paymentTerm, currency_value, invoiceDate,
 					purchaseType, description, product_cat, market_prc, quantity, GLType);
-			objFunctions.navigate_path("Invoice", "Invoices");
+			objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 			callAndLog(objInvoice.createInvoiceNonPO(), "able to create invoice non PO", "unable to create invoice non PO");
 
 		}
@@ -169,7 +173,7 @@ public class FlowEInvoice {
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger);
 		callAndLog(objInvoice.editInvoice(objPO), "able to edit the invoice", "unable to edit the invoice");
 		
-		objFunctions.navigate_path("Invoice", "Invoices");
+		objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		objInvoice.filterByStatus("Approved");
 		callAndLog(objInvoice.takeActionOnInvoice("Close"), "able to close invoice", "unable to close invoice");
 		callAndLog(objInvoice.takeActionOnInvoice("Void Invoice"), "able to Void invoice", "unable to Void invoice");
@@ -188,7 +192,7 @@ public class FlowEInvoice {
 	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "PurchaseOrders", alwaysRun = true,priority=6)
 	public void searchPurchaseOrders(String PONumber, String SupplierName, String BuyerName) throws Exception {
 		logger = extent.startTest("Search PO based on PONumber,Supplier Name and Buyer Name");
-		objFunctions.navigate_path("PO");
+		objFunctions.navigateToMainPage(displayStyle,"PO","");
 		PurchaseOrder objPurchaseOrder = new PurchaseOrder(driver, logger);
 		// objPurchaseOrder.addInvoicebyHoveringPO();
 
@@ -213,7 +217,7 @@ public class FlowEInvoice {
 	@Test(alwaysRun = true, dependsOnMethods = "Login",priority=7)
 	public void ConfigureOOO() throws Exception {
 		logger = extent.startTest("ConfigureOOO");
-		objFunctions.navigate_path("Approval", "My Settings");
+		objFunctions.navigateToMainPage(displayStyle,"Approval", "My Settings");
 		MySettings objSetting = new MySettings(driver, logger);
 		callAndLog(objSetting.configureOOO(), "able to configure OOO", "unable to configure OOO");
 
@@ -227,7 +231,7 @@ public class FlowEInvoice {
 		logger = extent.startTest("CreditMemo without Reference");
 		Invoices objInvoice = new Invoices(driver, logger, supplierName, currency_value, creditMemoDate, purchaseType,
 				 description, product_cat, market_prc, quantity, GLType);
-		objFunctions.navigate_path("Invoice", "Invoices");
+		objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		callAndLog(objInvoice.createCreditMemowithoutReference(), "able to create CreditMemowithoutReference",
 				"unable to create CreditMemowithoutReference");
 	}
@@ -236,7 +240,7 @@ public class FlowEInvoice {
 	public void CreditMemoagainstPO() throws Exception {
 		logger = extent.startTest("CreditMemo against PO");
 		Invoices objInvoice = new Invoices(driver, logger);
-		objFunctions.navigate_path("Invoice", "Invoices");
+		objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
 		callAndLog(objInvoice.createCreditMemoagainstPO(objPO), "able to create creditMemo against PO",
 				"unable to create creditMemo against PO");
@@ -246,7 +250,7 @@ public class FlowEInvoice {
 	public void InvoiceagainstPO() throws Exception {
 		logger = extent.startTest("Invoice against PO");
 		Invoices objInvoice = new Invoices(driver, logger);
-		objFunctions.navigate_path("Invoice", "Invoices");
+		objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
 		callAndLog(objInvoice.createInvoiceagainstPO(objPO), "able to create invoice against PO",
 				"unable to create invoice against PO");
@@ -256,7 +260,7 @@ public class FlowEInvoice {
 	public void Statements(String tabToNavigate, String batchName, String bankName, String statementDate, String actionOnStatement) throws Exception {
 		logger = extent.startTest("Statements");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Statements objStatements = new Statements(driver, logger);
 		if(objStatements.searchBatchName(batchName))
 			logger.log(LogStatus.INFO, "Batch Name searched successfully");
@@ -270,7 +274,7 @@ public class FlowEInvoice {
 	public void AddReconciliationStatements(String tabToNavigate, String batchName, String bankName, String statementDate, String actionOnStatement) throws Exception {
 		logger = extent.startTest("Add Reconciliation Statements");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Statements objStatements = new Statements(driver, logger);
 		if(objStatements.addNewStmt()){
 			ReconcileNewStatement objReconStmt = new ReconcileNewStatement(driver, logger,batchName, bankName, statementDate); 
@@ -284,7 +288,7 @@ public class FlowEInvoice {
 	public void Uploads(String tabToNavigate) throws Exception {
 		logger = extent.startTest("Uploads");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Uploads objUploads = new Uploads(driver, logger);
 		ConfigurationProperties config = ConfigurationProperties.getInstance();
 		if(objUploads.uploadNewFile(System.getProperty("user.dir")+config.getProperty("upload_Jpgfile_path")))
@@ -299,7 +303,7 @@ public class FlowEInvoice {
 	public void Batches(String tabToNavigate, String subTabToNavigate, String batchNo, String createdBy, String bankAcct) throws Exception {
 		logger = extent.startTest("Batches");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate, subTabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
 		Batches objbatches = new Batches(driver, logger);
 		if(objbatches.searchBatchNo(batchNo))
 			logger.log(LogStatus.INFO, "Batch Number searched successfully");
@@ -313,7 +317,7 @@ public class FlowEInvoice {
 	public void shareMyReports(String tabToNavigate, String myReportsName, String sharedUserEmail) throws Exception {
 		logger = extent.startTest("Share My Reports");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Reports objReports = new Reports(driver, logger);
 		if(objReports.selectMyReports(myReportsName))
 			logger.log(LogStatus.INFO, "My Report searched & viewed successfully");
@@ -327,7 +331,7 @@ public class FlowEInvoice {
 			String approver, String notes, String reviewer) throws Exception {
 		logger = extent.startTest("New Batch Creation");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate, subTabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
 		Batches objBatches = new Batches(driver, logger);
 		NewPaymentBatch objNewPayment = new NewPaymentBatch(driver, logger, organizationUnit, bankAcct);
 		if(objBatches.createNewBatch(objNewPayment)){
@@ -347,7 +351,7 @@ public class FlowEInvoice {
 			String mandatory) throws Exception {
 		logger = extent.startTest("Create Process Form");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate, subTabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
 		AllForms objAllForms = new AllForms(driver, logger);
 		FormWizard objWizard = new FormWizard(driver, logger, formName, formType, formRelatedProcess,
 				businessUnit, sectionName, fieldToDisplayInSection, fieldName, "Auto_display_Name"); 
@@ -360,7 +364,7 @@ public class FlowEInvoice {
 	public void Reports(String tabToNavigate, String reportType, String reportName) throws Exception {
 		logger = extent.startTest("Reports");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Reports objReports = new Reports(driver, logger);
 		if(objReports.searchReport(reportType, reportName)){
 			logger.log(LogStatus.INFO, "Report searched successfully");
@@ -377,7 +381,7 @@ public class FlowEInvoice {
 	public void Workflow(String tabToNavigate, String workflowProcess, String workflowDescription, String workflowType, String approveMoreThanOnce) throws Exception {
 		logger = extent.startTest("Workflow");
 		eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objCommon.navigate_path(tabToNavigate);
+		objCommon.navigateToMainPage(displayStyle,tabToNavigate,"");
 		Workflow objWorkflow = new Workflow(driver, logger);
 		objWorkflow.clickCreateWorkflow();
 		WorkflowWizard objWizard = new WorkflowWizard(driver, logger, workflowProcess);

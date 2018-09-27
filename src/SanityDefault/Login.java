@@ -144,7 +144,7 @@ public class Login extends CommonFunctions1 {
 			//findElement(By.id("FRHost_Search")).sendKeys("CDK.account@zycus.com" + Keys.ENTER);
 			//findElement(By.id("FRHost_Search")).sendKeys("massmutual.za@zycus.com" + Keys.ENTER);
 			//findElement(By.id("FRHost_Search")).sendKeys("Securian.support.b@zycus.com" + Keys.ENTER);
-			findElement(By.id("FRHost_Search")).sendKeys("user2.Lowes@zycus.com" + Keys.ENTER);
+			findElement(By.id("FRHost_Search")).sendKeys("GDQA-P2P@zycus.com" + Keys.ENTER);
 			while(!js.executeScript("return document.readyState").equals("complete")){
 				System.out.println(js.executeScript("return document.readyState"));
 				Thread.sleep(100);

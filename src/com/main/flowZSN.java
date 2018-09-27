@@ -89,8 +89,7 @@ public class flowZSN {
 		} catch (Exception e) {
 		}
 	}
-	
-	
+		
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 15, dataProvider = "Order",alwaysRun = true)
 	public void Order(String carrier, String shipmentNo, String shipped_via, String service_level, String description,
 			String shipNotice_action) throws Exception {
@@ -117,8 +116,6 @@ public class flowZSN {
 				"TC 16 - unable to create CreditMemo against PO ");
 	}
 	
-	
-
 	@Test(dependsOnMethods = "Login", priority = 13, alwaysRun = true)
 	public void Reference() throws Exception {
 		logger = extent.startTest("Reference");
