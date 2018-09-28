@@ -6,26 +6,10 @@
       <class name="com.main.FlowEInvoice">
         <methods>
           <include name="Login"/>
-          <include name="InvoiceAction"/>
-          <include name="Uploads" invocation-numbers="0"/>
-          <include name="shareMyReports" invocation-numbers="0"/>
-          <include name="CreditMemowithoutReference"/>
+          <include name="getResult"/>
           <include name="InvoiceNonPO"/>
           <include name="startReport"/>
-          <include name="NewBatch" invocation-numbers="0"/>
           <include name="tearDown"/>
-          <include name="Reports" invocation-numbers="0"/>
-          <include name="Workflow" invocation-numbers="0"/>
-          <include name="searchPurchaseOrders" invocation-numbers="0"/>
-          <include name="ApprovalAction"/>
-          <include name="getResult"/>
-          <include name="AddReconciliationStatements"/>
-          <include name="InvoiceagainstPO"/>
-          <include name="ConfigureOOO"/>
-          <include name="CreditMemoagainstPO"/>
-          <include name="createProcessForm" invocation-numbers="0"/>
-          <include name="Statements"/>
-          <include name="Batches" invocation-numbers="0"/>
         </methods>
       </class> <!-- com.main.FlowEInvoice -->
     </classes>

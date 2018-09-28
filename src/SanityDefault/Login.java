@@ -279,6 +279,7 @@ public class Login extends CommonFunctions1 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("----------Display style is -----------"+ result);
 		return result;
 	}
 
@@ -306,7 +307,8 @@ public class Login extends CommonFunctions1 {
 					Thread.sleep(100);
 				}
 				js.executeScript("arguments[0].click();", elem);
-				String prodHeaderXpath = "//div[@id='newHeaderLowerPart']//label[@class='newhdrProdNm']";
+				//String prodHeaderXpath = "//div[@id='newHeaderLowerPart']//label[@class='newhdrProdNm']";
+				String prodHeaderXpath = "//div[@class='h-clearfix h-topBand']/div/div/span/span[2]";
 				waitUntilVisibilityOfElement(By.xpath(prodHeaderXpath));
 				if (driver.findElement(By.xpath(prodHeaderXpath)).getText().equals(product))
 					result = true;

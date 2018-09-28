@@ -111,17 +111,23 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 				waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
 				
 				WebElement path_tab = findElement(
-						By.xpath("//div[@id='subHeaderNav']//a[text()[contains(.,'" + tab + "')]]"));
+						By.xpath("//div[@id='tab-all']//a[text()[contains(.,'" + tab + "')]]"));
 				//if(path_tab.getAttribute("class") != "activeSubHeaderTab"){
 					action.click(path_tab).build().perform();
-					WebElement subpath_tab = findElement(By.xpath("//div[@id='subHeaderNav']//a[text()[contains(.,'" + tab
+					/*WebElement subpath_tab = findElement(By.xpath("//div[@id='subHeaderNav']//a[text()[contains(.,'" + tab
 							+ "')]]/parent::span//div[@class='subHdrUl']//a[label/text()[contains(.,'" + subTab + "')]]"));
-					if(!subpath_tab.findElement(By.xpath("./label")).getAttribute("class").equals("subNavSelected")){
+					*/
+					WebElement subpath_tab = findElement(By.xpath("//div[@id='tab-all']//a[text()[contains(.,'" + tab
+							+ "')]]/parent::span//div//a[text()[contains(.,'" + subTab + "')]]"));
+					//if(!subpath_tab.findElement(By.xpath("./label")).getAttribute("class").equals("subNavSelected")){
+					String elemClass = driver.findElement(By.xpath("//div[@id='tab-all']//span[a[text()[contains(.,'"+tab+"')]]]")).getAttribute("class");
+					System.out.println(elemClass);
+					if(elemClass.contains("activeHover")){
 						subpath_tab.click();
 						waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
 					}
-					LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
-					//logger.log(LogStatus.INFO, "Navigated to "+ tab +" - "+ subTab);
+					//LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
+					logger.log(LogStatus.INFO, "Navigated to "+ tab +" - "+ subTab);
 			//}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -131,17 +137,17 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 	}
 	
 	public void navigateToMainPage(String displayStyle, String tab, String subTab) throws Exception {
-		if(displayStyle.equals("Rainbow")){
-			if(subTab!="")
-				navigate_Rainbowpath(tab,subTab);
-			else
-				navigate_Rainbowpath(tab);
-		}else{
-			if(subTab!="")
-				navigate_path(tab,subTab);
-			else
-				navigate_path(tab);
-		}
+		if(displayStyle.equals("Rainbow"))
+			navigate_Rainbowpath(tab,subTab);
+		else
+			navigate_path(tab,subTab);
+	}
+	
+	public void navigateToMainPage(String displayStyle, String tab) throws Exception {
+		if(displayStyle.equals("Rainbow"))
+			navigate_Rainbowpath(tab);
+		else
+			navigate_path(tab);
 	}
 	
 	public void navigate_Rainbowpath(String tab) throws Exception {
@@ -161,10 +167,11 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			WebElement path_tab = findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]"));
 			path_tab.click();
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
-			LogScreenshot("INFO", "Navigated to "+ tab);
+			//LogScreenshot("INFO", "Navigated to "+ tab);
+			//logger.log(LogStatus.INFO, "Navigated to "+ tab);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			logger.log(LogStatus.INFO, "Not Navigated to "+ tab);
+			//logger.log(LogStatus.INFO, "Not Navigated to "+ tab);
 			throw new Exception();
 		}
 	}
@@ -173,19 +180,24 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		try {
 			Thread.sleep(3000);
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
-			WebElement path_tab = findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]"));
+			WebElement path_tab = driver.findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]"));
 			//driver.findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]")).click();
-			path_tab.click();
-			WebElement subpath_tab = findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
-			Thread.sleep(3000);
+			Actions action = new Actions(driver);
+			action.moveToElement(path_tab).perform();
+			//path_tab.click();
+			Thread.sleep(2000);
+			WebElement subpath_tab = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
 			//driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]")).click();
-			Thread.sleep(3000);
-					subpath_tab.click();
+			//Thread.sleep(3000);
+			//subpath_tab.click();
+			action.moveToElement(path_tab).click().build().perform();
+			
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
-			LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
+			//LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
+			//logger.log(LogStatus.INFO, "Navigated to "+ tab +" - "+ subTab);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			logger.log(LogStatus.INFO, "Not Navigated to "+ tab +" - "+ subTab);
+			//logger.log(LogStatus.INFO, "Not Navigated to "+ tab +" - "+ subTab);
 			throw new Exception();
 		}
 	}
@@ -268,7 +280,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 				findElement(btnSubmitId).click();
 				findElement(confirmationPopupXpath).click();
 				waitUntilVisibilityOfElement(successBoxId);
-				logger.log(LogStatus.INFO, "created " + category + " " + invoiceOrCreditMemoNo);
+				//logger.log(LogStatus.INFO, "created " + category + " " + invoiceOrCreditMemoNo);
 				result = true;
 			}
 		} catch (Exception e) {
@@ -384,7 +396,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			try {
 				enterText_AutoComplete(productCategoryxpath, product_cat);
 			} catch (Exception e) {
-				logger.log(LogStatus.INFO, "Product category " + product_cat + " is not available in the list");
+				//logger.log(LogStatus.INFO, "Product category " + product_cat + " is not available in the list");
 				findElement(productCategoryxpath).clear();
 				sendKeys(productCategoryxpath, "a");
 				Thread.sleep(2000);
@@ -411,7 +423,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 					.findElements(By.xpath("//table[@id='vng-collapsibleGrid']/tbody/tr[contains(@id,'itemRow')]"))
 					.size();
 			if (noOfItems == existingItems + 1) {
-				logger.log(LogStatus.INFO, "added item successfully");
+				//logger.log(LogStatus.INFO, "added item successfully");
 				result = true;
 			}
 		} catch (Exception e) {
@@ -513,7 +525,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 				List<WebElement> objfilteredTxtList = driver.findElements(By.xpath("//tbody//td[" + intColNo + "]"));
 				for (WebElement obj : objfilteredTxtList) {
 					if (obj.getText().contains(searchValue)) {
-						logger.log(LogStatus.INFO, obj.getText());
+						//logger.log(LogStatus.INFO, obj.getText());
 						result = true;
 					} else {
 						result = false;
@@ -747,8 +759,8 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		findElement(By.xpath("//*[@id='ui-datepicker-div']/table//tr/td[contains(@class,'today')]")).click();
 		if (date.getText() != null)
 			result = true;
-		else
-			logger.log(LogStatus.INFO, "date field is empty");
+		else{}
+			//logger.log(LogStatus.INFO, "date field is empty");
 		return result;
 	}
 }

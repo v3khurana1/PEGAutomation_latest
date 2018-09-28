@@ -3,6 +3,8 @@ package com.zycus.eInvoice.Invoice;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,16 +36,18 @@ public class Invoices extends eInvoice_CommonFunctions {
 	//private By tableXpath = By.xpath("//table[@id='invoicelisting']");
 	//private By docTypeXpath = By.xpath("//table[@id='invoicelisting']//tr[*]/td[3]");
 	private By statusXpath = By.xpath("//table[@id='invoicelisting']//td[2]/div");
+	private By docTypeXpath = By.xpath("//table[@id='invoicelisting']//td[3]");
 	private By docDateXpath = By.xpath("//table[@id='invoicelisting']//td[contains(@class,'invoiceDate')]");
 	private By docDueDateXpath = By.xpath("//table[@id='invoicelisting']//td[contains(@class,'invoiceDueDate')]");
 	private By amountXpath = By.xpath("//table[@id='invoicelisting']//td[contains(@class,'totalAmountReq')]");
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and @aria-hidden='false']//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
 	private By paginateXpath = By.xpath("//*[@id='invoicelisting_paginate']//input[@name='text']");
-	private By saveFavId = By.id("saveFavorite");
-	private By favFilterPopupId = By.id("favouriteFilterPopup");
-	private By favContinueId = By.id("favourite-continue");
-	private By revertFavId = By.id("revertFavorite");
+	private By saveFavId = By.xpath("//a[contains(@id,'saveFavorite')]");
+	//private By favFilterPopupId = By.id("favouriteFilterPopup");
+	private By favViewPopupId = By.id("new_favoriteViewPopup");
+	//private By favContinueId = By.id("favourite-continue");
+	private By revertFavId = By.id("revertMultipleFavorite");
 	private By voidInvoiceCommentId = By.id("txtInvoiceCancelComment");
 	private By closeInvoiceCommentId = By.id("txtInvoiceCloseComment");
 	private By returnInvoiceCommentId = By.id("txtInvoiceReturnComment");
@@ -199,11 +203,17 @@ public class Invoices extends eInvoice_CommonFunctions {
 	 */
 	public boolean saveViewAsFavorite() {
 		boolean result = false;
+		Random rnd = new Random();
 		try {
 			findElement(saveFavId).click();
-			if (findElement(favFilterPopupId).isDisplayed())
-				findElement(favContinueId).click();
+			//if (findElement(favFilterPopupId).isDisplayed())
+			if (findElement(favViewPopupId).isDisplayed()){
+				driver.findElement(By.id("favoriteNewName")).sendKeys("MyFavoriteName_"+String.valueOf(rnd.nextInt(9999)));
+				findElement(By.xpath("//div[@id='new_favoriteViewPopup']//input[@value='Save']")).click();
+			}
+				//findElement(favContinueId).click();
 			// TODO add wait until invisible - processing element
+			waitUntilInvisibilityOfElement(processingLoader);
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -223,16 +233,36 @@ public class Invoices extends eInvoice_CommonFunctions {
 	public boolean revertToDefaultView() {
 		boolean result = false;
 		try {
-			findElement(revertFavId ).click();
-			findElement(By.xpath("//div/button[contains(@class,'pri')]")).click();
+			findElement(revertFavId).click();
+			waitUntilInvisibilityOfElement(By.xpath("//span[@class='currentActiveView' and contains(@style,'none')]"));
+			//findElement(By.xpath("//div/button[contains(@class,'pri')]")).click();
 			// TODO page loading
-			if (!findElement(revertFavId).isDisplayed())
+			if (!driver.findElement(revertFavId).isDisplayed())
 				result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	
+	public boolean deleteFavView() {
+		boolean result = false;
+		try {
+			findElement(By.id("listFavoriteView") ).click();
+			try{
+				findElement(By.xpath("//div[@class='favoriteviewList']/table/tbody//td/a[text()='MyFavoriteName']")).click();
+				findElement(By.xpath("//div[contains(@class,'promptbx iConfirmBox')]//button/span[text()='Delete']")).click();
+				waitUntilInvisibilityOfElement(processingLoader);
+			}catch(Exception e){}
+			findElement(By.id("listFavoriteView") ).click();
+			if (!(driver.findElements(By.xpath("//div[@class='favoriteviewList']/table/tbody//td/a[text()='MyFavoriteName']")).size()==1))
+				result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 
 	/**
 	 * <b>Function:</b> editInvoice
@@ -248,6 +278,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 		try {
 			filterByDocType("Invoice");
 			filterByStatus("Draft");
+			waitUntilInvisibilityOfElement(processingLoader);
 			selectActionInvoice("Edit");
 			//PurchaseOrder objPO = new PurchaseOrder(driver, logger);
 			objPO.editInvoice();
@@ -397,21 +428,24 @@ public class Invoices extends eInvoice_CommonFunctions {
 			Thread.sleep(2000);
 			switch (action) {
 			case "Void Invoice":
-				sendKeys(voidInvoiceCommentId , "void invoice comment");
+				//sendKeys(voidInvoiceCommentId , "void invoice comment");
+				driver.findElement(voidInvoiceCommentId).sendKeys("void invoice comment");
 				/*findElement(By.xpath("//input[contains(@class,'invoiceCancel')]")).click();
 				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));*/
 				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceCancel')]"), By.xpath("//*[@id='status_overlay_cancellingInvoice']/div"));
 				result = true;
 				break;
 			case "Close":
-				sendKeys(closeInvoiceCommentId , "close invoice comment");
+				//sendKeys(closeInvoiceCommentId , "close invoice comment");
+				driver.findElement(closeInvoiceCommentId).sendKeys("close invoice comment");
 				/*findElement(By.xpath("//input[contains(@class,'invoiceClose')]")).click();
 				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_closingInvoice']/div"));*/
 				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceClose')]"), By.xpath("//*[@id='status_overlay_closingInvoice']/div"));
 				result = true;
 				break;
 			case "Return":
-				sendKeys(returnInvoiceCommentId , "return invoice comment");
+				//sendKeys(returnInvoiceCommentId , "return invoice comment");
+				driver.findElement(returnInvoiceCommentId).sendKeys("return invoice comment");
 				/*findElement(By.xpath("//input[contains(@class,'invoiceReturn')]")).click();
 				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_returnInvoice']/div"));*/
 				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'invoiceReturn')]"), By.xpath("//*[@id='status_overlay_returnInvoice']/div"));
@@ -420,7 +454,8 @@ public class Invoices extends eInvoice_CommonFunctions {
 			case "Adjust Credit":
 				break;
 			case "Restrict Payment":
-				sendKeys(adjustAmtCommentId , "restrict payment comment");
+				//sendKeys(adjustAmtCommentId , "restrict payment comment");
+				driver.findElement(adjustAmtCommentId).sendKeys("restrict payment comment");
 				/*findElement(By.xpath("//input[contains(@class,'adjustAmount')]")).click();
 				waitUntilInvisibilityOfElement(By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));*/
 				clickAndWaitUntilLoaderDisappears(By.xpath("//input[contains(@class,'adjustAmount')]"), By.xpath("//*[@id='status_overlay_adjustingAmount']/div"));
@@ -540,6 +575,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 	public boolean filterByStatus(String checkBoxLbl) throws Exception {
 		boolean result = false;
 		try {
+			waitUntilInvisibilityOfElement(processingLoader);
 			findElement(By.xpath("//th[contains(@class,'invstatusFltrHdr')]//b")).click();
 			result = filterByChkbox(checkBoxLbl, statusXpath);
 		} catch (Exception e) {
@@ -848,8 +884,9 @@ public class Invoices extends eInvoice_CommonFunctions {
 	public boolean filterByDocType(String checkBoxLbl) throws Exception {
 		boolean result = false;
 		try {
+			waitUntilInvisibilityOfElement(processingLoader);
 			findElement(By.xpath("//th[contains(@class,'docTypeFltrHdr')]//b")).click();
-			result = filterByChkbox(checkBoxLbl, statusXpath);
+			result = filterByChkbox(checkBoxLbl, docTypeXpath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

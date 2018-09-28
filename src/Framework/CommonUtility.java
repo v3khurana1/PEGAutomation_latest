@@ -103,7 +103,7 @@ public class CommonUtility {
 		 * .pollingEvery(1,
 		 * TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
 		 */
-		WebDriverWait wait = new WebDriverWait(driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 120);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
 	}
 
