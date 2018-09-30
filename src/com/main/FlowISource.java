@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import org.openqa.selenium.Keys;
@@ -9,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -71,6 +73,11 @@ public class FlowISource {
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/config/extent-config.xml"));
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	}
+	
+	@BeforeMethod
+	public void beforeMethod(Method method){
+		logger = extent.startTest(method.getName());
+	}
 
 
 	@Test(description = "Login Method",
@@ -79,11 +86,7 @@ public class FlowISource {
 			priority = 1, 
 			alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
-		//this.Customer = Customer;
-		//this.Product = Product;
 		objFunctions = new eInvoice_CommonFunctions(driver, logger, Product);
-		//objFunctions = new eInvoice_CommonFunctions(driver, logger, "iContract");
-		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, "iContract", Username, Password, Customer, userAccount);
 		displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
 		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
@@ -95,7 +98,6 @@ public class FlowISource {
 			dependsOnMethods = "Login",
 			priority = 3)
 	public void AuthorContract() throws Exception {
-		logger = extent.startTest("Author Contract");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Author Contract");
 		}

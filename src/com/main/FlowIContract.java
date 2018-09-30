@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import org.openqa.selenium.Keys;
@@ -9,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -71,6 +73,11 @@ public class FlowIContract {
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/config/extent-config.xml"));
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 	}
+	
+	@BeforeMethod
+	public void beforeMethod(Method method){
+		logger = extent.startTest(method.getName());
+	}
 
 
 	@Test(description = "Login Method",
@@ -79,11 +86,7 @@ public class FlowIContract {
 			priority = 1, 
 			alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
-		//this.Customer = Customer;
-		//this.Product = Product;
 		objFunctions = new eInvoice_CommonFunctions(driver, logger, Product);
-		//objFunctions = new eInvoice_CommonFunctions(driver, logger, "iContract");
-		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, "iContract", Username, Password, Customer, userAccount);
 		displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
 		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
@@ -94,7 +97,6 @@ public class FlowIContract {
 			dependsOnMethods = "Login",
 			priority = 1)
 	public void Repository() throws Exception {
-		logger = extent.startTest("Repository");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 		//NavigationClass objNavigate = new NavigationClass(driver, logger, Product, tab, subTab)
 		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Repository");
@@ -112,7 +114,6 @@ public class FlowIContract {
 			dependsOnMethods = "Login",
 			priority = 3)
 	public void AuthorContract() throws Exception {
-		logger = extent.startTest("Author Contract");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Author Contract");
 		//objFunctions.navigate_Rainbowpath("Manage Contracts", "Author Contract");
@@ -170,7 +171,6 @@ public class FlowIContract {
 			dependsOnMethods = "Login",
 			priority = 3)
 	public void AuthorContract() throws Exception {
-		logger = extent.startTest("Author Contract");
 		objFunctions = new eInvoice_CommonFunctions(driver, logger);
 		objFunctions.navigateToMainPage(displayStyle, "Manage Contracts", "Author Contract");
 		}
@@ -179,7 +179,6 @@ public class FlowIContract {
 			dependsOnMethods = "AuthorContract",
 			priority=3)
 	public void AddContractingParty() throws Exception {
-		logger = extent.startTest("Add Contracting Party");
 		ContractingParty objContParty = new ContractingParty(driver, logger);
 		//For IGT & CDK in Partner
 		//objContParty.addContractingParty("TEST IGT", "Suresh Jambhalkar");
@@ -191,7 +190,6 @@ public class FlowIContract {
 			dependsOnMethods = "AddContractingParty",
 			priority=3)
 	public void SendToContractingPartyForNegotiation() throws Exception {
-		logger = extent.startTest("Send to Contracting Party for Negotiation");
 		CreateContract objContract = new CreateContract(driver, logger);
 		objContract.navigate_ContractSubTabs("Contract Summary");
 		ContractSummary objSummary = new ContractSummary(driver, logger);
@@ -204,7 +202,6 @@ public class FlowIContract {
 			dependsOnMethods = "SendToContractingPartyForNegotiation",
 			priority=3)
 	public void ContractingPartMarkingReviewed() throws Exception {
-		logger = extent.startTest("Contracting Party - Marking As Reviewed");
 		this.driver1 = objFrameworkUtility.getWebDriverInstance(
 				System.getProperty("user.dir") + configurationProperties.getProperty("chromedriverpath"));
 		Login objLogin = new Login(driver1, logger, "hinal.shah@zycus.com", "Mansi@123");
@@ -220,7 +217,6 @@ public class FlowIContract {
 			dependsOnMethods = "ContractingPartMarkingReviewed",
 			priority=3)
 	public void SendingContractForSignoff() throws Exception {
-		logger = extent.startTest("Contract sent for signoff");
 		AuthorContract objAuthor = new AuthorContract(driver, logger);
 		ContractSummary objSummary = new ContractSummary(driver, logger);
 		Actions actions = new Actions(driver);

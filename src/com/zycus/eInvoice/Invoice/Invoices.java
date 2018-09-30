@@ -159,8 +159,11 @@ public class Invoices extends eInvoice_CommonFunctions {
 		try {
 			findElement(By.xpath("//select[@name='invoicelisting_length']/option[text()='" + noOfRecord + "']"))
 					.click();
-			// TODO add validation
-			result = true;
+
+			waitUntilInvisibilityOfElement(processingLoader);
+			int rowsDisplayed = driver.findElements(By.xpath("//table[@id='invoicelisting']/tbody/tr")).size();
+			if(rowsDisplayed==noOfRecord)
+				result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -180,11 +183,13 @@ public class Invoices extends eInvoice_CommonFunctions {
 	public boolean navigateToPageNo(String pageNo) throws Exception {
 		boolean result = false;
 		try {
-			findElement(paginateXpath).clear();
+			driver.findElement(paginateXpath).clear();
 			/*sendKeys(paginateXpath, pageNo + Keys.ENTER);
 			waitUntilInvisibilityOfElement(processingLoader);*/
 			searchAndWaitUntilLoaderDisappears(paginateXpath, pageNo, processingLoader);
-			result = true;
+			int displayedPageNo = Integer.parseInt(driver.findElement(paginateXpath).getAttribute("value"));
+			if(displayedPageNo==Integer.parseInt(pageNo))
+				result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

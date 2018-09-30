@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -69,6 +71,11 @@ public class flowZSN {
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/config/extent-config.xml"));
 		objFunctions = new CommonFunctions(driver, logger);
 	}
+	
+	@BeforeMethod
+	public void beforeMethod(Method method){
+		logger = extent.startTest(method.getName());
+	}
 
 	/**
 	 * -------------------------------------------------------
@@ -83,7 +90,6 @@ public class flowZSN {
 	public void Login(String Username, String Password, String Customer) throws Exception {
 		try {
 			this.Customer = Customer;
-			logger = extent.startTest("Login");
 			LoginZSN objLogin = new LoginZSN(driver, logger, Username, Password);
 			callAndLog(objLogin.login(configurationProperties), "login successful", "Not logged in");
 		} catch (Exception e) {
@@ -93,7 +99,6 @@ public class flowZSN {
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 15, dataProvider = "Order",alwaysRun = true)
 	public void Order(String carrier, String shipmentNo, String shipped_via, String service_level, String description,
 			String shipNotice_action) throws Exception {
-		logger = extent.startTest("Order");
 		Actions action = new Actions(driver);
 		objFunctions.navigate_path1("My Orders", "View Orders", Customer);
 		ViewOrders1 objViewOrders = new ViewOrders1(driver, logger);
@@ -109,7 +114,6 @@ public class flowZSN {
 	
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 6, alwaysRun = true)
 	public void CreditMemoagainstPO() throws Exception {
-		logger = extent.startTest("create CreditMemo against PO");
 		objFunctions.navigate_path1("My Invoices", "Create Credit Memo against PO", Customer);
 		createCreditMemoagainstPO1 objCreateCM = new createCreditMemoagainstPO1(driver, logger);
 		callAndLog(objCreateCM.Create_new_Credit_Memo(selectedPO), "TC 16 - able to create CreditMemo against PO",
@@ -118,7 +122,6 @@ public class flowZSN {
 	
 	@Test(dependsOnMethods = "Login", priority = 13, alwaysRun = true)
 	public void Reference() throws Exception {
-		logger = extent.startTest("Reference");
 		Reference objRef = new Reference(driver, logger);
 		callAndLog(objRef.view_ReferenceDoc(), "TC 38 -  able to open the reference docs related to customer",
 				"TC 38 - Unable to open the reference docs related to customer");
@@ -126,7 +129,7 @@ public class flowZSN {
 
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", priority = 10,alwaysRun = true)
 	public void Uploads_CreditMemoagainstPO() throws Exception {
-		logger = extent.startTest("create CreditMemo against PO via uploads");
+		//logger = extent.startTest("create CreditMemo against PO via uploads");
 		objFunctions.navigate_path1("My Invoices", "View Uploads", Customer);
 		UploadsNew objUpload = new UploadsNew(driver, logger);
 			callAndLog(objUpload.upload_file(configurationProperties), "able to upload file to ZSN",
@@ -141,7 +144,7 @@ public class flowZSN {
 
 	@Test(dependsOnMethods = "Login", priority = 4, alwaysRun = true)
 	public void POInvoice() throws Exception {
-		logger = extent.startTest("create PO Invoice");
+		//logger = extent.startTest("create PO Invoice");
 		objFunctions.navigate_path1("My Invoices", "Create PO Invoice", Customer);
 		createPOInvoice1 objCreatePO = new createPOInvoice1(driver, logger);
 		this.selectedPO = objCreatePO.create_inv("");
@@ -152,8 +155,7 @@ public class flowZSN {
 	
 	@Test(dependsOnMethods = "Login",alwaysRun = true, priority = 8)
 	public void Uploads_POInvoice() throws Exception {
-		System.out.println(" I am in uploads something..idk");
-		logger = extent.startTest("create PO Invoice via Uploads");
+		//logger = extent.startTest("create PO Invoice via Uploads");
 		objFunctions.navigate_path1("My Invoices", "View Uploads", Customer);
 		UploadsNew objUpload = new UploadsNew(driver, logger);
 		//NewUploads objUpload = new NewUploads(driver, logger);
@@ -173,7 +175,6 @@ public class flowZSN {
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Catalog", priority = 14, alwaysRun = true)
 	public void Catalog(String catalog_name, String supplier_name, String supplierPartID, String prodCategory,
 			String price) throws Exception {
-		logger = extent.startTest("Catalog");
 		objFunctions.navigate_path1("My Catalogs", "Create New Catalog", Customer);
 		CreateCatalog1 objCatalog0l = new CreateCatalog1(driver, logger, catalog_name, supplier_name, supplierPartID,
 				prodCategory, price);
@@ -194,7 +195,7 @@ public class flowZSN {
 	public void NonPOInvoice(String location, String currency, String payment_term, String supplier_name,
 			String item_no, String item_description, String product_category, String market_price, String quantity)
 			throws Exception {
-		logger = extent.startTest("create Non PO Invoice");
+		//logger = extent.startTest("create Non PO Invoice");
 		objFunctions.navigate_path1("My Invoices", "Create Non PO Invoice", Customer);
 		createNonPOInvoice1 objCreate = new createNonPOInvoice1(driver, location, currency, payment_term, supplier_name,
 				item_no, item_description, product_category, market_price, quantity, logger);
@@ -206,7 +207,7 @@ public class flowZSN {
 	public void Uploads_NonPOInvoice(String location, String currency, String payment_term, String supplier_name,
 			String item_no, String item_description, String product_category, String market_price, String quantity)
 			throws Exception {
-		logger = extent.startTest("create Non PO Invoice via uploads");
+		//logger = extent.startTest("create Non PO Invoice via uploads");
 		objFunctions.navigate_path1("My Invoices", "View Uploads", Customer);
 		UploadsNew objUpload = new UploadsNew(driver, logger);
 		callAndLog(objUpload.upload_file(configurationProperties), "able to upload file to ZSN",
@@ -221,8 +222,7 @@ public class flowZSN {
 	
 	@Test(dependsOnMethods = "Login", priority = 12,alwaysRun = true)
 	public void Invoice_againstBPO() throws Exception {
-		logger = extent.startTest("Create Invoice against BPO");
-		// Actions action = new Actions(driver);
+		//logger = extent.startTest("Create Invoice against BPO");
 		objFunctions.navigate_path1("My Orders", "View Orders", Customer);
 		createInvoiceagainstBPO objOrderBPO = new createInvoiceagainstBPO(driver, logger);
 		callAndLog(objOrderBPO.createinvoiceBPO("View Orders"), "TC 29 - create direct invoice against BPO",
@@ -232,7 +232,6 @@ public class flowZSN {
 
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "ViewInvoice", priority = 3, alwaysRun = true)
 	public void ViewInvoice(String invoice_name, String invoice_status, String doc_type) throws Exception {
-		logger = extent.startTest("View Invoice");
 		objFunctions.navigate_path1("My Invoices", "View Invoices", Customer);
 		ViewInvoices objInv = new ViewInvoices(driver, logger);
 		callAndLog(objInv.viewInvoiceGrid(), "TC 09 - Able to view invoice grid", "TC 09 -Unable to view invoice grid");
@@ -252,7 +251,7 @@ public class flowZSN {
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "CreditMemowithoutReference", priority = 7, alwaysRun = true)
 	public void CreditMemowithoutreference(String currency, String supplier_company, String item_no,
 			String item_description, String product_category, String market_price, String quantity) throws Exception {
-		logger = extent.startTest("create CreditMemo without reference");
+		//logger = extent.startTest("create CreditMemo without reference");
 		objFunctions.navigate_path1("My Invoices", "Create Credit Memo without reference", Customer);
 		createCreditMemowithoutReference1 objCreateref = new createCreditMemowithoutReference1(driver, currency,
 				supplier_company, item_no, item_description, product_category, market_price, quantity, logger);
@@ -264,7 +263,7 @@ public class flowZSN {
 	@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "CreditMemowithoutReference", priority = 11, alwaysRun = true)
 	public void Uploads_CreditMemowithoutreference(String currency, String supplier_company, String item_no,
 			String item_description, String product_category, String market_price, String quantity) throws Exception {
-		logger = extent.startTest("create CreditMemo without reference via uploads");
+		//logger = extent.startTest("create CreditMemo without reference via uploads");
 		objFunctions.navigate_path1("My Invoices", "View Uploads", Customer);
 		UploadsNew objUpload = new UploadsNew(driver, logger);
 		callAndLog(objUpload.upload_file(configurationProperties), "able to upload file to ZSN",
@@ -280,7 +279,6 @@ public class flowZSN {
 		
 		@Test(dataProviderClass = ZSN_DataProviderTestNG.class, dependsOnMethods = "Login", dataProvider = "Dashboard", priority = 2, alwaysRun = true)
 		public void Dashboard(String card_name, String company) throws Exception {
-			logger = extent.startTest("Dashboard");
 			Dashboard objDashboard = new Dashboard(driver, logger, card_name, company, Customer);
 			callAndLog(objDashboard.addCard(), "TC01 -  added card to dashboard",
 					"TC01 - Could not added card to dashboard");

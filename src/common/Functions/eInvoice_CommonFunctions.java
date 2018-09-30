@@ -143,6 +143,13 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			navigate_path(tab,subTab);
 	}
 	
+	public void navigateToMainPage(String displayStyle, String[] navigationTabs) throws Exception {
+		if(navigationTabs.length==1)
+			navigateToMainPage(displayStyle, navigationTabs[0]);
+		else
+			navigateToMainPage(displayStyle, navigationTabs[0], navigationTabs[1]);
+	}
+	
 	public void navigateToMainPage(String displayStyle, String tab) throws Exception {
 		if(displayStyle.equals("Rainbow"))
 			navigate_Rainbowpath(tab);

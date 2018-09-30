@@ -28,12 +28,33 @@ public class eInvoice_DataProviderTestNG {
 	}
 	
 	@DataProvider
+	public Object[][] ApprovalAction() throws Exception {
+		return objFunctions.dataProvider("Approvals", Datasheet_eInvoice);
+	}
+	
+	@DataProvider
+	public Object[][] MySettings() throws Exception {
+		return objFunctions.dataProvider("MySettings", Datasheet_eInvoice);
+	}
+	
+	@DataProvider
 	public Object[][] InvoiceNonPO() throws Exception {
 		return objFunctions.dataProvider("InvoiceNonPO", Datasheet_eInvoice);
 	}
+	
 	@DataProvider
 	public Object[][] CreditMemowithoutReference() throws Exception {
 		return objFunctions.dataProvider("CreditMemowithoutReference", Datasheet_eInvoice);
+	}
+	
+	@DataProvider
+	public Object[][] CreditMemoAgainstPO() throws Exception {
+		return objFunctions.dataProvider("CreditMemoAgainstPO", Datasheet_eInvoice);
+	}
+	
+	@DataProvider
+	public Object[][] InvoiceAgainstPO() throws Exception {
+		return objFunctions.dataProvider("InvoiceAgainstPO", Datasheet_eInvoice);
 	}
 	
 	@DataProvider

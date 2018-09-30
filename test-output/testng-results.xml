@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" ignored="0" total="5" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="211086" started-at="2018-09-28T12:27:04Z" finished-at="2018-09-28T12:30:35Z">
+  <suite name="Default suite" duration-ms="779512" started-at="2018-09-30T07:12:05Z" finished-at="2018-09-30T07:25:05Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="211086" started-at="2018-09-28T12:27:04Z" finished-at="2018-09-28T12:30:35Z">
+    <test name="Default test" duration-ms="779512" started-at="2018-09-30T07:12:05Z" finished-at="2018-09-30T07:25:05Z">
       <class name="com.main.FlowEInvoice">
-        <test-method status="PASS" signature="startReport()[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="startReport" is-config="true" duration-ms="3842" started-at="2018-09-28T12:27:04Z" finished-at="2018-09-28T12:27:07Z">
+        <test-method status="PASS" signature="startReport()[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="startReport" is-config="true" duration-ms="4004" started-at="2018-09-30T07:12:05Z" finished-at="2018-09-30T07:12:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startReport -->
-        <test-method status="PASS" signature="Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@50d0686]" name="Login" duration-ms="58173" started-at="2018-09-28T12:27:08Z" data-provider="Login" finished-at="2018-09-28T12:28:06Z">
+        <test-method status="PASS" signature="Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@7a3d45bd]" name="Login" duration-ms="41541" started-at="2018-09-30T07:12:10Z" data-provider="Login" finished-at="2018-09-30T07:12:51Z">
           <params>
             <param index="0">
               <value>
@@ -42,18 +42,40 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="2" started-at="2018-09-28T12:28:06Z" finished-at="2018-09-28T12:28:06Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-09-30T07:12:10Z" finished-at="2018-09-30T07:12:10Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=Login status=SUCCESS method=FlowEInvoice.Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
+                <![CDATA[public void com.main.FlowEInvoice.Login(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="getResult" is-config="true" duration-ms="2" started-at="2018-09-30T07:12:51Z" finished-at="2018-09-30T07:12:51Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Login status=SUCCESS method=FlowEInvoice.Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowEInvoice@7a3d45bd] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="Invoices(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.main.FlowEInvoice@50d0686]" name="Invoices" duration-ms="55175" started-at="2018-09-28T12:28:06Z" data-provider="Invoices" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-28T12:29:01Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-09-30T07:12:51Z" finished-at="2018-09-30T07:12:51Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.main.FlowEInvoice.Invoices(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="Invoices(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.main.FlowEInvoice@7a3d45bd]" name="Invoices" duration-ms="460235" started-at="2018-09-30T07:12:51Z" data-provider="Invoices" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-30T07:20:32Z">
           <params>
             <param index="0">
               <value>
@@ -129,7 +151,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Invoices -->
-        <test-method status="FAIL" signature="InvoiceNonPO(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.main.FlowEInvoice@50d0686]" name="InvoiceNonPO" duration-ms="69" started-at="2018-09-28T12:29:01Z" data-provider="InvoiceNonPO" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-28T12:29:01Z">
+        <test-method status="FAIL" signature="InvoiceNonPO(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.main.FlowEInvoice@7a3d45bd]" name="InvoiceNonPO" duration-ms="73" started-at="2018-09-30T07:20:32Z" data-provider="InvoiceNonPO" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-30T07:20:32Z">
           <exception class="org.testng.internal.reflect.MethodMatcherException">
             <message>
               <![CDATA[
@@ -168,51 +190,73 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InvoiceNonPO -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="0" started-at="2018-09-28T12:29:01Z" finished-at="2018-09-28T12:29:01Z">
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="getResult" is-config="true" duration-ms="0" started-at="2018-09-30T07:20:32Z" finished-at="2018-09-30T07:20:32Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=Invoices status=SUCCESS method=FlowEInvoice.Invoices(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
+                <![CDATA[[TestResult name=Invoices status=SUCCESS method=FlowEInvoice.Invoices(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.main.FlowEInvoice@7a3d45bd] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="InvoiceAction()[pri:4, instance:com.main.FlowEInvoice@50d0686]" name="InvoiceAction" duration-ms="48022" started-at="2018-09-28T12:29:01Z" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-28T12:29:49Z">
+        <test-method status="PASS" signature="InvoiceAction()[pri:4, instance:com.main.FlowEInvoice@7a3d45bd]" name="InvoiceAction" duration-ms="227922" started-at="2018-09-30T07:20:32Z" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-30T07:24:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InvoiceAction -->
-        <test-method status="PASS" signature="ApprovalAction()[pri:5, instance:com.main.FlowEInvoice@50d0686]" name="ApprovalAction" duration-ms="45008" started-at="2018-09-28T12:29:49Z" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-28T12:30:34Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-09-30T07:20:32Z" finished-at="2018-09-30T07:20:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.main.FlowEInvoice.InvoiceAction() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-09-30T07:24:20Z" finished-at="2018-09-30T07:24:20Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.main.FlowEInvoice.ApprovalAction() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="ApprovalAction()[pri:5, instance:com.main.FlowEInvoice@7a3d45bd]" name="ApprovalAction" duration-ms="44857" started-at="2018-09-30T07:24:20Z" depends-on-methods="com.main.FlowEInvoice.Login" finished-at="2018-09-30T07:25:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ApprovalAction -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="0" started-at="2018-09-28T12:29:49Z" finished-at="2018-09-28T12:29:49Z">
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="getResult" is-config="true" duration-ms="0" started-at="2018-09-30T07:24:20Z" finished-at="2018-09-30T07:24:20Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=InvoiceAction status=SUCCESS method=FlowEInvoice.InvoiceAction()[pri:4, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
+                <![CDATA[[TestResult name=InvoiceAction status=SUCCESS method=FlowEInvoice.InvoiceAction()[pri:4, instance:com.main.FlowEInvoice@7a3d45bd] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="getResult" is-config="true" duration-ms="1" started-at="2018-09-28T12:30:34Z" finished-at="2018-09-28T12:30:34Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=ApprovalAction status=SUCCESS method=FlowEInvoice.ApprovalAction()[pri:5, instance:com.main.FlowEInvoice@50d0686] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.main.FlowEInvoice@50d0686]" name="tearDown" is-config="true" duration-ms="199" started-at="2018-09-28T12:30:34Z" finished-at="2018-09-28T12:30:35Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="tearDown" is-config="true" duration-ms="203" started-at="2018-09-30T07:25:04Z" finished-at="2018-09-30T07:25:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowEInvoice@7a3d45bd]" name="getResult" is-config="true" duration-ms="0" started-at="2018-09-30T07:25:04Z" finished-at="2018-09-30T07:25:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=ApprovalAction status=SUCCESS method=FlowEInvoice.ApprovalAction()[pri:5, instance:com.main.FlowEInvoice@7a3d45bd] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getResult -->
       </class> <!-- com.main.FlowEInvoice -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

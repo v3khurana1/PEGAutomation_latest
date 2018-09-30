@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -53,6 +55,11 @@ public class FlowEProc {
 				configurationProperties.getProperty("reportpath") + "//Execution_Report_ZSN.html");*/
 		objFunctions = new eProc_CommonFunctions(driver, logger);
 	}
+	
+	@BeforeMethod
+	public void beforeMethod(Method method){
+		logger = extent.startTest(method.getName());
+	}
 
 	/**
 	 * @param Product
@@ -63,8 +70,6 @@ public class FlowEProc {
 	 */
 	@Test(dataProviderClass = EProc_DataProviderTestNG.class, dataProvider = "Login", priority = 1, alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer) throws Exception {
-		//this.Customer = Customer;
-		logger = extent.startTest("Login");
 		Login objLogin = new Login(driver, logger, Product, Username, Password, Customer);
 		callAndLog(objLogin.Login_via_PwdMgr(configurationProperties), "login successful", "Not logged in");
 	}
@@ -125,7 +130,7 @@ public class FlowEProc {
 		System.out.println("after test ");
 		extent.flush();
 		extent.close();
-		driver.quit();
+		//driver.quit();
 	}
 
 	/**
