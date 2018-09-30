@@ -9,8 +9,7 @@ public class eInvoice_DataProviderTestNG {
 	CommonFunctions1 objFunctions = new CommonFunctions1();
 	ConfigurationProperties configurationProperties = ConfigurationProperties.getInstance();
 	String Datasheet_eInvoice = System.getProperty("user.dir")+configurationProperties.getProperty("Datasheet_eInvoice");
-	
-	
+
 	public eInvoice_DataProviderTestNG() throws Exception {
 		super();
 		System.out.println(System.getProperty("user.dir"));
@@ -103,4 +102,18 @@ public class eInvoice_DataProviderTestNG {
 		return objFunctions.dataProvider("ProcessForm", Datasheet_eInvoice);
 	}
 	
+	static class TestData {
+	    public String[] items;
+
+	    public TestData(String... items) {
+	        this.items = items; // should probably make a defensive copy
+	    }
+
+	    public String get(int x) {
+	        return items[x];
+	    }
+	}
+	
+	
 }
+

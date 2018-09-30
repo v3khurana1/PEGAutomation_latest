@@ -4,10 +4,14 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -70,7 +74,8 @@ public class FlowEInvoice {
 	public void beforeMethod(Method method){
 		logger = extent.startTest(method.getName());
 	}
-
+	
+	
 	/**
 	 * @param Product
 	 * @param Username
@@ -87,6 +92,16 @@ public class FlowEInvoice {
 		this.displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
 		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
 	}
+	
+	/*@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, 
+			dataProvider = "Login", 
+			priority = 1, 
+			alwaysRun = true)
+	public void Login(Map<String, Object> map) throws Exception {
+		Login objLogin = new Login(driver, logger, (String)map.get("Product"), (String)map.get("Username"),(String)map.get("Password"), (String)map.get("Customer"), (String)map.get("userAccount"));
+		this.displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
+		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
+	}*/
 	
 	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, 
 			dependsOnMethods = "Login", 
@@ -228,7 +243,7 @@ public class FlowEInvoice {
 		  dependsOnMethods = "Login",
 		  dataProvider = "MySettings",
 		  priority = 7)
-	public void ConfigureOOO(String...navigationTabs) throws Exception {
+	public void MySettings_ConfigureOOO(String...navigationTabs) throws Exception {
 		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
 		//objFunctions.navigateToMainPage(displayStyle,"Approval", "My Settings");
 		MySettings objSetting = new MySettings(driver, logger);
@@ -240,7 +255,7 @@ public class FlowEInvoice {
 			dependsOnMethods = "Login", 
 			dataProvider = "CreditMemowithoutReference", 
 			priority = 8)
-	public void CreditMemowithoutReference(String supplierName, String currency_value, String creditMemoDate,
+	public void CreditMemoWithoutReference(String supplierName, String currency_value, String creditMemoDate,
 			String purchaseType, String description, String product_cat, String market_prc,
 			String quantity, String GLType, String...navigationTabs) throws Exception {
 		Invoices objInvoice = new Invoices(driver, logger, supplierName, currency_value, creditMemoDate, purchaseType,

@@ -1,12 +1,15 @@
 package Framework;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -41,6 +44,36 @@ public class ExcelUtils {
 			throw (e);
 		}
 	}
+	
+	public static Object[][] getTableArray2(String FilePath, String SheetName, List<Integer> RowList) throws Exception {
+
+		File file = new File(FilePath);
+	    FileInputStream fis = new FileInputStream(file);
+
+	    XSSFWorkbook wb = new XSSFWorkbook(fis);
+	    XSSFSheet sheet = wb.getSheet(SheetName);
+	    wb.close();
+	    //ExcelUtils.getRowContains("Y", 0);
+	    int lastRowNum = sheet.getLastRowNum() ;
+	    int lastCellNum = sheet.getRow(0).getLastCellNum();
+	    Object[][] obj = new Object[lastRowNum][1];
+	    int x = 0;
+	    for (int i = 0; i < lastRowNum; i++) {
+	    	if(sheet.getRow(i+1).getCell(0).toString().equals("Y")){
+	    		x++;
+		      Map<Object, Object> datamap = new HashMap<>();
+		      for (int j = 0; j < lastCellNum; j++) {
+		        datamap.put(sheet.getRow(0).getCell(j).toString(), sheet.getRow(i+1).getCell(j).toString());
+		        //datamap.put(sheet.getRow(0).getCell(j).toString(), sheet.getRow(i+1).getCell(j));
+		      }
+		      //obj[i][0] = datamap;
+		      obj[x-1][0] = datamap;
+	    	}
+	    }
+	    return obj;
+	  }
+
+
 
 	public static Object[][] getTableArray1(String FilePath, String SheetName, List<Integer> RowList) throws Exception {
 

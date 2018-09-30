@@ -378,8 +378,10 @@ public class CommonUtility {
 		// TODO Auto-generated method stub
 		Object[][] testObjArray = null;
 		ExcelUtils.setExcelFile(filepath, sheetname);
+		List<Integer> HeaderRowList = ExcelUtils.getRowContains("flag", 0);
 		List<Integer> RowList = ExcelUtils.getRowContains("Y", 0);
 		testObjArray = ExcelUtils.getTableArray1(filepath, sheetname, RowList);
+		//testObjArray = ExcelUtils.getTableArray2(filepath, sheetname, RowList);
 		return testObjArray;
 	}
 

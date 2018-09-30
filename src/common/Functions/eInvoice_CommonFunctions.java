@@ -193,12 +193,15 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			action.moveToElement(path_tab).perform();
 			//path_tab.click();
 			Thread.sleep(2000);
-			WebElement subpath_tab = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
+			WebElement subpathTabRow = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li[a[span[text()='"+subTab+"']]]"));
+			if(!subpathTabRow.getAttribute("class").contains("--active")){
+				//WebElement subpath_tab = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
+				WebElement subpath_tab = subpathTabRow.findElement(By.xpath("//a"));
 			//driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]")).click();
 			//Thread.sleep(3000);
-			//subpath_tab.click();
-			action.moveToElement(path_tab).click().build().perform();
-			
+				subpath_tab.click();
+			//action.moveToElement(path_tab).click().build().perform();
+			}
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
 			//LogScreenshot("INFO", "Navigated to "+ tab +" - "+ subTab);
 			//logger.log(LogStatus.INFO, "Navigated to "+ tab +" - "+ subTab);

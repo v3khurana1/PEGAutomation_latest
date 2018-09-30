@@ -12,6 +12,9 @@
 		<!-- protocol for script and stylesheets -->
 		<!-- defaults to https -->
 		<protocol>https</protocol>
+		
+		<!-- Product Name -->
+		<productName>eInvoice</productName>
 
 		<!-- title of the document -->
 		<documentTitle>GD Automation Report</documentTitle>
