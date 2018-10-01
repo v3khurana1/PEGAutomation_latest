@@ -53,6 +53,7 @@ public class FlowEInvoice {
 	//private String Customer;
 	private String invoiceNo = null;
 	private String displayStyle;
+	private String Product;
 
 	public FlowEInvoice() throws Exception {
 		super();
@@ -88,6 +89,7 @@ public class FlowEInvoice {
 			priority = 1, 
 			alwaysRun = true)
 	public void Login(String Product, String Username, String Password, String Customer, String userAccount) throws Exception {
+		this.Product = Product;
 		Login objLogin = new Login(driver, logger, Product, Username, Password, Customer, userAccount);
 		this.displayStyle = objLogin.Login_via_PwdMgr1(configurationProperties);
 		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
@@ -111,7 +113,7 @@ public class FlowEInvoice {
 			String DueDateFrom, String DueDateTo, String FromAmtRange, String ToAmtRange, String Currency,
 			String Reference, String Supplier, String NavigatetoPageNo, String RecordsperPage, String...navigationTabs) throws Exception {
 		
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Invoices objInvoice = new Invoices(driver, logger);
 		callAndLog(objInvoice.changeNoOfRecordsPerPage(Integer.valueOf(RecordsperPage)), "able to change no of records",
 				"unable to change no of records");
@@ -162,7 +164,7 @@ public class FlowEInvoice {
 			 dataProvider = "ApprovalAction",
 			 priority=2)
 		public void ApprovalAction(String...navigationTabs) throws Exception {
-		 	objFunctions.navigateToMainPage(displayStyle, navigationTabs);	
+		 	objFunctions.navigateToMainPage(displayStyle,Product, navigationTabs);	
 		 	//objFunctions.navigateToMainPage(displayStyle,"Approval", "All Requests");
 		 	objFunctions.clrAllFilters();
 		 	Approval objApproval = new Approval(driver, logger);
@@ -216,7 +218,7 @@ public class FlowEInvoice {
 			dataProvider = "PurchaseOrders",
 			priority = 6)
 	public void searchPurchaseOrders(String PONumber, String SupplierName, String BuyerName, String...navigationTabs) throws Exception {
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		//objFunctions.navigateToMainPage(displayStyle,"PO");
 		PurchaseOrder objPurchaseOrder = new PurchaseOrder(driver, logger);
 		// objPurchaseOrder.addInvoicebyHoveringPO();
@@ -244,7 +246,7 @@ public class FlowEInvoice {
 		  dataProvider = "MySettings",
 		  priority = 7)
 	public void MySettings_ConfigureOOO(String...navigationTabs) throws Exception {
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		//objFunctions.navigateToMainPage(displayStyle,"Approval", "My Settings");
 		MySettings objSetting = new MySettings(driver, logger);
 		callAndLog(objSetting.configureOOO(), "able to configure OOO", "unable to configure OOO");
@@ -260,7 +262,7 @@ public class FlowEInvoice {
 			String quantity, String GLType, String...navigationTabs) throws Exception {
 		Invoices objInvoice = new Invoices(driver, logger, supplierName, currency_value, creditMemoDate, purchaseType,
 				 description, product_cat, market_prc, quantity, GLType);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		//objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		callAndLog(objInvoice.createCreditMemowithoutReference(), "able to create CreditMemowithoutReference",
 				"unable to create CreditMemowithoutReference");
@@ -271,7 +273,7 @@ public class FlowEInvoice {
 			dataProvider = "CreditMemoAgainstPO",
 			priority = 9)
 	public void CreditMemoAgainstPO(String...navigationTabs) throws Exception {
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Invoices objInvoice = new Invoices(driver, logger);
 		//objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
@@ -284,7 +286,7 @@ public class FlowEInvoice {
 			dataProvider = "InvoiceAgainstPO",
 			priority = 10)
 	public void InvoiceAgainstPO(String...navigationTabs) throws Exception {
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Invoices objInvoice = new Invoices(driver, logger);
 		//objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger, invoiceNo);
@@ -298,7 +300,7 @@ public class FlowEInvoice {
 			priority = 11)
 	public void Statements(String batchName, String bankName, String statementDate, String actionOnStatement, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
 		Statements objStatements = new Statements(driver, logger);
 		if(objStatements.searchBatchName(batchName))
@@ -315,7 +317,7 @@ public class FlowEInvoice {
 			priority = 12)
 	public void AddReconciliationStatements(String batchName, String bankName, String statementDate, String actionOnStatement, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
-		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
+		//objCommon.navigateToMainPage(displayStyle, Product, tabToNavigate);
 		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
 		Statements objStatements = new Statements(driver, logger);
 		if(objStatements.addNewStmt()){
@@ -333,7 +335,7 @@ public class FlowEInvoice {
 	public void Uploads(String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Uploads objUploads = new Uploads(driver, logger);
 		ConfigurationProperties config = ConfigurationProperties.getInstance();
 		if(objUploads.uploadNewFile(System.getProperty("user.dir")+config.getProperty("upload_Jpgfile_path")))
@@ -350,7 +352,7 @@ public class FlowEInvoice {
 	public void Batches(String batchNo, String createdBy, String bankAcct, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Batches objbatches = new Batches(driver, logger);
 		if(objbatches.searchBatchNo(batchNo))
 			logger.log(LogStatus.INFO, "Batch Number searched successfully");
@@ -367,7 +369,7 @@ public class FlowEInvoice {
 	public void shareMyReports(String myReportsName, String sharedUserEmail, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Reports objReports = new Reports(driver, logger);
 		if(objReports.selectMyReports(myReportsName))
 			logger.log(LogStatus.INFO, "My Report searched & viewed successfully");
@@ -384,7 +386,7 @@ public class FlowEInvoice {
 			String approver, String notes, String reviewer, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Batches objBatches = new Batches(driver, logger);
 		NewPaymentBatch objNewPayment = new NewPaymentBatch(driver, logger, organizationUnit, bankAcct);
 		if(objBatches.createNewBatch(objNewPayment)){
@@ -405,7 +407,7 @@ public class FlowEInvoice {
 			String mandatory, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate, subTabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		AllForms objAllForms = new AllForms(driver, logger);
 		FormWizard objWizard = new FormWizard(driver, logger, formName, formType, formRelatedProcess,
 				businessUnit, sectionName, fieldToDisplayInSection, fieldName, "Auto_display_Name"); 
@@ -421,7 +423,7 @@ public class FlowEInvoice {
 	public void Reports(String reportType, String reportName, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Reports objReports = new Reports(driver, logger);
 		if(objReports.searchReport(reportType, reportName)){
 			logger.log(LogStatus.INFO, "Report searched successfully");
@@ -440,7 +442,7 @@ public class FlowEInvoice {
 	public void Workflow(String workflowProcess, String workflowDescription, String workflowType, String approveMoreThanOnce, String...navigationTabs) throws Exception {
 		//eInvoice_CommonFunctions objCommon = new eInvoice_CommonFunctions(driver, logger);
 		//objCommon.navigateToMainPage(displayStyle,tabToNavigate);
-		objFunctions.navigateToMainPage(displayStyle, navigationTabs);
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Workflow objWorkflow = new Workflow(driver, logger);
 		objWorkflow.clickCreateWorkflow();
 		WorkflowWizard objWizard = new WorkflowWizard(driver, logger, workflowProcess);

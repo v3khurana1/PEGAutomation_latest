@@ -1,12 +1,17 @@
 package com.zycus.eInvoice.Approval;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -70,13 +75,13 @@ public class Approval extends eInvoice_CommonFunctions {
 		this.logger = logger;
 	}
 
-	public boolean performActionOnInvoice(String action) {
+	public boolean performActionOnInvoice(String action) throws AWTException {
 		boolean status = false;
 		try {
 			findElement(actionBtnXpath ).click();
 			findElement(By.xpath("//table[contains(@class,'dataTable')]//tr[1]//li/a[contains(text(),'" + action + "')]"))
 					.click();
-			Thread.sleep(2000);
+			//Thread.sleep(2000);
 			switch (action) {
 			case "Approve":
 				// TODO need to add logic to input invoice No
@@ -96,9 +101,10 @@ public class Approval extends eInvoice_CommonFunctions {
 				status = true;
 				break;
 			case "Delegate":
-				sendKeys(delegateNameId ,"Chaitali");
+				enterText_AutoComplete(delegateNameId ,"Chaitali");
+				/*sendKeys(delegateNameId ,"Chaitali");
 				Thread.sleep(2000);
-				findElement(By.xpath("//ul[contains(@style,'block')]/li")).click();
+				findElement(By.xpath("//ul[contains(@style,'block')]/li")).click();*/
 				sendKeys(delegateCommentId, "delegating the document");
 				/*findElement(saveDelegateBtnId).click();
 				waitUntilVisibilityOfElement(delegateMsgXpath);*/
@@ -113,6 +119,11 @@ public class Approval extends eInvoice_CommonFunctions {
 
 		} catch (Exception e) {
 				e.printStackTrace();
+				/*Actions action1 = new Actions(driver);
+				action1.sendKeys(Keys.ESCAPE).build().perform();*/
+				Robot robot = new Robot();
+				robot.keyPress(KeyEvent.VK_ESCAPE);
+				robot.keyRelease(KeyEvent.VK_ESCAPE);
 		}
 		return status;
 	}

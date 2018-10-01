@@ -194,7 +194,7 @@ public class Login extends CommonFunctions1 {
 					if(!switchToClassic(parent))
 						logger.log(LogStatus.INFO, "not switched to classic");
 				}*/
-				if (selectProduct(displayStyle))
+				//if (selectProduct(displayStyle))
 					result = true;
 			}
 		} catch (Exception e) {
@@ -270,7 +270,7 @@ public class Login extends CommonFunctions1 {
 					if(!switchToClassic(parent))
 						logger.log(LogStatus.INFO, "not switched to classic");
 				}*/
-				if (selectProduct(displayStyle))
+				//if (selectProduct(displayStyle))
 					result = displayStyle;
 			}else{
 				logger.log(LogStatus.INFO, "no such user displayed for the selected environment");
@@ -283,7 +283,7 @@ public class Login extends CommonFunctions1 {
 		return result;
 	}
 
-	public boolean selectProduct(String displayStyle) {
+	/*public boolean selectProduct(String displayStyle) {
 		boolean result = false;
 		Actions action = new Actions(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 120);
@@ -317,7 +317,7 @@ public class Login extends CommonFunctions1 {
 				e.printStackTrace();
 			}
 		return result; 
-	}
+	}*/
 	
 	public boolean switchToClassic(String parent){
 		boolean result = false;

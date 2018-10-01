@@ -21,6 +21,7 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import Framework.CommonUtility;
 import Framework.ConfigurationProperties;
+import SanityDefault.Login;
 
 public class eInvoice_CommonFunctions extends CommonUtility {
 
@@ -69,8 +70,9 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		//this.product = product;
 	}
 
-	public void navigate_path(String tab) {
+	public void navigate_path(String product,String tab) {
 		try {
+			selectClassicProduct(product);
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
 			findElement(By.xpath("//div[@id='tab-fit']//a[contains(@id,'top')][text()[contains(.,'" + tab + "')]]"))
 					.click();
@@ -99,9 +101,10 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 
 	}*/
 
-	public void navigate_path(String tab, String subTab) throws Exception {
+	public void navigate_path(String product,String tab, String subTab) throws Exception {
 		Actions action = new Actions(driver);
 		try {
+			selectClassicProduct(product);
 			/*ConfigurationProperties config = ConfigurationProperties.getInstance();
 			String landingTab = returnLandingTabs(config.getProperty("landingTab"));
 			String subLandingTab = returnLandingTabs(config.getProperty("landingSubTab"));
@@ -136,29 +139,30 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		}
 	}
 	
-	public void navigateToMainPage(String displayStyle, String tab, String subTab) throws Exception {
+	public void navigateToMainPage(String displayStyle, String product, String tab, String subTab) throws Exception {
 		if(displayStyle.equals("Rainbow"))
-			navigate_Rainbowpath(tab,subTab);
+			navigate_Rainbowpath(product, tab,subTab);
 		else
-			navigate_path(tab,subTab);
+			navigate_path(product, tab, subTab);
 	}
 	
-	public void navigateToMainPage(String displayStyle, String[] navigationTabs) throws Exception {
+	public void navigateToMainPage(String displayStyle, String product, String[] navigationTabs) throws Exception {
 		if(navigationTabs.length==1)
-			navigateToMainPage(displayStyle, navigationTabs[0]);
+			navigateToMainPage(displayStyle, product, navigationTabs[0]);
 		else
-			navigateToMainPage(displayStyle, navigationTabs[0], navigationTabs[1]);
+			navigateToMainPage(displayStyle, product, navigationTabs[0], navigationTabs[1]);
 	}
 	
-	public void navigateToMainPage(String displayStyle, String tab) throws Exception {
+	public void navigateToMainPage(String displayStyle, String product, String tab) throws Exception {
 		if(displayStyle.equals("Rainbow"))
-			navigate_Rainbowpath(tab);
+			navigate_Rainbowpath(product, tab);
 		else
-			navigate_path(tab);
+			navigate_path(product, tab);
 	}
 	
-	public void navigate_Rainbowpath(String tab) throws Exception {
+	public void navigate_Rainbowpath(String product, String tab) throws Exception {
 		try {
+			selectRainbowProduct(product);
 			Thread.sleep(3000);
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
 			/*findElement(By.xpath("//div[@id='rainbowHeader']/a/span/*")).click();
@@ -183,23 +187,29 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		}
 	}
 	
-	public void navigate_Rainbowpath(String tab, String subTab) throws Exception {
+	public void navigate_Rainbowpath(String product, String tab, String subTab) throws Exception {
 		try {
+			selectRainbowProduct(product);
 			Thread.sleep(3000);
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@class,'overlay')]"));
-			WebElement path_tab = driver.findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]"));
+			WebElement pathtabRow = driver.findElement(By.xpath("//ul[contains(@style,'block')]/li[a[span[text()='"+tab+"']]]"));
 			//driver.findElement(By.xpath("//ul[contains(@style,'block')]/li/a[span[text()='"+tab+"']]")).click();
 			Actions action = new Actions(driver);
-			action.moveToElement(path_tab).perform();
+			action.moveToElement(pathtabRow).build().perform();
 			//path_tab.click();
 			Thread.sleep(2000);
-			WebElement subpathTabRow = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li[a[span[text()='"+subTab+"']]]"));
+			WebElement subpathTabRow = pathtabRow.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li[a[span[text()='"+subTab+"']]]"));
 			if(!subpathTabRow.getAttribute("class").contains("--active")){
+				JavascriptExecutor js = (JavascriptExecutor)driver;
+				js.executeScript(
+						"var objContainer = document.evaluate(\"//ul[contains(@class,'rb-smenu-sub-sub')]/li[a[span[text()='"+subTab+"']]]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+								+ "document.evaluate(\".//a\", objContainer, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()");
 				//WebElement subpath_tab = driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]"));
-				WebElement subpath_tab = subpathTabRow.findElement(By.xpath("//a"));
+				//action.moveToElement(subpathTabRow).click().build().perform();
+				//WebElement subpath_tab = subpathTabRow.findElement(By.xpath("//a"));
 			//driver.findElement(By.xpath("//ul[contains(@class,'rb-smenu-sub-sub rb-smenu-sub-sub')]/li/a[span[text()='"+subTab+"']]")).click();
 			//Thread.sleep(3000);
-				subpath_tab.click();
+				//subpath_tab.click();
 			//action.moveToElement(path_tab).click().build().perform();
 			}
 			waitUntilInvisibilityOfElement(By.xpath("//div[contains(@id,'processing')]"));
@@ -211,6 +221,88 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			throw new Exception();
 		}
 	}
+	
+	/*public boolean selectProduct(String displayStyle, String product) {
+		boolean result = false;
+		Actions action = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 120);
+		try {
+			if (displayStyle.equals("Rainbow")) {
+				findElement(By.xpath("(//div[@id='rainbowHeader']/a/span/*)[1]")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='rb-header-wrap-bg' and contains(@style,'block')]")));
+				
+				WebElement productLink = findElement(
+						By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']"));
+				action.click(productLink).build().perform();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']/../ul[contains(@style,'block')]")));
+				result = true;
+			}else{
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				String modifiedXpath = "activePan_" + product;
+				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(modifiedXpath)));
+				// element = findElement(By.id(modifiedXpath));
+				while(!js.executeScript("return document.readyState").equals("complete")){
+					System.out.println(js.executeScript("return document.readyState"));
+					Thread.sleep(100);
+				}
+				js.executeScript("arguments[0].click();", elem);
+				//String prodHeaderXpath = "//div[@id='newHeaderLowerPart']//label[@class='newhdrProdNm']";
+				String prodHeaderXpath = "//div[@class='h-clearfix h-topBand']/div/div/span/span[2]";
+				waitUntilVisibilityOfElement(By.xpath(prodHeaderXpath));
+				if (driver.findElement(By.xpath(prodHeaderXpath)).getText().equals(product))
+					result = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return result; 
+	}*/
+	
+	public boolean selectRainbowProduct(String product) {
+		boolean result = false;
+		Actions action = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 120);
+		try {
+			findElement(By.xpath("(//div[@id='rainbowHeader']/a/span/*)[1]")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='rb-header-wrap-bg' and contains(@style,'block')]")));
+			
+			WebElement productLink = findElement(
+					By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']"));
+			action.click(productLink).build().perform();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@id='containerForZycusMenuItems']/li/a[span/text()='"+product+"']/../ul[contains(@style,'block')]")));
+			result = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return result; 
+	}
+	
+	public boolean selectClassicProduct(String product) {
+		boolean result = false;
+		Actions action = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 120);
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			String modifiedXpath = "activePan_" + product;
+			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(modifiedXpath)));
+			// element = findElement(By.id(modifiedXpath));
+			while(!js.executeScript("return document.readyState").equals("complete")){
+				System.out.println(js.executeScript("return document.readyState"));
+				Thread.sleep(100);
+			}
+			js.executeScript("arguments[0].click();", elem);
+			//String prodHeaderXpath = "//div[@id='newHeaderLowerPart']//label[@class='newhdrProdNm']";
+			String prodHeaderXpath = "//div[@class='h-clearfix h-topBand']/div/div/span/span[2]";
+			waitUntilVisibilityOfElement(By.xpath(prodHeaderXpath));
+			if (driver.findElement(By.xpath(prodHeaderXpath)).getText().equals(product))
+				result = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return result; 
+	}
+	
+	
 
 	public void navigate_path1(String tab, String subTab) throws Exception {
 		try {
@@ -549,7 +641,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		return result;
 	}
 
-	public boolean enterText_AutoComplete(By field, String text) {
+	public boolean enterText_AutoComplete(By field, String text) throws Exception {
 		boolean result = false;
 		try {
 			findElement(field).sendKeys(text);
@@ -557,6 +649,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			findElement(By.xpath("//ul[contains(@style,'block')]//*[text()='" + text + "']")).click();
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new Exception();
 		}
 		return result;
 	}
