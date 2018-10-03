@@ -3,16 +3,16 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.main.FlowEInvoice">
+      <class name="com.main.FlowIManage">
         <methods>
-          <include name="Login"/>
-          <include name="InvoiceAction" invocation-numbers="0"/>
-          <include name="getResult"/>
           <include name="beforeMethod"/>
-          <include name="startReport"/>
+          <include name="getResult"/>
+          <include name="Login"/>
+          <include name="MyTemplates"/>
           <include name="tearDown"/>
+          <include name="startReport"/>
         </methods>
-      </class> <!-- com.main.FlowEInvoice -->
+      </class> <!-- com.main.FlowIManage -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
