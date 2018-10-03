@@ -96,8 +96,66 @@ public class FlowIManage {
 			priority = 2)
 	public void MyTemplates(String...navigationTabs) throws Exception {
 		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
-
 	}
+	
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "StandardDashboard", 
+			dependsOnMethods = "Login", 
+			priority = 3)
+	public void StandardDashboard(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "CustomDashboard", 
+			dependsOnMethods = "Login", 
+			priority = 4)
+	public void CustomDashboard(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "WorkbenchTrack", 
+			dependsOnMethods = "Login", 
+			priority = 5)
+	public void WorkbenchTrack(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "WorkbenchReview", 
+			dependsOnMethods = "Login", 
+			priority = 6)
+	public void WorkbenchReview(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "WorkbenchApproval", 
+			dependsOnMethods = "Login", 
+			priority = 7)
+	public void WorkbenchApproval(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "WorkbenchMyTasks", 
+			dependsOnMethods = "Login", 
+			priority = 8)
+	public void WorkbenchMyTasks(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
+	@Test(dataProviderClass = iManage_DataProviderTestNG.class, 
+			dataProvider = "MyReports", 
+			dependsOnMethods = "Login", 
+			priority = 9)
+	public void MyReports(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
+	}
+	
 	
 	@AfterMethod
 	public void getResult(ITestResult result) {

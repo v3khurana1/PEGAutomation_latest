@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="128221" started-at="2018-10-03T13:16:41Z" finished-at="2018-10-03T13:18:49Z">
+  <suite name="Default suite" duration-ms="94579" started-at="2018-10-03T14:50:25Z" finished-at="2018-10-03T14:52:00Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="128221" started-at="2018-10-03T13:16:41Z" finished-at="2018-10-03T13:18:49Z">
+    <test name="Default test" duration-ms="94579" started-at="2018-10-03T14:50:25Z" finished-at="2018-10-03T14:52:00Z">
       <class name="com.main.FlowIManage">
-        <test-method status="PASS" signature="startReport()[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="startReport" is-config="true" duration-ms="4272" started-at="2018-10-03T13:16:41Z" finished-at="2018-10-03T13:16:45Z">
+        <test-method status="PASS" signature="startReport()[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="startReport" is-config="true" duration-ms="3789" started-at="2018-10-03T14:50:25Z" finished-at="2018-10-03T14:50:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startReport -->
-        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="3" started-at="2018-10-03T13:16:46Z" finished-at="2018-10-03T13:16:46Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="2" started-at="2018-10-03T14:50:30Z" finished-at="2018-10-03T14:50:30Z">
           <params>
             <param index="0">
               <value>
@@ -22,7 +22,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowIManage@7a3d45bd]" name="Login" duration-ms="85546" started-at="2018-10-03T13:16:46Z" data-provider="Login" finished-at="2018-10-03T13:18:11Z">
+        <test-method status="PASS" signature="Login(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.main.FlowIManage@7a3d45bd]" name="Login" duration-ms="73449" started-at="2018-10-03T14:50:30Z" data-provider="Login" finished-at="2018-10-03T14:51:43Z">
           <params>
             <param index="0">
               <value>
@@ -53,7 +53,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="getResult" is-config="true" duration-ms="2" started-at="2018-10-03T13:18:11Z" finished-at="2018-10-03T13:18:11Z">
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="getResult" is-config="true" duration-ms="5" started-at="2018-10-03T14:51:43Z" finished-at="2018-10-03T14:51:43Z">
           <params>
             <param index="0">
               <value>
@@ -64,7 +64,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-10-03T13:18:11Z" finished-at="2018-10-03T13:18:11Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-10-03T14:51:43Z" finished-at="2018-10-03T14:51:43Z">
           <params>
             <param index="0">
               <value>
@@ -75,7 +75,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="MyTemplates([Ljava.lang.String;)[pri:2, instance:com.main.FlowIManage@7a3d45bd]" name="MyTemplates" duration-ms="37379" started-at="2018-10-03T13:18:11Z" data-provider="MyTemplates" depends-on-methods="com.main.FlowIManage.Login" finished-at="2018-10-03T13:18:49Z">
+        <test-method status="PASS" signature="MyTemplates([Ljava.lang.String;)[pri:2, instance:com.main.FlowIManage@7a3d45bd]" name="MyTemplates" duration-ms="16570" started-at="2018-10-03T14:51:43Z" data-provider="MyTemplates" depends-on-methods="com.main.FlowIManage.Login" finished-at="2018-10-03T14:52:00Z">
           <params>
             <param index="0">
               <value>
@@ -86,7 +86,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- MyTemplates -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="getResult" is-config="true" duration-ms="0" started-at="2018-10-03T13:18:49Z" finished-at="2018-10-03T13:18:49Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="tearDown" is-config="true" duration-ms="234" started-at="2018-10-03T14:52:00Z" finished-at="2018-10-03T14:52:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="getResult" is-config="true" duration-ms="0" started-at="2018-10-03T14:52:00Z" finished-at="2018-10-03T14:52:00Z">
           <params>
             <param index="0">
               <value>
@@ -97,10 +101,6 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.main.FlowIManage@7a3d45bd]" name="tearDown" is-config="true" duration-ms="226" started-at="2018-10-03T13:18:49Z" finished-at="2018-10-03T13:18:49Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
       </class> <!-- com.main.FlowIManage -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
