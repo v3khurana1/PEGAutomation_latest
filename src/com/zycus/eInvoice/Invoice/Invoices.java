@@ -52,6 +52,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 	private By closeInvoiceCommentId = By.id("txtInvoiceCloseComment");
 	private By returnInvoiceCommentId = By.id("txtInvoiceReturnComment");
 	private By adjustAmtCommentId = By.id("txtAdjustAmountComment");
+	private String GLAccount;
 
 	/**
 	 * Constructor for the class
@@ -85,7 +86,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 	// for CM without reference
 	public Invoices(WebDriver driver, ExtentTest logger, String supplierName, String currency_value,
 			String creditMemoDate, String purchaseType, String description, String product_cat, String market_prc,
-			String quantity, String GLType) {
+			String quantity, String GLType, String GLAccount) {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
@@ -98,6 +99,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 		this.market_prc = market_prc;
 		this.quantity = quantity;
 		this.GLType = GLType;
+		this.GLAccount = GLAccount;
 	}
 	
 	/**
@@ -119,7 +121,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 	// for nonPO
 	public Invoices(WebDriver driver, ExtentTest logger, String supplierName, String paymentTerm, String currency_value,
 			String invoiceDate, String purchaseType, String description, String product_cat, String market_prc,
-			String quantity, String GLType) {
+			String quantity, String GLType, String GLAccount) {
 		super(driver, logger);
 		this.driver = driver;
 		this.logger = logger;
@@ -133,6 +135,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 		this.market_prc = market_prc;
 		this.quantity = quantity;
 		this.GLType = GLType;
+		this.GLAccount = GLAccount;
 	}
 
 	/*
@@ -342,9 +345,10 @@ public class Invoices extends eInvoice_CommonFunctions {
 		try {
 			addInvoiceOrCreditMemo("Invoice", "Non-PO");
 			InvoiceNonPO objInv = new InvoiceNonPO(driver, logger, supplierName, paymentTerm, currency_value,
-					invoiceDate, purchaseType, description, product_cat, market_prc, quantity, GLType);
+					invoiceDate, purchaseType, description, product_cat, market_prc, quantity, GLType, GLAccount);
 			objInv.createNewInvoice();
-			if (findElement(By.xpath("//h1[@class='pgHead' and text()='Invoice']")).isDisplayed()) {
+			if (driver.findElements(By.xpath("//h1[@class='pgHead' and text()='Invoice']")).size()>0){
+			//if (findElement(By.xpath("//h1[@class='pgHead' and text()='Invoice']")).isDisplayed()) {
 				logger.log(LogStatus.INFO, "Navigated to create Invoice page");
 				result = true;
 			} else
@@ -401,7 +405,7 @@ public class Invoices extends eInvoice_CommonFunctions {
 			addInvoiceOrCreditMemo("Credit Memo", "Without Reference");
 			CreditMemowithoutReference objCreditMemo = new CreditMemowithoutReference(driver, logger, supplierName,
 					currency_value, creditMemoDate, purchaseType, description, product_cat, market_prc, quantity,
-					GLType);
+					GLType, GLAccount);
 			objCreditMemo.createCreditMemo();
 			if (findElement(By.xpath("//*[@id='cntInvoice']//span[text()='Credit Memo']")).isDisplayed()) {
 				logger.log(LogStatus.INFO, "Navigated to Invoice => Credit Memo page");

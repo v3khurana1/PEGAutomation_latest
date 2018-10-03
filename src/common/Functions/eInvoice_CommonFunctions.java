@@ -338,7 +338,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 
 	public boolean createNewInvoiceOrCreditMemo(String paymentTerm, String purchaseType, String supplierName,
 			String currency_value, String invoiceOrCreditMemoDate, String description, String product_cat,
-			String market_prc, String quantity, String GLType) {
+			String market_prc, String quantity, String GLType, String GLAccount) {
 		boolean result = false;
 		String category = null;
 
@@ -372,15 +372,21 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			js.executeScript("arguments[0].click()", findElement(invoiceDateImgXpath));
 			selectDate_v1(invoiceOrCreditMemoDate);
 			findElement(purchaseTypeXpath).click();
-			addAttachment();
-			WebElement objAddItem = findElement(addItemImgXpath);
-			scroll_into_view_element(objAddItem);
-			objAddItem.click();
+			/*WebElement objPurchaseType = driver.findElement(purchaseTypeXpath);
+			scroll_into_view_element(objPurchaseType);
+			objPurchaseType.click();*/
+			//addAttachment();
+			WebElement objAddItem = driver.findElement(addItemImgXpath);
+			js.executeScript("arguments[0].click();", objAddItem);
+			//Actions action = new Actions(driver);
+			//action.moveToElement(objAddItem).click().build().perform();
+			//scroll_into_view_element(objAddItem);
+			//objAddItem.click();
 			waitUntilVisibilityOfElement(
 					By.xpath("//div[@aria-describedby='changeItemSummary'][contains(@style,'block')]"));
-			if (add_item(description, product_cat, market_prc, quantity, GLType)) {
+			if (add_item(description, product_cat, market_prc, quantity, GLType, GLAccount)) {
 				findElement(btnSubmitId).click();
-				findElement(confirmationPopupXpath).click();
+				//findElement(confirmationPopupXpath).click();
 				waitUntilVisibilityOfElement(successBoxId);
 				//logger.log(LogStatus.INFO, "created " + category + " " + invoiceOrCreditMemoNo);
 				result = true;
@@ -394,11 +400,11 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 
 	public boolean createNewInvoiceOrCreditMemo(String purchaseType, String supplierName, String currency_value,
 			String invoiceOrCreditMemoDate, String description, String product_cat, String market_prc, String quantity,
-			String GLType) {
+			String GLType, String GLAccount) {
 		boolean result = false;
 		try {
 			createNewInvoiceOrCreditMemo("", purchaseType, supplierName, currency_value, invoiceOrCreditMemoDate,
-					description, product_cat, market_prc, quantity, GLType);
+					description, product_cat, market_prc, quantity, GLType, GLAccount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -484,7 +490,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 	 * product_cat, String market_prc, String quantity, String GLType, String
 	 * GLAccount) throws Exception {
 	 */
-	public boolean add_item(String description, String product_cat, String market_prc, String quantity, String GLType)
+	public boolean add_item(String description, String product_cat, String market_prc, String quantity, String GLType, String GLAccount)
 			throws Exception {
 		boolean result = false;
 		try {
@@ -516,7 +522,8 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			try {
 				findElement(By.xpath("//select[contains(@id,'accountType')]/option[contains(text(),'" + GLType + "')]"))
 						.click();
-				findElement(By.xpath("//input[contains(@id,'generalLedger_tmp')]")).click();
+				enterText_AutoComplete(By.xpath("//input[contains(@id,'generalLedger_tmp')]"), GLAccount);
+				//findElement(By.xpath("//input[contains(@id,'generalLedger_tmp')]")).click();
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}

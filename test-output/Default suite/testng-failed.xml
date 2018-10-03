@@ -5,15 +5,12 @@
     <classes>
       <class name="com.main.FlowEInvoice">
         <methods>
-          <include name="Login" invocation-numbers="0 1 2 3 4 5 6 7 8 9 10"/>
-          <include name="InvoiceAction"/>
+          <include name="Login"/>
+          <include name="InvoiceAction" invocation-numbers="0"/>
           <include name="getResult"/>
           <include name="beforeMethod"/>
-          <include name="InvoiceNonPO"/>
           <include name="startReport"/>
           <include name="tearDown"/>
-          <include name="ApprovalAction"/>
-          <include name="Invoices"/>
         </methods>
       </class> <!-- com.main.FlowEInvoice -->
     </classes>

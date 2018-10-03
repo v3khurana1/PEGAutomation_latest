@@ -33,6 +33,7 @@ public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 	private String market_prc;
 	private String quantity;
 	private String GLType;
+	private String GLAccount;
 	/*private By supplierNameID = By.id("txtSupplierName");
 	private By creditMemoNoID = By.id("txtInvoiceNumber");
 	private By invoiceDateImgXpath = By.xpath("//input[@name='txtInvoiceDate']/following-sibling::img");
@@ -49,7 +50,7 @@ public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 
 	public CreditMemowithoutReference(WebDriver driver, ExtentTest logger, String supplierName, String currency_value,
 			String creditMemoDate, String purchaseType, String description, String product_cat, String market_prc,
-			String quantity, String GLType) {
+			String quantity, String GLType, String GLAccount) {
 		super(driver, logger);
 		//this.logger = logger;
 		//this.driver = driver;
@@ -62,6 +63,7 @@ public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 		this.market_prc = market_prc;
 		this.quantity = quantity;
 		this.GLType = GLType;
+		this.GLAccount = GLAccount;
 	}
 
 	/**
@@ -107,7 +109,7 @@ public class CreditMemowithoutReference extends eInvoice_CommonFunctions {
 		try {
 			result = createNewInvoiceOrCreditMemo(purchaseType,
 					supplierName, currency_value, creditMemoDate, description,
-					product_cat, market_prc, quantity, GLType)?true:false;
+					product_cat, market_prc, quantity, GLType, GLAccount)?true:false;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

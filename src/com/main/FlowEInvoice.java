@@ -105,7 +105,7 @@ public class FlowEInvoice {
 		callAndLog(displayStyle.equals(null)?false:true, "login successful and Product Selected", "Not logged in or Product Not selected");
 	}*/
 	
-	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, 
+	/*	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, 
 			dependsOnMethods = "Login", 
 			dataProvider = "Invoices",  
 			priority = 2)
@@ -115,12 +115,13 @@ public class FlowEInvoice {
 		
 		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Invoices objInvoice = new Invoices(driver, logger);
-		callAndLog(objInvoice.changeNoOfRecordsPerPage(Integer.valueOf(RecordsperPage)), "able to change no of records",
-				"unable to change no of records");
-
+		Thread.sleep(20000);
 		callAndLog(objInvoice.navigateToPageNo(NavigatetoPageNo), "able to navigate to another page",
 				"unable to navigate to another page");
-
+		Thread.sleep(20000);
+		callAndLog(objInvoice.changeNoOfRecordsPerPage(Integer.valueOf(RecordsperPage)), "able to change no of records",
+				"unable to change no of records");
+		Thread.sleep(20000);
 		callAndLog(objInvoice.saveViewAsFavorite(), "able to save ViewAsFavorite", "unable to save ViewAsFavorite");
 		callAndLog(objInvoice.revertToDefaultView(), "able to revertToDefaultView", "unable to revertToDefaultView");
 		//callAndLog(objInvoice.deleteFavView(), "Favorite view deleted", "unable to delete favorite view");
@@ -159,7 +160,7 @@ public class FlowEInvoice {
 
 	}
 	
-	 @Test(dataProviderClass = eInvoice_DataProviderTestNG.class,
+ @Test(dataProviderClass = eInvoice_DataProviderTestNG.class,
 			 dependsOnMethods = "Login",
 			 dataProvider = "ApprovalAction",
 			 priority=2)
@@ -176,7 +177,7 @@ public class FlowEInvoice {
 			Thread.sleep(3000);
 			objApproval.performActionOnInvoice("Delegate");
 
-		}
+		}*/
 	 
 		@Test(dataProviderClass = eInvoice_DataProviderTestNG.class, 
 				dataProvider = "InvoiceNonPO", 
@@ -184,18 +185,21 @@ public class FlowEInvoice {
 				priority = 3)
 		public void InvoiceNonPO(String supplierName, String paymentTerm, String currency_value, String invoiceDate,
 				String purchaseType,String description, String product_cat, String market_prc,
-				String quantity, String GLType, String...navigationTabs) throws Exception {
+				String quantity, String GLType, String GLAccount, String...navigationTabs) throws Exception {
 			Invoices objInvoice = new Invoices(driver, logger, supplierName, paymentTerm, currency_value, invoiceDate,
-					purchaseType, description, product_cat, market_prc, quantity, GLType);
+					purchaseType, description, product_cat, market_prc, quantity, GLType, GLAccount);
 			System.out.println("-------Display style again ius ----"+ displayStyle);
-			//objFunctions.navigateToMainPage(displayStyle,"Invoice", "Invoices");
+			objFunctions.navigateToMainPage(displayStyle,Product,navigationTabs);
 			callAndLog(objInvoice.createInvoiceNonPO(), "able to create invoice non PO", "unable to create invoice non PO");
 
 		}
 	
-	@Test(dependsOnMethods = "Login",
+	@Test(dataProviderClass = eInvoice_DataProviderTestNG.class,
+			dependsOnMethods = "Login",
+			dataProvider = "Invoices",
 			priority = 4)
 	public void InvoiceAction(String...navigationTabs) throws Exception {
+		objFunctions.navigateToMainPage(displayStyle, Product, navigationTabs);
 		Invoices objInvoice = new Invoices(driver, logger);
 		PurchaseOrder objPO = new PurchaseOrder(driver, logger);
 		callAndLog(objInvoice.editInvoice(objPO), "able to edit the invoice", "unable to edit the invoice");
