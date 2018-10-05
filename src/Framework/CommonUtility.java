@@ -589,4 +589,17 @@ public class CommonUtility {
 		return result;
 	}
 	
+	public boolean enterText_AutoComplete(By field, String text) throws Exception {
+		boolean result = false;
+		try {
+			findElement(field).sendKeys(text);
+			waitUntilInvisibilityOfElement(By.xpath("//input[contains(@class,'ui-autocomplete-loading')]"));
+			findElement(By.xpath("//ul[contains(@style,'block')]//*[text()='" + text + "']")).click();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+		return result;
+	}
+	
 }

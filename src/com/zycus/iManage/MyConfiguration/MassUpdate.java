@@ -2,6 +2,7 @@ package com.zycus.iManage.MyConfiguration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.relevantcodes.extentreports.ExtentTest;
 
@@ -23,22 +24,25 @@ import common.Functions.iManage_CommonFunctions;
 
 public class MassUpdate extends iManage_CommonFunctions {
 
-	//private WebDriver driver;
-	//private ExtentTest logger;
+	private WebDriver driver;
+	private ExtentTest logger;
 
 	private By HeaderReqNum = By.xpath("//h1[@class='pgHead']/span[1]");
 	private By HeaderReqName = By.xpath("//h1[@class='pgHead']/span[3]");
+	//private String uploadfileConfigProp;
 
 	/**
 	 * Constructor for the class
 	 * 
 	 * @param driver
+	 * @param uploadfileConfigProp 
 	 */
 	
 	public MassUpdate(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		//this.driver = driver;
-		//this.logger = logger;
+		this.driver = driver;
+		this.logger = logger;
+	//	this.uploadfileConfigProp=uploadfileConfigProp;
 	}
 
 	/**
@@ -69,6 +73,17 @@ public class MassUpdate extends iManage_CommonFunctions {
 	 */
 	public void setHeaderReqNum(By headerReqNum) {
 		HeaderReqNum = headerReqNum;
+	}
+	
+	public boolean massUpdate(String uploadfileConfigProp) throws Exception
+	{
+		boolean result = false;
+		findElement(By.xpath("//table[@id='dataGrid']//tr[1]/td[@class='filterGridTblTd']/input")).click();
+		By uploadBtn = By.xpath("//*[@id='fileUploader']/following-sibling::label");
+		//	String uploadfileConfigProp = null;
+			if(addAttachment(uploadBtn, uploadfileConfigProp))
+				result = true;	
+		return result;
 	}
 
 }

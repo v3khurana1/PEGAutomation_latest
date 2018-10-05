@@ -648,7 +648,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 		return result;
 	}
 
-	public boolean enterText_AutoComplete(By field, String text) throws Exception {
+	/*public boolean enterText_AutoComplete(By field, String text) throws Exception {
 		boolean result = false;
 		try {
 			findElement(field).sendKeys(text);
@@ -659,7 +659,7 @@ public class eInvoice_CommonFunctions extends CommonUtility {
 			throw new Exception();
 		}
 		return result;
-	}
+	}*/
 
 	protected int getColNum(String fieldName) {
 		int intColNum = 0;

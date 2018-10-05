@@ -161,6 +161,7 @@ public class Approval extends eInvoice_CommonFunctions {
 	public boolean filterByStatus(String checkBoxLbl) throws Exception {
 		boolean result = false;
 		try {
+			/** Click Status Filter icon */
 			findElement(By.xpath("//th[contains(@class,'statusFilter')]//b")).click();
 			result = filterByChkbox(checkBoxLbl, statusXpath);
 		} catch (Exception e) {
@@ -172,6 +173,7 @@ public class Approval extends eInvoice_CommonFunctions {
 	public boolean filterByStatus(String checkBoxLbl, int pendingDays) throws Exception {
 		boolean result = false;
 		try {
+			/** Click Status Filter icon */
 			findElement(By.xpath("//th[contains(@class,'statusFilter')]//b")).click();
 			findElement(By.xpath("//input[contains(@class,'pendingSince') and @type='checkbox']")).click();
 			findElement(By.xpath("//input[contains(@class,'pendingSince') and @type='text']")).sendKeys(String.valueOf(pendingDays));

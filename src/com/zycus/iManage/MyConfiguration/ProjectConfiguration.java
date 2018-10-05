@@ -1,7 +1,10 @@
 package com.zycus.iManage.MyConfiguration;
 
+import java.util.Random;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.relevantcodes.extentreports.ExtentTest;
 
@@ -23,12 +26,13 @@ import common.Functions.iManage_CommonFunctions;
 
 public class ProjectConfiguration extends iManage_CommonFunctions {
 
-	//private WebDriver driver;
+	private WebDriver driver;
 	//private ExtentTest logger;
 
 	private By HeaderReqNum = By.xpath("//h1[@class='pgHead']/span[1]");
 	private By HeaderReqName = By.xpath("//h1[@class='pgHead']/span[3]");
-
+	
+	Random rnd = new Random();
 	/**
 	 * Constructor for the class
 	 * 
@@ -37,38 +41,38 @@ public class ProjectConfiguration extends iManage_CommonFunctions {
 	
 	public ProjectConfiguration(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		//this.driver = driver;
+		this.driver = driver;
 		//this.logger = logger;
 	}
 
-	/**
-	 * @return the headerReqName
-	 */
-	public By getHeaderReqName() {
-		return HeaderReqName;
+	public boolean workflowSettings() throws Exception{
+		boolean result = false;
+		WebElement objSkipWorkflow = driver.findElement(By.xpath("//input[@id='skippingEnable']/../div[contains(@class,'text-off-btn')]"));
+		flipSwitch(objSkipWorkflow);
+		return result;
 	}
-
-	/**
-	 * @param headerReqName
-	 *            the headerReqName to set
-	 */
-	public void setHeaderReqName(By headerReqName) {
-		HeaderReqName = headerReqName;
+	
+	private void flipSwitch(WebElement obj){
+		
+		int temp = 0;
+		try {
+			temp = rnd.nextInt(1);
+			String objClass = obj.getAttribute("class");
+			if((temp==0)&&(!objClass.contains(" on"))||(temp==1)&&(objClass.contains(" on")))
+				obj.click();				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	/**
-	 * @return the headerReqNum
-	 */
-	public By getHeaderReqNum() {
-		return HeaderReqNum;
+	
+	
+	public void editCustomProjectType(){
+		if(rnd.nextInt(1) == 0)
+			if(!driver.findElement(By.xpath("//div[contains(@class,'customProjectTypeDataShowHide')]")).getAttribute("class").contains("hidden")){
+				findElement(By.id("EnableCustomProjectType")).click();
+				
+			}else if(driver.findElement(By.xpath("//div[contains(@class,'customProjectTypeDataShowHide')]")).getAttribute("class").contains("hidden"))
+				findElement(By.id("EnableCustomProjectType")).click();
 	}
-
-	/**
-	 * @param headerReqNum
-	 *            the headerReqNum to set
-	 */
-	public void setHeaderReqNum(By headerReqNum) {
-		HeaderReqNum = headerReqNum;
-	}
-
+	
 }

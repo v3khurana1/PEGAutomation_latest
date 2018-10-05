@@ -21,13 +21,14 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import Framework.CommonUtility;
 import Framework.ConfigurationProperties;
+import Framework.ConfirmationDialog;
 
 public class iManage_CommonFunctions extends CommonUtility {
 
 	private WebDriver driver;
 
 	private By filterAppliedIconXpath = By.xpath("//span[@class='icon fltr-clear' and contains(@style,'inline')]");
-	private By processingLoader = By.xpath("//*[contains(@id,'_processing')]");
+	protected By processingLoader = By.xpath("//*[contains(@id,'_processing')]");
 
 	private By filterBtnXpath = By.xpath(
 			"//div[contains(@id,'qtip') and contains(@class,'focus')]//div[contains(@class,'FilterBtnbx')]//a[text()='Filter']");
@@ -139,4 +140,198 @@ public class iManage_CommonFunctions extends CommonUtility {
 		}
 		return intColNum;
 	}
+	
+	/**
+	 * -------------------------------------------------------------------------
+	 * -------- Function : filterByChkbox
+	 * 
+	 * @param checkBoxLbl
+	 *            --------------------------------------------------------------
+	 *            -------------------
+	 * @throws Exception
+	 */
+
+	public boolean filterByChkbox(String checkBoxLbl, By displayedLabel) throws Exception {
+		boolean result = false;
+		try {
+			Thread.sleep(3000);
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript(
+					"var objContainer = document.evaluate(\"//div[contains(@class,'qtip qtip-default filterPopups') and contains(@style,'block')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+							+ "document.evaluate(\".//div[contains(@id,'qtip')]//input[following-sibling::text()[contains(.,'"
+							+ checkBoxLbl
+							+ "')]]\", objContainer, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()");
+			findElement(filterBtnXpath).click();
+			waitUntilInvisibilityOfElement(processingLoader);
+			List<WebElement> objfilteredList = driver.findElements(displayedLabel);
+			for (WebElement obj : objfilteredList) {
+				if (obj.getText().equals(checkBoxLbl))
+					result = true;
+				else {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+	}
+	
+	public boolean selectCategory(String category){
+		boolean result = false;
+		try{
+			findElement(By.xpath("//input[@value='Select Category']")).click();
+			if(driver.findElement(By.xpath("//div[@id='selectPopUp']/preceding-sibling::div/../div/span[text()='Select Category']/../..")).getAttribute("style").contains("block")){
+				if(searchCategoryOrBusinessUnit(category))
+					result = true;
+			}else
+				logger.log(LogStatus.INFO, "Select Category Pop up not displayed");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean selectBusinessUnit(String businessUnit){
+		boolean result = false;
+		try{
+			findElement(By.xpath("//input[@value='Select Business Unit']")).click();
+			if(driver.findElement(By.xpath("//div[@id='selectPopUp']/preceding-sibling::div/../div/span[text()='Select Business Unit']/../..")).getAttribute("style").contains("block")){
+				if(searchCategoryOrBusinessUnit(businessUnit))
+					result = true;
+			}else
+				logger.log(LogStatus.INFO, "Select Business Unit Pop up not displayed");
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	private boolean searchCategoryOrBusinessUnit(String categoryOrBusinessUnit){
+		boolean result = false;
+		try{
+			findElement(By.xpath("//select[@id='searchCatSelect']/option[text()='Exact']")).click();
+			driver.findElement(By.id("searchCatText")).sendKeys(categoryOrBusinessUnit);
+			findElement(By.xpath("//input[@value='Go']")).click();
+			waitUntilVisibilityOfElement(By.xpath("//table[@id='_jstree_search_table']"));
+			WebElement searchResult = driver.findElement(By.xpath("//table[@id='_jstree_search_table']"));
+			if(searchResult.isDisplayed()){
+				searchResult.findElement(By.xpath("//tr[2]/td[1]/input")).click();
+				findElement(By.xpath("//input[@title='Done']")).click();
+			}else
+				logger.log(LogStatus.INFO, "no results displayed for the searched string");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean addPhase(String phaseTitle){
+		boolean result = false;
+		try{
+			driver.findElement(By.id("phaseTitle")).sendKeys(phaseTitle);
+			driver.findElement(By.id("phaseDesc")).sendKeys("phaseDesc");
+			addAttachment(By.id("fileUploader"), "iManage_PhaseDocfile_path");
+			waitUntilVisibilityOfElement(By.xpath("//tr[@id='row0']/input"));
+			if(!driver.findElement(By.xpath("//tr[@id='row0']/td")).getText().equals("No Document")){
+				logger.log(LogStatus.PASS, "Phase document uploaded");
+				findElement(By.id("btnSavePhase")).click();
+				if(driver.findElement(By.xpath("//div[@id='msgDiv' and text()='Saved Successfully']")).isDisplayed())
+					result = true;
+			}else
+				logger.log(LogStatus.FAIL, "Phase document not uploaded");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean addAnotherPhase(String phaseTitle){
+		boolean result = false;
+		try{
+			int noOfPhasesDisplayedBefore = driver.findElements(By.xpath("//ul[@id='sortable']/li")).size(); 
+			findElement(By.id("addNewPhaseButtonHolder")).click();
+			int noOfPhasesDisplayedAfter = driver.findElements(By.xpath("//ul[@id='sortable']/li")).size();
+			if(noOfPhasesDisplayedAfter==noOfPhasesDisplayedBefore+1){
+				if(driver.findElement(By.xpath("//ul[@id='sortable']/li[last()]")).getAttribute("class").contains("active")){
+					logger.log(LogStatus.INFO, "Another phase added and is active");
+					if(addPhase(phaseTitle))
+						result = true;
+				}else
+					logger.log(LogStatus.INFO, "Another phase added but is not active");
+			}else
+				logger.log(LogStatus.INFO, "Another phase not added");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean removePhase(){
+		boolean result = false;
+		try{
+			int noOfPhasesDisplayedBefore = driver.findElements(By.xpath("//ul[@id='sortable']/li")).size();
+			findElement(By.id("btnRemovePhase")).click();
+			if(driver.findElement(ConfirmationDialog.getDialogTitle()).equals("Confirmation")){
+				if(driver.findElement(ConfirmationDialog.getPopupMsg()).equals("want to remove this phase")){
+					findElement(ConfirmationDialog.getDialogYesBtn()).click();
+					int noOfPhasesDisplayedAfter = driver.findElements(By.xpath("//ul[@id='sortable']/li")).size();
+					if(noOfPhasesDisplayedAfter==noOfPhasesDisplayedBefore-1)
+						result = true;
+				}else
+					logger.log(LogStatus.FAIL, "Incorrect Confirmation dialog displayed");
+			}else
+				logger.log(LogStatus.FAIL, "Confirmation dialog not displayed");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean addProjectDetails(String projectCategory, String progName, String projTitle, String projDesc, String projPriority, String projStartDt, String projEndDt, String currency){
+		boolean result = false;
+		try{
+			findElement(By.xpath("//div[@class='projectRedioHolder']//li[label[text()='"+projectCategory+"']]/preceding-sibling::li[1]/input")).click();
+			findElement(By.xpath("//select[@id='programSearchCombobox']/option[text()='"+progName+"']")).click();
+			driver.findElement(By.id("project-title")).sendKeys(projTitle);
+			driver.findElement(By.id("project-desc")).sendKeys(projDesc);
+			findElement(By.xpath("//select[@name='project-priority']/option[text()='"+projPriority+"']")).click();
+			
+			//Select Start Date
+			findElement(By.id("startDateCal")).click();
+			selectDate_v1(projStartDt);
+			//Select End date
+			findElement(By.id("endDateCal")).click();
+			selectDate_v1(projEndDt);
+			
+			driver.findElement(By.id("auto_sugg_project-currency")).clear();
+			enterText_AutoComplete(By.id("auto_sugg_project-currency"), currency);
+			
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean addprojectScope(int potentialSpend, int potentialSavings, int TargetSpend, int TargetSavings){
+		boolean result = false;
+		try{
+			//Add Potential Savings
+			driver.findElement(By.id("potentialSpend")).sendKeys(String.valueOf(potentialSpend));
+			driver.findElement(By.id("potentialSavings")).sendKeys(String.valueOf(potentialSavings));
+			
+			//Add Target Savings
+			driver.findElement(By.id("estimatedSpend")).sendKeys(String.valueOf(TargetSpend));
+			driver.findElement(By.id("targetSaving")).sendKeys(String.valueOf(TargetSavings));
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

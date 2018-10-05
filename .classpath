@@ -38,5 +38,6 @@
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/ZSNCore.jar"/>
 	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/extentreports-2.41.2.jar"/>
+	<classpathentry kind="lib" path="D:/PEGAutomation_latest/lib/flash-selenium.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

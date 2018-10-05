@@ -1,4 +1,4 @@
-package com.zycus.iManage.MyConfiguration;
+package com.zycus.iSave.MyReports;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,27 +21,24 @@ import common.Functions.iManage_CommonFunctions;
  * @since April 2018
  */
 
-public class MassUpload extends iManage_CommonFunctions {
+public class MyReports extends iManage_CommonFunctions {
 
-	private WebDriver driver;
-	private ExtentTest logger;
+	//private WebDriver driver;
+	//private ExtentTest logger;
 
 	private By HeaderReqNum = By.xpath("//h1[@class='pgHead']/span[1]");
 	private By HeaderReqName = By.xpath("//h1[@class='pgHead']/span[3]");
-	private String uploadfileConfigProp;
 
 	/**
 	 * Constructor for the class
 	 * 
 	 * @param driver
-	 * @param uploadfileConfigProp 
 	 */
 	
-	public MassUpload(WebDriver driver, ExtentTest logger, String uploadfileConfigProp) { 
+	public MyReports(WebDriver driver, ExtentTest logger) { 
 		super(driver, logger);
-		this.driver = driver;
-		this.logger = logger;
-		this.uploadfileConfigProp=uploadfileConfigProp;
+		//this.driver = driver;
+		//this.logger = logger;
 	}
 
 	/**
@@ -74,13 +71,4 @@ public class MassUpload extends iManage_CommonFunctions {
 		HeaderReqNum = headerReqNum;
 	}
 
-	public boolean uploadDocument(String uploadfileConfigProp) throws Exception{
-		boolean result = false;
-		By uploadBtn = By.xpath("//*[@id='fileUploader']/following-sibling::label");
-	//	String uploadfileConfigProp = null;
-		if(addAttachment(uploadBtn, uploadfileConfigProp))
-			result = true;	
-		return result;
-		
-	}
 }
