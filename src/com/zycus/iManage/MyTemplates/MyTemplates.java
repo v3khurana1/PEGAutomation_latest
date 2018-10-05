@@ -76,13 +76,13 @@ public class MyTemplates extends iManage_CommonFunctions {
 		return result;
 	}
 	
-	public boolean createNewTemplate(){
+	/*public boolean createNewTemplate(){
 		boolean result = false;
 		try{
 			findElement(By.xpath("//input[@title='Create New Template']")).click();
 			CreateNewTemplate objTemplate = new CreateNewTemplate(driver, logger);
 			
 		}
-	}
+	}*/
 	
 }
